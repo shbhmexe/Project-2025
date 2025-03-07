@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Light theme */
+body.light {
+    background-color: #ffffff;
+    color: #000;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Yellow theme */
+  body.yellow {
+    background-color: #fff3cd;
+    color: #333;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Button styling */
+  .theme-toggle-btn {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 5px;
+  }
+  
+  body.light .theme-toggle-btn {
+    background: #222;
+    color: #fff;
+  }
+  
+  body.yellow .theme-toggle-btn {
+    background: #ffcc00;
+    color: #222;
+  }
+  
+  .light-theme {
+    background-color: white;
+    color: black;
+  }
+  
+  .yellow-theme {
+    background-color: #fffacd; /* Light Yellow */
+    color: black;
+  }
+  .yellow-theme {
+    background-color: #fff9c4 !important; /* Soft Yellow */
+    color: #000 !important;
+  }
+  
+  .yellow-theme h1,
+  .yellow-theme h2,
+  .yellow-theme h3,
+  .yellow-theme p {
+    color: #333;
+  }
+  
+  .yellow-theme .button {
+    background-color: #ffd700;
+    color: black;
+  }
+  

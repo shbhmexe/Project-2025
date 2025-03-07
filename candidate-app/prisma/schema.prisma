@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Candidate {
+  id             String   @id @default(uuid())
+  name           String
+  email          String   @unique
+  linkedin       String?  @unique  // LinkedIn profile should be unique
+  resumeText     String?  
+  resumeFilePath String?  
+  skills         String[] @default([])  // Default empty array to avoid null issues
+  experience     String?  
+  createdAt      DateTime @default(now())  
+}
