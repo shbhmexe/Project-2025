@@ -1,0 +1,50 @@
+# Node.js dependencies  
+/node_modules  
+/.pnp  
+.pnp.js  
+
+# Editor files (VSCode, JetBrains, etc.)  
+.vscode/  
+.idea/  
+*.sublime-workspace  
+
+# Logs  
+npm-debug.log*  
+yarn-debug.log*  
+pnpm-debug.log*  
+
+# Testing  
+/coverage  
+
+# Allow sitemap.xml
+!out/sitemap.xml
+
+# Next.js build & export folders  
+/.next/   
+/.vercel  
+
+# Production build  
+/build  
+
+# System-specific files  
+.DS_Store  
+Thumbs.db  
+
+# Environment variables (Secrets)  
+.env  
+.env.local  
+.env.development.local  
+.env.production.local  
+.env.test.local  
+
+# Vercel  
+.vercel  
+.vercel/cache  
+
+# Linting & formatting  
+/.eslintcache  
+/prettier.cache  
+
+# Misc  
+*.pem  
+*.log  
