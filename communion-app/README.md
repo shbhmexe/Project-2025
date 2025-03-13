@@ -1,6 +1,6 @@
 # Communion - Building Bridges Through Shared Experiences
 
-![Communion Logo](public/images/logo.png)
+![image](https://github.com/user-attachments/assets/ba8acf22-f9bf-4f4a-a490-d6d982fa001a)
 
 Communion is a modern web application designed to connect communities across different faiths and backgrounds. The platform enables users to discover events, join communities, and build meaningful relationships with people from diverse backgrounds.
 
@@ -17,7 +17,7 @@ Communion is a modern web application designed to connect communities across dif
 
 ## 🚀 Live Demo
 
-Check out the live demo: [Communion App](https://communion-app.vercel.app)
+Check out the live demo: [Communion App](https://communion-liard.vercel.app/)
 
 ## 🛠️ Technologies Used
 
@@ -156,7 +156,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 👨‍💻 Developer
 
-- **Shubham Shukla** - [GitHub](https://github.com/shbhmexe) | [LinkedIn](https://www.linkedin.com/in/shubham-shukla-b0b1b1b1/)
+- **Shubham Shukla** - [GitHub](https://github.com/shbhmexe) | [LinkedIn](https://www.linkedin.com/in/shubham-shukla-62095032a/)
 
 ## 🔗 Related Projects
 
@@ -167,7 +167,7 @@ Check out my other project:
 
 If you have any questions or feedback, please reach out:
 - Email: shubhushukla586@gmail.com
-- LinkedIn: [Shubham Shukla](https://www.linkedin.com/in/shubham-shukla-b0b1b1b1/)
+- LinkedIn: [Shubham Shukla](https://www.linkedin.com/in/shubham-shukla-62095032a/)
 
 ---
 
