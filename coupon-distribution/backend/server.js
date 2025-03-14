@@ -20,7 +20,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 // Middleware
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'https://couponforfree.vercel.app/'
+  origin: process.env.CORS_ORIGIN || 'http://localhost:5173'
 }));
 app.use(bodyParser.json());
 

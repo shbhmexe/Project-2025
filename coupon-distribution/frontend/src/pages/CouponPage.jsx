@@ -7,6 +7,7 @@ function CouponPage() {
   const [error, setError] = useState(null);
   const [sessionId, setSessionId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [cooldownTime, setCooldownTime] = useState(0);
 
   // Use environment variable for API base URL
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
@@ -26,9 +27,41 @@ function CouponPage() {
       setClaimedCoupon(JSON.parse(sessionClaimedCoupon));
     }
 
+    // Check for cooldown
+    const lastClaimTime = sessionStorage.getItem('lastClaimTime');
+    if (lastClaimTime) {
+      const timeLeft = Math.ceil((parseInt(lastClaimTime) + 10000 - Date.now()) / 1000);
+      if (timeLeft > 0) {
+        setCooldownTime(timeLeft);
+      } else {
+        // If cooldown is over, clear the claimed coupon
+        setClaimedCoupon(null);
+        sessionStorage.removeItem('claimedCoupon');
+      }
+    }
+
     // Fetch available coupons
     fetchCoupons();
   }, []);
+
+  useEffect(() => {
+    let timer;
+    if (cooldownTime > 0) {
+      timer = setInterval(() => {
+        setCooldownTime(prev => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            // Reset claimed coupon state when cooldown ends
+            setClaimedCoupon(null);
+            sessionStorage.removeItem('claimedCoupon');
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(timer);
+  }, [cooldownTime]);
 
   const fetchCoupons = async () => {
     setIsLoading(true);
@@ -60,8 +93,13 @@ function CouponPage() {
       
       setClaimedCoupon(coupon);
       sessionStorage.setItem('claimedCoupon', JSON.stringify(coupon));
+      sessionStorage.setItem('lastClaimTime', Date.now().toString());
+      setCooldownTime(10);
       setError(null);
     } catch (err) {
+      if (err.response?.data?.timeLeft) {
+        setCooldownTime(err.response.data.timeLeft);
+      }
       setError(err.response?.data?.message || 'Unable to claim coupon. Please try again later.');
     } finally {
       setIsLoading(false);
@@ -91,6 +129,11 @@ function CouponPage() {
                 {claimedCoupon.code}
               </div>
               <p className="text-sm mt-2">{claimedCoupon.description}</p>
+              {cooldownTime > 0 && (
+                <p className="text-sm mt-2 text-green-600">
+                  Claim again in {cooldownTime} seconds...
+                </p>
+              )}
             </div>
             <div className="mt-4 sm:mt-0">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -103,8 +146,8 @@ function CouponPage() {
         <div className="text-center mb-8">
           <button 
             onClick={handleClaimCoupon}
-            disabled={isLoading}
-            className={`bg-brand-secondary text-white px-6 py-3 rounded-md transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${isLoading ? 'opacity-70 cursor-not-allowed' : 'hover:bg-green-600'}`}
+            disabled={isLoading || cooldownTime > 0}
+            className={`bg-brand-secondary text-white px-6 py-3 rounded-md transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${(isLoading || cooldownTime > 0) ? 'opacity-70 cursor-not-allowed' : 'hover:bg-green-600'}`}
           >
             {isLoading ? (
               <span className="flex items-center justify-center">
@@ -114,6 +157,8 @@ function CouponPage() {
                 </svg>
                 Processing...
               </span>
+            ) : cooldownTime > 0 ? (
+              `Wait ${cooldownTime}s`
             ) : 'Claim a Coupon'}
           </button>
         </div>
