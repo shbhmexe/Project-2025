@@ -66,10 +66,23 @@ function CouponPage() {
   const fetchCoupons = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get(`${API_BASE_URL}/coupons`);
+      console.log('Fetching coupons from:', `${API_BASE_URL}/coupons`);
+      const response = await axios.get(`${API_BASE_URL}/coupons`, {
+        timeout: 10000 // 10 second timeout
+      });
       setCoupons(response.data);
     } catch (err) {
       console.error('Failed to fetch coupons:', err);
+      
+      // Show error message
+      if (err.code === 'ECONNABORTED') {
+        setError('Request timed out. The server might be busy or unavailable.');
+      } else if (!err.response) {
+        setError('Network error. Please check your connection and try again.');
+      } else {
+        setError('Failed to load coupons. Using demo data instead.');
+      }
+      
       // Fallback mock coupons for demonstration
       setCoupons([
         { id: 1, code: 'SUMMER20', discount: '20% Off', description: 'Summer Sale Discount' },
@@ -83,11 +96,15 @@ function CouponPage() {
 
   const handleClaimCoupon = async () => {
     setIsLoading(true);
+    setError(null); // Clear previous errors
     try {
+      console.log('Attempting to claim coupon from:', `${API_BASE_URL}/claim-coupon`);
       const response = await axios.post(`${API_BASE_URL}/claim-coupon`, {}, {
         headers: {
-          'X-Session-Id': sessionId
-        }
+          'X-Session-Id': sessionId,
+          'Content-Type': 'application/json'
+        },
+        timeout: 10000 // 10 second timeout
       });
       const coupon = response.data;
       
@@ -97,10 +114,19 @@ function CouponPage() {
       setCooldownTime(10);
       setError(null);
     } catch (err) {
-      if (err.response?.data?.timeLeft) {
+      console.error('Claim error:', err);
+      
+      // Network error
+      if (err.code === 'ECONNABORTED') {
+        setError('Request timed out. The server might be busy or unavailable.');
+      } else if (!err.response) {
+        setError('Network error. Please check your connection and try again.');
+      } else if (err.response?.data?.timeLeft) {
         setCooldownTime(err.response.data.timeLeft);
+        setError(err.response.data.message);
+      } else {
+        setError(err.response?.data?.message || 'Unable to claim coupon. Please try again later.');
       }
-      setError(err.response?.data?.message || 'Unable to claim coupon. Please try again later.');
     } finally {
       setIsLoading(false);
     }

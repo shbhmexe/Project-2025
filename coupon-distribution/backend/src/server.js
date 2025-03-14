@@ -20,7 +20,21 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 // Middleware
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:5173'
+  origin: function(origin, callback) {
+    const allowedOrigins = [
+      'https://couponforfree.vercel.app',
+      'http://localhost:5173'
+    ];
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      return callback(null, true);
+    } else {
+      console.log('CORS blocked for origin:', origin);
+      return callback(null, true); // Still allow for testing
+    }
+  },
+  credentials: true
 }));
 app.use(bodyParser.json());
 
@@ -60,6 +74,15 @@ async function seedCoupons() {
   }
 }
 
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ 
+    status: 'ok', 
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
 // Get available coupons
 app.get('/api/coupons', async (req, res) => {
   try {
@@ -76,14 +99,30 @@ app.get('/api/coupons', async (req, res) => {
 // Claim a coupon
 app.post('/api/claim-coupon', async (req, res) => {
   try {
+    console.log('Claim coupon request received');
+    console.log('Headers:', JSON.stringify(req.headers));
+    
     const clientIP = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     const sessionId = req.headers['x-session-id'];
+    
+    // Check if session ID is provided
+    if (!sessionId) {
+      console.log('No session ID provided');
+      return res.status(400).json({ 
+        message: 'Session ID is required to claim a coupon.' 
+      });
+    }
+    
+    console.log(`Session ID: ${sessionId}, IP: ${clientIP}`);
 
     // Check if session already claimed max coupons
     const sessionClaimCount = await Claim.countDocuments({ sessionId });
     const maxCouponsPerSession = parseInt(process.env.MAX_COUPONS_PER_SESSION) || 10;
     
+    console.log(`Session claim count: ${sessionClaimCount}, Max allowed: ${maxCouponsPerSession}`);
+    
     if (sessionClaimCount >= maxCouponsPerSession) {
+      console.log('Max coupons per session limit reached');
       return res.status(429).json({ 
         message: `You have already claimed the maximum of ${maxCouponsPerSession} coupons in this session.` 
       });
@@ -100,6 +139,7 @@ app.post('/api/claim-coupon', async (req, res) => {
 
     if (recentClaim) {
       const timeLeft = Math.ceil((recentClaim.claimedAt.getTime() + (cooldownSeconds * 1000) - Date.now()) / 1000);
+      console.log(`Cooldown active, ${timeLeft} seconds left`);
       return res.status(429).json({ 
         message: `Please wait ${timeLeft} seconds before claiming another coupon.`,
         timeLeft
@@ -113,10 +153,13 @@ app.post('/api/claim-coupon', async (req, res) => {
     });
 
     if (!availableCoupon) {
+      console.log('No available coupons found');
       return res.status(404).json({ 
         message: 'No coupons available at the moment.' 
       });
     }
+
+    console.log(`Found available coupon: ${availableCoupon.code}`);
 
     // Create claim
     const claim = new Claim({
@@ -125,6 +168,7 @@ app.post('/api/claim-coupon', async (req, res) => {
       ipAddress: clientIP
     });
     await claim.save();
+    console.log('Claim saved successfully');
 
     // Update coupon claims
     availableCoupon.currentClaims += 1;
@@ -132,6 +176,7 @@ app.post('/api/claim-coupon', async (req, res) => {
       availableCoupon.isActive = false;
     }
     await availableCoupon.save();
+    console.log(`Coupon ${availableCoupon.code} updated, current claims: ${availableCoupon.currentClaims}`);
 
     res.json({
       code: availableCoupon.code,
