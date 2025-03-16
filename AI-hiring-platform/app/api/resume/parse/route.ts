@@ -7,9 +7,13 @@ import { v4 as uuidv4 } from "uuid";
 import { existsSync } from "fs";
 import OpenAI from "openai";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// Initialize OpenAI client only if API key is available
+let openai: OpenAI | null = null;
+if (process.env.OPENAI_API_KEY) {
+  openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+}
 
 // Helper function to extract information from resume text
 function extractResumeInfo(text: string) {
@@ -152,6 +156,12 @@ function extractResumeInfo(text: string) {
 // Function to parse resume using OpenAI
 async function parseResumeWithOpenAI(text: string, userName: string, userEmail: string) {
   try {
+    // If OpenAI client is not available, fall back to local parsing
+    if (!openai || !process.env.OPENAI_API_KEY) {
+      console.log('OpenAI API key not available, using local parsing');
+      return extractResumeInfo(text);
+    }
+
     const prompt = `
       Extract structured information from the following resume text. 
       If the text doesn't contain certain information, use these defaults:
@@ -313,8 +323,18 @@ export async function POST(req: NextRequest) {
     // Extract information from the resume using OpenAI if available
     let parsedInfo;
     
-    // Skip OpenAI due to quota issues, use local parsing instead
+    // Use local parsing by default
     parsedInfo = extractResumeInfo(text);
+    
+    // Try OpenAI parsing if API key is available
+    if (openai && process.env.OPENAI_API_KEY) {
+      try {
+        parsedInfo = await parseResumeWithOpenAI(text, session.user.name || '', session.user.email || '');
+      } catch (aiError) {
+        console.error("Error using OpenAI for parsing:", aiError);
+        // Already using local parsing as fallback
+      }
+    }
     
     // Get user profile using email as fallback
     let user;
