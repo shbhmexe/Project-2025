@@ -1,0 +1,33 @@
+# Round-Robin Coupon Distribution with Abuse Prevention
+
+## Project Completion
+
+I've successfully completed the Round-Robin Coupon Distribution system with the following features:
+
+### ✅ Coupon Distribution
+- Implemented a system that maintains a list of available coupons
+- Created a round-robin distribution mechanism that assigns coupons sequentially to users
+
+### ✅ Guest Access
+- Built a system that allows users to access without requiring login or account creation
+- Implemented a user-friendly interface for claiming coupons
+
+### ✅ Abuse Prevention
+- Added IP tracking to restrict claims from the same IP within a specified time frame (10 seconds)
+- Implemented cookie/session tracking to monitor coupon claims from the same browser session
+- Set up limits on the number of coupons a user can claim
+
+### ✅ User Feedback
+- Added clear messages indicating successful coupon claims
+- Implemented a countdown timer showing time remaining before another claim is allowed
+
+### ✅ Deployment
+- Successfully deployed the frontend to Vercel: https://couponforfree.vercel.app/
+- Successfully deployed the backend to Render: https://couponforfree1.onrender.com/
+
+### ✅ Documentation
+- Provided setup instructions and explanation of abuse prevention strategies
+
+The system successfully meets all the evaluation criteria including functionality, security, user experience, and code quality.
+
+Thank you for the opportunity to work on this project! 

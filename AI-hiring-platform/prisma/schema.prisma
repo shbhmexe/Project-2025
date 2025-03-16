@@ -1,0 +1,183 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = []
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(cuid())
+  email         String         @unique
+  name          String?
+  password      String
+  role          UserRole       @default(JOB_SEEKER)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  applications  Application[]
+  jobPostings   JobPosting[]
+  notifications Notification[]
+  profile       Profile?
+
+  @@map("users")
+}
+
+model Profile {
+  id         String       @id @default(cuid())
+  userId     String       @unique
+  bio        String?
+  location   String?
+  website    String?
+  education  Education[]
+  experience Experience[]
+  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  resume     Resume?
+  skills     Skill[]
+
+  @@map("profiles")
+}
+
+model Resume {
+  id         String   @id @default(cuid())
+  profileId  String   @unique
+  fileName   String?
+  fileUrl    String?
+  parsedData String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  profile    Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@map("resumes")
+}
+
+model Skill {
+  id          String            @id @default(cuid())
+  name        String
+  level       Int?
+  profileId   String
+  jobPostings JobPostingSkill[]
+  profile     Profile           @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@map("skills")
+}
+
+model Education {
+  id           String    @id @default(cuid())
+  institution  String
+  degree       String?
+  fieldOfStudy String?
+  startDate    DateTime?
+  endDate      DateTime?
+  profileId    String
+  profile      Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@map("education")
+}
+
+model Experience {
+  id          String    @id @default(cuid())
+  company     String
+  position    String
+  description String?
+  startDate   DateTime
+  endDate     DateTime?
+  isCurrent   Boolean   @default(false)
+  profileId   String
+  profile     Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@map("experiences")
+}
+
+model JobPosting {
+  id           String            @id @default(cuid())
+  title        String
+  company      String
+  location     String?
+  description  String
+  requirements String?
+  salary       String?
+  type         JobType           @default(FULL_TIME)
+  status       JobStatus         @default(ACTIVE)
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  recruiterId  String
+  applications Application[]
+  recruiter    User              @relation(fields: [recruiterId], references: [id], onDelete: Cascade)
+  skills       JobPostingSkill[]
+
+  @@map("job_postings")
+}
+
+model JobPostingSkill {
+  jobPostingId String
+  skillId      String
+  jobPosting   JobPosting @relation(fields: [jobPostingId], references: [id], onDelete: Cascade)
+  skill        Skill      @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@id([jobPostingId, skillId])
+  @@map("job_posting_skills")
+}
+
+model Application {
+  id           String            @id @default(cuid())
+  jobPostingId String
+  applicantId  String
+  status       ApplicationStatus @default(PENDING)
+  coverLetter  String?
+  matchScore   Float?
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  applicant    User              @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+  jobPosting   JobPosting        @relation(fields: [jobPostingId], references: [id], onDelete: Cascade)
+
+  @@map("applications")
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  message   String
+  type      NotificationType
+  read      Boolean          @default(false)
+  createdAt DateTime         @default(now())
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+enum UserRole {
+  ADMIN
+  RECRUITER
+  JOB_SEEKER
+}
+
+enum JobType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  INTERNSHIP
+  REMOTE
+}
+
+enum JobStatus {
+  ACTIVE
+  CLOSED
+  DRAFT
+}
+
+enum ApplicationStatus {
+  PENDING
+  REVIEWED
+  INTERVIEW
+  REJECTED
+  ACCEPTED
+}
+
+enum NotificationType {
+  APPLICATION_UPDATE
+  JOB_MATCH
+  INTERVIEW_INVITATION
+  SYSTEM_MESSAGE
+}
