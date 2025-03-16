@@ -60,12 +60,17 @@ export async function POST(req: NextRequest) {
       },
     });
     
-    // Send password reset email
-    await sendEmail({
-      to: email,
-      subject: "Reset Your Password",
-      html: emailTemplates.passwordReset(resetToken),
-    });
+    // Send password reset email, but don't fail if it doesn't work
+    try {
+      await sendEmail({
+        to: email,
+        subject: "Reset Your Password",
+        html: emailTemplates.passwordReset(resetToken),
+      });
+    } catch (emailError) {
+      console.error("Error sending password reset email:", emailError);
+      // Continue even if email fails
+    }
     
     return NextResponse.json(
       { message: "If your email is registered, you will receive a password reset link" },

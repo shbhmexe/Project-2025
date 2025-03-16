@@ -10,12 +10,17 @@ export async function POST(request: Request) {
     
     // After successful user creation
     if (user) {
-      // Send welcome email
-      await sendEmail({
-        to: email,
-        subject: 'Welcome to Hiring Platform',
-        html: emailTemplates.welcome(name),
-      });
+      // Send welcome email, but don't fail if it doesn't work
+      try {
+        await sendEmail({
+          to: email,
+          subject: 'Welcome to Hiring Platform',
+          html: emailTemplates.welcome(name),
+        });
+      } catch (emailError) {
+        console.error("Error sending welcome email:", emailError);
+        // Continue even if email fails
+      }
       
       return NextResponse.json({ success: true, message: 'User registered successfully' });
     }

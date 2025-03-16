@@ -118,28 +118,38 @@ export async function POST(req: NextRequest) {
           const jobTitle = jobPostingWithDetails.title;
           const companyName = jobPostingWithDetails.company;
 
-          // Send notification to recruiter
-          await sendEmail({
-            to: jobPostingWithDetails.recruiter.email,
-            subject: `New Application: ${jobTitle}`,
-            html: emailTemplates.applicationNotification(jobTitle, applicant.name || 'Candidate', application.id),
-          });
+          // Try to send notification to recruiter, but don't fail if it doesn't work
+          try {
+            await sendEmail({
+              to: jobPostingWithDetails.recruiter.email,
+              subject: `New Application: ${jobTitle}`,
+              html: emailTemplates.applicationNotification(jobTitle, applicant.name || 'Candidate', application.id),
+            });
+          } catch (emailError) {
+            console.error("Error sending email to recruiter:", emailError);
+            // Continue even if email fails
+          }
           
-          // Send confirmation to applicant
-          await sendEmail({
-            to: applicant.email,
-            subject: `Application Submitted: ${jobTitle}`,
-            html: emailTemplates.applicationUpdate(
-              applicant.name || 'Candidate', 
-              jobTitle, 
-              companyName, 
-              'Submitted', 
-              jobPostingWithDetails.id
-            ),
-          });
+          // Try to send confirmation to applicant, but don't fail if it doesn't work
+          try {
+            await sendEmail({
+              to: applicant.email,
+              subject: `Application Submitted: ${jobTitle}`,
+              html: emailTemplates.applicationUpdate(
+                applicant.name || 'Candidate', 
+                jobTitle, 
+                companyName, 
+                'Submitted', 
+                jobPostingWithDetails.id
+              ),
+            });
+          } catch (emailError) {
+            console.error("Error sending email to applicant:", emailError);
+            // Continue even if email fails
+          }
         }
       } catch (emailError) {
-        console.error("Error sending application emails:", emailError);
+        console.error("Error preparing application emails:", emailError);
         // Continue with the response even if email sending fails
       }
       
