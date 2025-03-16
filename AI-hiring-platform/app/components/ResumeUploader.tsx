@@ -10,6 +10,32 @@ interface ResumeUploaderProps {
   existingResume?: string | null;
 }
 
+interface Education {
+  institution?: string;
+  degree?: string;
+  date?: string;
+  fieldOfStudy?: string;
+}
+
+interface Experience {
+  company?: string;
+  position?: string;
+  date?: string;
+  description?: string;
+}
+
+interface ParsedResumeData {
+  contact?: {
+    name?: string;
+    email?: string;
+    phone?: string;
+    location?: string;
+  };
+  education?: Education[];
+  experience?: Experience[];
+  skills?: string[];
+}
+
 export default function ResumeUploader({ onResumeProcessed, existingResume }: ResumeUploaderProps) {
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -250,7 +276,7 @@ export default function ResumeUploader({ onResumeProcessed, existingResume }: Re
             <div className="py-4">
               <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Education</h4>
               {Array.isArray(parsedData.education) ? (
-                parsedData.education.map((edu, index) => (
+                parsedData.education.map((edu: Education, index: number) => (
                   <div key={`edu-${index}`} className="mb-2">
                     <p className="text-sm font-medium text-gray-900 dark:text-white">{edu.institution || 'Institution not specified'}</p>
                     <p className="text-sm text-gray-500 dark:text-gray-400">{edu.degree || 'Degree not specified'}</p>
@@ -265,7 +291,7 @@ export default function ResumeUploader({ onResumeProcessed, existingResume }: Re
             <div className="py-4">
               <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Experience</h4>
               {Array.isArray(parsedData.experience) ? (
-                parsedData.experience.map((exp, index) => (
+                parsedData.experience.map((exp: Experience, index: number) => (
                   <div key={`exp-${index}`} className="mb-3">
                     <p className="text-sm font-medium text-gray-900 dark:text-white">{exp.position || 'Position not specified'}</p>
                     <p className="text-sm text-gray-700 dark:text-gray-300">{exp.company || 'Company not specified'}</p>
@@ -280,21 +306,19 @@ export default function ResumeUploader({ onResumeProcessed, existingResume }: Re
             
             <div className="py-4">
               <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Skills</h4>
-              <div className="flex flex-wrap gap-2">
-                {Array.isArray(parsedData.skills) && parsedData.skills.length > 0 ? (
-                  parsedData.skills.map((skill, index) => (
-                    <span key={`skill-${index}`} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300">
-                      {skill}
-                    </span>
-                  ))
-                ) : (
-                  <p className="text-sm text-gray-500 dark:text-gray-400">No skills found</p>
-                )}
-              </div>
+              {Array.isArray(parsedData.skills) && parsedData.skills.length > 0 ? (
+                parsedData.skills.map((skill: string, index: number) => (
+                  <span key={`skill-${index}`} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300">
+                    {skill}
+                  </span>
+                ))
+              ) : (
+                <p className="text-sm text-gray-500 dark:text-gray-400">No skills found</p>
+              )}
             </div>
           </div>
         </div>
       )}
     </div>
   );
-} 
+}

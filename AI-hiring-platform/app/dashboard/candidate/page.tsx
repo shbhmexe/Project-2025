@@ -39,33 +39,41 @@ const dummyRecommendedJobs = [
     id: "4",
     title: "DevOps Specialist",
     company: "Cloud Solutions",
-    matchScore: 85
+    location: "Remote",
+    matchScore: 85,
+    postedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString() // 3 days ago
   },
   {
     id: "2",
     title: "Backend Engineer",
     company: "Data Systems Ltd.",
-    matchScore: 78
+    location: "New York, NY",
+    matchScore: 78,
+    postedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString() // 5 days ago
   }
 ];
 
 // Format date to readable format
-function formatDate(dateString) {
-  const options = { year: 'numeric', month: 'short', day: 'numeric' };
+function formatDate(dateString: string) {
+  const options: Intl.DateTimeFormatOptions = { 
+    year: 'numeric', 
+    month: 'short', 
+    day: 'numeric' 
+  };
   return new Date(dateString).toLocaleDateString(undefined, options);
 }
 
 // Status badge component
-function StatusBadge({ status }) {
-  const statusClasses = {
+function StatusBadge({ status }: { status: string }) {
+  const statusClasses: { [key: string]: string } = {
     PENDING: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300",
     REVIEWED: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300",
     INTERVIEW: "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300",
     REJECTED: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300",
     ACCEPTED: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300"
   };
-
-  const statusLabels = {
+  
+  const statusLabels: { [key: string]: string } = {
     PENDING: "Pending",
     REVIEWED: "Reviewed",
     INTERVIEW: "Interview",
@@ -80,11 +88,29 @@ function StatusBadge({ status }) {
   );
 }
 
+interface Application {
+  id: string;
+  jobTitle: string;
+  company: string;
+  status: string;
+  appliedAt: string;
+  jobId: string;
+}
+
+interface RecommendedJob {
+  id: string;
+  title: string;
+  company: string;
+  location: string;
+  matchScore: number;
+  postedAt: string;
+}
+
 export default function CandidateDashboard() {
   const { data: session, status: sessionStatus } = useSession();
   const router = useRouter();
-  const [applications, setApplications] = useState([]);
-  const [recommendedJobs, setRecommendedJobs] = useState([]);
+  const [applications, setApplications] = useState<Application[]>([]);
+  const [recommendedJobs, setRecommendedJobs] = useState<RecommendedJob[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

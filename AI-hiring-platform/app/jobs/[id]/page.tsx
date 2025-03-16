@@ -6,27 +6,31 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 // Format date to readable format
-function formatDate(dateString) {
-  const options = { year: 'numeric', month: 'short', day: 'numeric' };
+function formatDate(dateString: string) {
+  const options: Intl.DateTimeFormatOptions = { 
+    year: 'numeric', 
+    month: 'short', 
+    day: 'numeric' 
+  };
   return new Date(dateString).toLocaleDateString(undefined, options);
 }
 
 // Job type badge component
-function JobTypeBadge({ type }) {
-  const typeClasses = {
+function JobTypeBadge({ type }: { type: string }) {
+  const typeClasses: { [key: string]: string } = {
     FULL_TIME: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300",
     PART_TIME: "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300",
-    CONTRACT: "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300",
+    CONTRACT: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300",
     INTERNSHIP: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
-    TEMPORARY: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300"
+    REMOTE: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300"
   };
-
-  const typeLabels = {
-    FULL_TIME: "Full Time",
-    PART_TIME: "Part Time",
+  
+  const typeLabels: { [key: string]: string } = {
+    FULL_TIME: "Full-time",
+    PART_TIME: "Part-time",
     CONTRACT: "Contract",
     INTERNSHIP: "Internship",
-    TEMPORARY: "Temporary"
+    REMOTE: "Remote"
   };
   
   return (
@@ -36,7 +40,14 @@ function JobTypeBadge({ type }) {
   );
 }
 
-export default function JobDetailPage({ params }) {
+interface JobDetailPageProps {
+  params: {
+    id: string;
+  };
+  searchParams?: Record<string, string | string[] | undefined>;
+}
+
+export default function JobDetailPage({ params }: JobDetailPageProps) {
   const jobId = params.id;
   const { data: session, status: sessionStatus } = useSession();
   const router = useRouter();

@@ -37,20 +37,24 @@ const dummyJobPostings = [
 ];
 
 // Format date to readable format
-function formatDate(dateString) {
-  const options = { year: 'numeric', month: 'short', day: 'numeric' };
+function formatDate(dateString: string) {
+  const options: Intl.DateTimeFormatOptions = { 
+    year: 'numeric', 
+    month: 'short', 
+    day: 'numeric' 
+  };
   return new Date(dateString).toLocaleDateString(undefined, options);
 }
 
 // Job status badge component
-function StatusBadge({ status }) {
-  const statusClasses = {
+function StatusBadge({ status }: { status: string }) {
+  const statusClasses: { [key: string]: string } = {
     ACTIVE: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
     CLOSED: "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300",
     DRAFT: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300"
   };
-
-  const statusLabels = {
+  
+  const statusLabels: { [key: string]: string } = {
     ACTIVE: "Active",
     CLOSED: "Closed",
     DRAFT: "Draft"
@@ -63,10 +67,20 @@ function StatusBadge({ status }) {
   );
 }
 
+interface JobPosting {
+  id: string;
+  title: string;
+  location: string;
+  type: string;
+  status: string;
+  applications: number;
+  createdAt: string;
+}
+
 export default function RecruiterDashboard() {
   const { data: session, status: sessionStatus } = useSession();
   const router = useRouter();
-  const [jobPostings, setJobPostings] = useState([]);
+  const [jobPostings, setJobPostings] = useState<JobPosting[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

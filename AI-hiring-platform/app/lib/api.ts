@@ -207,9 +207,11 @@ async function extractTextFromFile(file: File): Promise<string> {
         // Try to use pdfjs-dist if available
         const arrayBuffer = await file.arrayBuffer();
         const pdfjs = await import('pdfjs-dist');
-        const pdfjsWorker = await import('pdfjs-dist/build/pdf.worker.entry');
-        
-        pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
+        // Set the worker source dynamically
+        pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+          'pdfjs-dist/build/pdf.worker.mjs',
+          import.meta.url
+        ).toString();
         
         const pdf = await pdfjs.getDocument(arrayBuffer).promise;
         let text = '';

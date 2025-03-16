@@ -205,7 +205,7 @@ async function parseResumeWithOpenAI(text: string, userName: string, userEmail: 
       max_tokens: 1500
     });
 
-    const content = response.choices[0].message.content;
+    const content = response.choices[0].message.content || '';
     
     // Extract the JSON object from the response
     try {

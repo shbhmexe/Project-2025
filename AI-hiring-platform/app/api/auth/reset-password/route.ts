@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import { z } from "zod";
 import crypto from "crypto";
 import { sendEmail, emailTemplates } from "@/app/lib/email";
+import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
@@ -114,7 +115,6 @@ export async function PUT(req: NextRequest) {
     }
     
     // Hash the new password
-    const bcrypt = require("bcryptjs");
     const hashedPassword = await bcrypt.hash(password, 10);
     
     // Update user's password and clear reset token

@@ -153,7 +153,7 @@ export async function POST(req: NextRequest) {
 }
 
 // GET - Get all applications for the current user
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const session = await getServerSession();
     
