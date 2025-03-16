@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
 import { z } from "zod";
 import crypto from "crypto";
 import { sendEmail, emailTemplates } from "@/app/lib/email";
 import bcrypt from "bcryptjs";
-
-const prisma = new PrismaClient();
+import { prisma } from '@/app/lib/prisma';
 
 // Validation schema for requesting password reset
 const requestResetSchema = z.object({

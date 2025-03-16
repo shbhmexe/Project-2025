@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from '@/app/lib/prisma';
 import { getServerSession } from "next-auth";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
@@ -7,7 +7,6 @@ import { v4 as uuidv4 } from "uuid";
 import { existsSync } from "fs";
 import OpenAI from "openai";
 
-const prisma = new PrismaClient();
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });

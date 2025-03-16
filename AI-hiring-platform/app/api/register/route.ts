@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { z } from "zod";
-import { prisma } from "../../lib/prisma";
+import { prisma } from '@/app/lib/prisma';
 
 // Define validation schema
 const registerSchema = z.object({

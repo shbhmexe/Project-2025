@@ -2,8 +2,7 @@ import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { sendEmail, emailTemplates } from '@/app/lib/email';
-
-const prisma = new PrismaClient();
+import { prisma } from '@/app/lib/prisma';
 
 // Function to calculate match score between job and candidate
 function calculateMatchScore(

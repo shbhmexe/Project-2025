@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { z } from "zod";
 import { sendEmail, emailTemplates } from '@/app/lib/email';
-
-const prisma = new PrismaClient();
+import { prisma } from '@/app/lib/prisma';
 
 // Validation schema for creating an application
 const applicationSchema = z.object({
