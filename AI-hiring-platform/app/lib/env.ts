@@ -68,9 +68,9 @@ export const FILE_UPLOAD_SERVICE = {
 // Feature flags for enabling/disabling features
 export const FEATURE_FLAGS = {
   // Whether to enable resume parsing
-  ENABLE_RESUME_PARSING: process.env.ENABLE_RESUME_PARSING !== 'false',
+  ENABLE_RESUME_PARSING: process.env.NEXT_PUBLIC_ENABLE_RESUME_PARSING === 'true',
   // Whether to enable job matching
-  ENABLE_JOB_MATCHING: process.env.ENABLE_JOB_MATCHING !== 'false',
+  ENABLE_JOB_MATCHING: process.env.NEXT_PUBLIC_ENABLE_JOB_MATCHING === 'true',
   // Whether to enable application analysis
-  ENABLE_APPLICATION_ANALYSIS: process.env.ENABLE_APPLICATION_ANALYSIS !== 'false',
+  ENABLE_APPLICATION_ANALYSIS: process.env.NEXT_PUBLIC_ENABLE_APPLICATION_ANALYSIS === 'true',
 }; 
