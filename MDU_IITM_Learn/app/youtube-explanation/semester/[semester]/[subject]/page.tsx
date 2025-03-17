@@ -15,9 +15,9 @@ const unitsBySubject: Record<string, string[]> = {
     "Inner Space Product",
     "Revision All Unit",
   ],
-  Physics: ["1", "2", "3", "4"],
-  English: ["1", "2", "3", "4"],
-  "Basic-Electrical-Engineering": ["1", "2", "3", "4"],
+  "Semiconductor-Physics": ["1", "2", "3", "4"],
+  English: ["1", "2"],
+  "Basic-Electrical-Engineering": ["1", "2", "3", "4", "Electrical ONE SHOT"],
 };
 
 export default function UnitPage() {

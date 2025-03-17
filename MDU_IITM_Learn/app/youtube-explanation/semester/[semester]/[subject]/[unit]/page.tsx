@@ -16,10 +16,23 @@ const videoLinks: Record<string, Record<string, string>> = {
     "Inner Space Product": "https://www.youtube.com/watch?v=2e03K_056t0",
     "Revision All Unit": "https://youtube.com/playlist?list=PL-vEH_IPWrhBjbOkN4PWzhyJpdLloDB_L&si=YkOwZTJ8Zzn1Emsy"
   },
-  Physics: {
-    "1": "https://www.youtube.com/watch?v=mechanics_video",
-    "2": "https://www.youtube.com/watch?v=optics_video",
+  "Semiconductor-Physics": {
+    "1": "https://www.youtube.com/watch?v=3QQWi8Rtaxg&list=PLbEcQ5OsD1QWPzPxBFaVTzsHIY1yF0DU6",
+    "2": "https://www.youtube.com/watch?v=o-WGSVrsS_Y&list=PLY19sFAAjnoMQr_-4_fKx82Gv-wfu0FnR",
+    "3": "https://www.youtube.com/watch?v=b28Kg0o2iT8&list=PL3qvHcrYGy1u112gfsHycdWaLTVRt8ame&index=47",
+    "4": "https://www.youtube.com/watch?v=8vNs1b3NP8A&list=PL3qvHcrYGy1u112gfsHycdWaLTVRt8ame&index=37"
   },
+  "Basic-Electrical-Engineering": {
+    "1": "https://www.youtube.com/watch?v=63gk5V0FtUo&list=PLohtAIfLLw8c5V9dTc4S1auZUfjDYarbM&index=11",
+    "2": "https://www.youtube.com/watch?v=nt6anUZjfxM&list=PLohtAIfLLw8f53yvI4ue84hn4k_vqiIWX",
+    "3": "https://www.youtube.com/watch?v=SWHJqYVro5o&list=PLohtAIfLLw8fFa2TGj3ZjUvS42nWFUQK3",
+    "4": "https://www.youtube.com/watch?v=IbHHMWUQaB0&list=PL9RcWoqXmzaL1q8tiuQwo0p7xL2aV_bNe",
+    "Electrical ONE SHOT": "https://www.youtube.com/playlist?list=PL-vEH_IPWrhAda9e2l6QtfYQASGFA5yPS"
+  },
+  English:{
+    "1": "https://www.youtube.com/watch?v=wMb-CQSKLiA&list=PL3qvHcrYGy1sU_1nMMVrfFEhYROpQtVXV",
+    "2": "https://www.youtube.com/watch?v=5EWrcsK3q7g",
+  }
 };
 
 export default function VideoPage() {

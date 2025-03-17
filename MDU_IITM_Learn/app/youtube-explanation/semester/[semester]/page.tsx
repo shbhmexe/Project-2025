@@ -3,7 +3,7 @@ import { useParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
 const subjectsBySemester: Record<number, string[]> = {
-  1: ["Mathematics-I", "Semiconductor-Physics", "English", "Basic Electrical Engineering"],
+  1: ["Mathematics-I", "Semiconductor-Physics", "English", "Basic-Electrical-Engineering"],
   2: ["Mathematics-II", "Chemistry", "Programming", "Workshop"],
 };
 
