@@ -1,9 +1,9 @@
-# MDU IIITM Learning Platform
+# MDU IITM Learning Platform
 
 ![image](https://github.com/user-attachments/assets/f6d20843-d09a-44f3-87fd-7ce01d667d03)
 
 
-A comprehensive educational platform built for B.Tech students of Maharaja Surajmal Dutt Institute of Information Technology and Management (MDU IIITM), Janakpuri. This platform provides study materials, resources, and tools to enhance the learning experience for students.
+A comprehensive educational platform built for B.Tech students of Maharaja Surajmal Dutt Institute of Information Technology and Management (MDU IITM), Janakpuri. This platform provides study materials, resources, and tools to enhance the learning experience for students.
 
 ## Table of Contents
 - [Overview](#overview)
@@ -21,7 +21,7 @@ A comprehensive educational platform built for B.Tech students of Maharaja Suraj
 
 ## Overview
 
-The MDU IIITM Learning Platform is designed to serve as a centralized hub for all educational resources needed by B.Tech students at MDU IIITM Janakpuri. It provides easy access to study materials, lecture notes, previous year question papers, syllabus information, and much more.
+The MDU IITM Learning Platform is designed to serve as a centralized hub for all educational resources needed by B.Tech students at MDU IITM Janakpuri. It provides easy access to study materials, lecture notes, previous year question papers, syllabus information, and much more.
 
 ## Features
 
@@ -68,8 +68,8 @@ This project is built using the following technologies:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/mdu-iiitm-learn.git
-   cd mdu-iiitm-learn
+   git clone https://github.com/your-username/mdu-IITM-learn.git
+   cd mdu-IITM-learn
     ```
 2. Install dependencies:
     ```bash
@@ -100,7 +100,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the a
 ## Project Structure
 
 ```bash
-mdu-iiitm-learn/
+mdu-IITM-learn/
 ├── app/                     # Next.js App Router structure
 │   ├── api/                 # API routes
 │   ├── (auth)/              # Authentication related pages
@@ -177,7 +177,7 @@ This project utilizes Next.js 14's App Router, which provides:
 
 ## Contributing
 
-We welcome contributions to the MDU IIITM Learning Platform! Please follow these steps:
+We welcome contributions to the MDU IITM Learning Platform! Please follow these steps:
 
 1. Fork the repository
 2. Create a feature branch:
