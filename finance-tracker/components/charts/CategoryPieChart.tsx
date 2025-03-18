@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 import { formatCurrency, groupByCategory } from '@/lib/utils';
 import { useMonthContext } from './ExpensesChart';
-import { useTransactionContext } from '@/app/dashboard/page';
+import { useTransactionContext } from '@/app/contexts/TransactionContext';
 
 // Mock data for transactions
 const mockTransactions = [

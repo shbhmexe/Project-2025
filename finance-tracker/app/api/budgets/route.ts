@@ -3,7 +3,7 @@ import { authenticatedRoute } from '@/lib/auth';
 import connectDB from '@/lib/db';
 import Budget from '@/models/Budget';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/app/lib/auth/options';
 
 // GET /api/budgets
 async function getBudgets(req: NextRequest) {

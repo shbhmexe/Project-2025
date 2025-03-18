@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { formatCurrency, calculateTotal, getCurrentMonthYear } from '@/lib/utils';
 import { useMonthContext } from '@/components/charts/ExpensesChart';
-import { useTransactionContext } from '@/app/dashboard/page';
+import { useTransactionContext } from '@/app/contexts/TransactionContext';
 
 // Mock data for transactions
 const mockTransactions = [

@@ -5,7 +5,7 @@ import DashboardLayout from '@/components/layouts/DashboardLayout';
 import TransactionList from '@/components/transactions/TransactionList';
 import { useMonthContext, MonthContext } from '@/components/charts/ExpensesChart';
 import { formatCurrency, formatDate, getCurrentMonthYear } from '@/lib/utils';
-import { useTransactionContext, TransactionContext } from '@/app/dashboard/page';
+import { TransactionContext } from '@/app/contexts/TransactionContext';
 
 // Default categories if none exist in localStorage
 const defaultCategories = [

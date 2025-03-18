@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { formatCurrency, formatDate } from '@/lib/utils';
 import EditTransactionModal from './EditTransactionModal';
 import { useMonthContext } from '@/components/charts/ExpensesChart';
-import { useTransactionContext } from '@/app/dashboard/page';
+import { useTransactionContext } from '@/app/contexts/TransactionContext';
 
 // Mock data for transactions
 const mockTransactions = [

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 import { MonthContext } from '@/components/charts/ExpensesChart';
-import { TransactionContext } from '@/app/dashboard/page';
+import { TransactionContext } from '@/app/contexts/TransactionContext';
 import { getCurrentMonthYear, formatCurrency } from '@/lib/utils';
 
 // Get stored transactions from localStorage

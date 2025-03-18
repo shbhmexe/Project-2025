@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useEffect, createContext, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 import TransactionList from '@/components/transactions/TransactionList';
 import ExpensesChart, { MonthContext } from '@/components/charts/ExpensesChart';
 import CategoryPieChart from '@/components/charts/CategoryPieChart';
 import SummaryCards from '@/components/dashboard/SummaryCards';
 import { getCurrentMonthYear } from '@/lib/utils';
+import { TransactionContext } from '@/app/contexts/TransactionContext';
 
 // Get stored transactions from localStorage or use empty array as default
 const getStoredTransactions = () => {
@@ -26,18 +27,6 @@ const getStoredTransactions = () => {
   }
   return [];
 };
-
-// Remove the export from TransactionContext
-const TransactionContext = createContext<{
-  transactions: any[];
-  setTransactions: (transactions: any[]) => void;
-}>({
-  transactions: [],
-  setTransactions: () => {},
-});
-
-// Hook to use the transaction context
-export const useTransactionContext = () => useContext(TransactionContext);
 
 export default function Dashboard() {
   const [selectedMonth, setSelectedMonth] = useState(getCurrentMonthYear());

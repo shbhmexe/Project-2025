@@ -3,7 +3,7 @@
 import { useState, useEffect, createContext, useContext } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { formatCurrency, groupByMonth, getCurrentMonthYear } from '@/lib/utils';
-import { useTransactionContext } from '@/app/dashboard/page';
+import { useTransactionContext } from '@/app/contexts/TransactionContext';
 
 // Create a context for the selected month
 export const MonthContext = createContext<{
