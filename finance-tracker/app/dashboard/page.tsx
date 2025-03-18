@@ -27,8 +27,8 @@ const getStoredTransactions = () => {
   return [];
 };
 
-// Create a context for transactions
-export const TransactionContext = createContext<{
+// Remove the export from TransactionContext
+const TransactionContext = createContext<{
   transactions: any[];
   setTransactions: (transactions: any[]) => void;
 }>({

@@ -1,20 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { authenticatedRoute } from '@/lib/auth';
 import connectDB from '@/lib/db';
 import Budget from '@/models/Budget';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 // GET /api/budgets
-export async function GET(req: NextRequest) {
+async function getBudgets(req: NextRequest) {
   try {
     await connectDB();
     
     const session = await getServerSession(authOptions);
-    if (!session || !session.user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-    
-    const userId = session.user.id;
+    const userId = session?.user.id;
     
     // Get query parameters
     const url = new URL(req.url);
@@ -36,16 +33,13 @@ export async function GET(req: NextRequest) {
 }
 
 // POST /api/budgets
-export async function POST(req: NextRequest) {
+async function createBudget(req: NextRequest) {
   try {
     await connectDB();
     
     const session = await getServerSession(authOptions);
-    if (!session || !session.user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const userId = session?.user.id;
     
-    const userId = session.user.id;
     const data = await req.json();
     
     // Validate required fields
@@ -78,4 +72,7 @@ export async function POST(req: NextRequest) {
     console.error('Error creating budget:', error);
     return NextResponse.json({ error: 'Failed to create budget' }, { status: 500 });
   }
-} 
+}
+
+export const GET = authenticatedRoute(getBudgets);
+export const POST = authenticatedRoute(createBudget); 

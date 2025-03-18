@@ -1,10 +1,20 @@
 import NextAuth from 'next-auth';
 import { NextAuthOptions } from 'next-auth';
+import { DefaultSession } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import GithubProvider from 'next-auth/providers/github';
 
-const authOptions: NextAuthOptions = {
+// Extend the default session types to include user.id
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string;
+    } & DefaultSession["user"]
+  }
+}
+
+export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || '',
@@ -35,7 +45,7 @@ const authOptions: NextAuthOptions = {
   callbacks: {
     async session({ session, token }) {
       if (session.user) {
-        (session.user as any).id = token.sub || '1';
+        session.user.id = token.sub || '1';
       }
       return session;
     }
