@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/db';
 import Budget from '@/models/Budget';
-import { getServerSession } from 'next-auth';
 import { getAuthSession, requireAuth } from '@/lib/auth';
 
 // GET /api/budgets/[id]
@@ -39,7 +38,7 @@ export async function PUT(
   try {
     await connectDB();
     
-    const session = await getServerSession(authOptions);
+    const session = await getAuthSession();
     if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -89,7 +88,7 @@ export async function DELETE(
   try {
     await connectDB();
     
-    const session = await getServerSession(authOptions);
+    const session = await getAuthSession();
     if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
