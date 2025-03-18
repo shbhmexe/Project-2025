@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/db';
 import Category from '@/models/Category';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { getAuthSession, requireAuth } from '@/lib/auth';
 
 // GET /api/categories/[id]
 export async function GET(
@@ -12,15 +11,13 @@ export async function GET(
   try {
     await connectDB();
     
-    const session = await getServerSession(authOptions);
-    if (!session || !session.user) {
+    const session = await getAuthSession();
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     const userId = session.user.id;
-    const id = params.id;
-    
-    const category = await Category.findOne({ _id: id, userId });
+    const category = await Category.findOne({ _id: params.id, userId });
     
     if (!category) {
       return NextResponse.json({ error: 'Category not found' }, { status: 404 });
@@ -41,7 +38,7 @@ export async function PUT(
   try {
     await connectDB();
     
-    const session = await getServerSession(authOptions);
+    const session = await getAuthSession();
     if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -91,7 +88,7 @@ export async function DELETE(
   try {
     await connectDB();
     
-    const session = await getServerSession(authOptions);
+    const session = await getAuthSession();
     if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }

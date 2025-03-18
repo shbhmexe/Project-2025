@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/db';
 import Budget from '@/models/Budget';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { getAuthSession, requireAuth } from '@/lib/auth';
 
 // GET /api/budgets/[id]
 export async function GET(
@@ -12,15 +12,13 @@ export async function GET(
   try {
     await connectDB();
     
-    const session = await getServerSession(authOptions);
-    if (!session || !session.user) {
+    const session = await getAuthSession();
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
     const userId = session.user.id;
-    const id = params.id;
-    
-    const budget = await Budget.findOne({ _id: id, userId });
+    const budget = await Budget.findOne({ _id: params.id, userId });
     
     if (!budget) {
       return NextResponse.json({ error: 'Budget not found' }, { status: 404 });
