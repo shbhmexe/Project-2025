@@ -6,6 +6,14 @@ import { MonthContext } from '@/components/charts/ExpensesChart';
 import { TransactionContext } from '@/app/contexts/TransactionContext';
 import { getCurrentMonthYear } from '@/lib/utils';
 
+// Add this type definition at the top of the file
+interface Category {
+  id?: string;
+  name: string;
+  color: string;
+  // Add any other properties your category might have
+}
+
 // Default categories
 const defaultCategories = [
   { id: '1', name: 'Food', color: '#ef4444' },
@@ -63,9 +71,12 @@ export default function CategoriesPage() {
     setNewCategory({ name: '', color: '#3b82f6' });
   };
 
-  const handleEditCategory = (category) => {
+  const handleEditCategory = (category: Category) => {
     setEditingCategory(category);
-    setNewCategory({ name: category.name, color: category.color });
+    setNewCategory({ 
+      name: category.name, 
+      color: category.color 
+    });
     setIsEditing(true);
   };
 

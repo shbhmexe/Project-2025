@@ -27,6 +27,12 @@ const categories = [
   'Education',
   'Shopping',
   'Other',
+  'Coding',
+  'Gaming',
+  'Traveling',
+  'Investing',
+  'Saving',
+  'Other',
 ];
 
 // Budget periods
