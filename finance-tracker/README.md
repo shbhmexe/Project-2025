@@ -2,7 +2,7 @@
 
 A comprehensive web application for tracking personal finances, built with Next.js, TypeScript, and Tailwind CSS.
 
-## Feature
+## Features
 
 ### Stage 1: Basic Transaction Tracking
 - Add/Edit/Delete transactions (amount, date, description)
