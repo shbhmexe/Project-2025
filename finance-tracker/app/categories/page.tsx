@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 import { useMonthContext } from '@/contexts/MonthContext';
-import { TransactionContext } from '@/app/contexts/TransactionContext';
+import { TransactionContext, useTransactionContext } from '@/app/contexts/TransactionContext';
 import { getCurrentMonthYear } from '@/lib/utils';
 
 // Define the Category interface
@@ -12,6 +12,15 @@ interface Category {
   name: string;
   color: string;
   // Add any other properties your category might have
+}
+
+// Transaction interface to match your context
+interface Transaction {
+  id: string;
+  amount: number;
+  description: string;
+  category: string;
+  date: string | Date;
 }
 
 // Default categories
@@ -40,13 +49,16 @@ const getStoredCategories = () => {
 
 export default function CategoriesPage() {
   const [selectedMonth, setSelectedMonth] = useState(getCurrentMonthYear());
-  const [transactions, setTransactions] = useState([]);
+  
+  // Instead of creating our own state for transactions, use the context
+  const { transactions, setTransactions } = useTransactionContext();
+  
   const [categories, setCategories] = useState<Category[]>(getStoredCategories());
   const [newCategory, setNewCategory] = useState({ name: '', color: '#3b82f6' });
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [isEditing, setIsEditing] = useState(false);
 
-  // Use the new useMonthContext hook
+  // Use the MonthContext
   const { selectedMonth: contextMonth, setSelectedMonth: setContextMonth } = useMonthContext();
 
   // Load categories from localStorage on initial render
