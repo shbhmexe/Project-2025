@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { formatCurrency, formatDate } from '@/lib/utils';
+import { formatCurrency, formatDate, filterByMonth } from '@/lib/utils';
 import EditTransactionModal from './EditTransactionModal';
 import { useMonthContext } from '@/components/charts/ExpensesChart';
 import { useTransactionContext } from '@/app/contexts/TransactionContext';
@@ -74,13 +74,17 @@ const getCategoryColor = (categoryName, categories) => {
   return category ? category.color : '#3b82f6'; // Default blue if not found
 };
 
-export default function TransactionList({ 
-  showAddButton = true
-}: { 
+interface TransactionListProps {
+  limit?: number;
   showAddButton?: boolean;
-}) {
-  const { selectedMonth } = useMonthContext();
+}
+
+const TransactionList: React.FC<TransactionListProps> = ({ 
+  limit = 10, 
+  showAddButton = true 
+}) => {
   const { transactions, setTransactions } = useTransactionContext();
+  const { selectedMonth } = useMonthContext();
   const [filteredTransactions, setFilteredTransactions] = useState<any[]>([]);
   const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'ascending' | 'descending' } | null>(null);
   const [editingTransaction, setEditingTransaction] = useState<any | null>(null);
@@ -243,6 +247,10 @@ export default function TransactionList({
     setShowAddForm(false);
   };
 
+  // Filter transactions by selected month
+  const filteredTransactionsByMonth = filterByMonth(transactions, selectedMonth)
+    .slice(0, limit); // Apply limit
+
   return (
     <>
       <div className="mb-4 flex justify-between items-center">
@@ -354,8 +362,8 @@ export default function TransactionList({
             </tr>
           </thead>
           <tbody>
-            {getSortedTransactions().length > 0 ? (
-              getSortedTransactions().map((transaction) => (
+            {filteredTransactionsByMonth.length > 0 ? (
+              filteredTransactionsByMonth.map((transaction) => (
                 <tr key={transaction.id} className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                   <td className="px-4 py-3">{formatDate(transaction.date)}</td>
                   <td className="px-4 py-3">{transaction.description}</td>
@@ -411,4 +419,6 @@ export default function TransactionList({
       />
     </>
   );
-} 
+};
+
+export default TransactionList; 

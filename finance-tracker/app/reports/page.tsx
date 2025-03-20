@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 import { MonthContext } from '@/components/charts/ExpensesChart';
-import { TransactionContext } from '@/app/contexts/TransactionContext';
+import { TransactionContext, Transaction } from '@/app/contexts/TransactionContext';
 import { getCurrentMonthYear, formatCurrency } from '@/lib/utils';
 
 // Get stored transactions from localStorage
@@ -12,11 +12,11 @@ const getStoredTransactions = () => {
     try {
       const stored = localStorage.getItem('transactions');
       if (stored) {
-        const parsedTransactions = JSON.parse(stored);
-        return parsedTransactions.map((t) => ({
+        const parsedTransactions: Transaction[] = JSON.parse(stored).map((t: any) => ({
           ...t,
           date: new Date(t.date)
         }));
+        return parsedTransactions;
       }
     } catch (error) {
       console.error('Error parsing stored transactions:', error);
@@ -27,7 +27,7 @@ const getStoredTransactions = () => {
 
 export default function ReportsPage() {
   const [selectedMonth, setSelectedMonth] = useState(getCurrentMonthYear());
-  const [transactions, setTransactions] = useState(getStoredTransactions());
+  const [transactions, setTransactions] = useState<Transaction[]>(getStoredTransactions());
   const [reportType, setReportType] = useState('monthly');
   const [availableMonths, setAvailableMonths] = useState([]);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear().toString());

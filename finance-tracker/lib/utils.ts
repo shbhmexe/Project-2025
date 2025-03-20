@@ -1,22 +1,10 @@
 /**
  * Format a number as currency
  */
-export function formatCurrency(amount: number): string {
-  if (typeof window !== 'undefined') {
-    const currency = localStorage.getItem('currency') || 'USD';
-    
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: currency,
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    }).format(amount);
-  }
-  
-  // Default to USD if running on server
+export function formatCurrency(amount: number, currency: string = 'USD'): string {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'USD',
+    currency: currency,
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   }).format(amount);
@@ -55,11 +43,11 @@ export function format(transaction: any) {
  * Get the current month and year
  */
 export function getCurrentMonthYear(): string {
-  const now = new Date();
+  const date = new Date();
   return new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
-    month: 'long',
-  }).format(now);
+    month: 'short',
+  }).format(date);
 }
 
 /**
@@ -133,24 +121,18 @@ export function groupByMonth(transactions: any[]): Record<string, number> {
  */
 export function filterByMonth(transactions: any[], monthStr: string): any[] {
   if (!transactions || !Array.isArray(transactions) || !monthStr) {
-    return [];
+    return transactions;
   }
-  
+
   try {
-    // Parse month string (e.g. "March 2025" or "Mar 2025")
     const parts = monthStr.split(' ');
-    if (parts.length !== 2) {
-      return transactions; // If format is incorrect, return all transactions
-    }
-    
+    if (parts.length !== 2) return transactions;
+
     const monthName = parts[0];
     const year = parseInt(parts[1], 10);
-    
-    if (isNaN(year)) {
-      return transactions;
-    }
-    
-    // Map month names to their index (both short and long formats)
+
+    if (isNaN(year)) return transactions;
+
     const monthMap: Record<string, number> = {
       'Jan': 0, 'January': 0,
       'Feb': 1, 'February': 1,
@@ -165,36 +147,20 @@ export function filterByMonth(transactions: any[], monthStr: string): any[] {
       'Nov': 10, 'November': 10,
       'Dec': 11, 'December': 11
     };
-    
+
     const monthIndex = monthMap[monthName];
-    
-    // If month name is invalid, return all transactions
-    if (monthIndex === undefined) {
-      return transactions;
-    }
-    
-    // Filter transactions for the specified month and year
+    if (monthIndex === undefined) return transactions;
+
     return transactions.filter(transaction => {
       try {
-        if (!transaction || !transaction.date) {
-          return false;
-        }
-        
         const date = new Date(transaction.date);
-        
-        // Skip invalid dates
-        if (isNaN(date.getTime())) {
-          return false;
-        }
-        
         return date.getMonth() === monthIndex && date.getFullYear() === year;
       } catch {
         return false;
       }
     });
-  } catch (error) {
-    console.error('Error in filterByMonth:', error);
-    return transactions; // Return all transactions if there's an error
+  } catch {
+    return transactions;
   }
 }
 
@@ -207,4 +173,27 @@ export function formatDate(date: Date): string {
     month: 'short',
     day: 'numeric',
   }).format(date);
+}
+
+// Add this error handling wrapper to critical functions
+export function safeParseJSON<T>(value: string | null, defaultValue: T): T {
+  try {
+    return value ? JSON.parse(value) : defaultValue;
+  } catch {
+    return defaultValue;
+  }
+}
+
+export function safeParseTransactions(stored: string | null): Transaction[] {
+  if (!stored) return [];
+  
+  try {
+    return JSON.parse(stored).map((t: any) => ({
+      ...t,
+      date: new Date(t.date)
+    }));
+  } catch (error) {
+    console.error('Error parsing transactions:', error);
+    return [];
+  }
 } 

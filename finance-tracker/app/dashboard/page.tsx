@@ -1,88 +1,56 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 import TransactionList from '@/components/transactions/TransactionList';
-import ExpensesChart, { MonthContext } from '@/components/charts/ExpensesChart';
+import ExpensesChart from '@/components/charts/ExpensesChart';
 import CategoryPieChart from '@/components/charts/CategoryPieChart';
 import SummaryCards from '@/components/dashboard/SummaryCards';
-import { getCurrentMonthYear } from '@/lib/utils';
-import { TransactionContext } from '@/app/contexts/TransactionContext';
-
-// Get stored transactions from localStorage or use empty array as default
-const getStoredTransactions = () => {
-  if (typeof window !== 'undefined') {
-    try {
-      const stored = localStorage.getItem('transactions');
-      if (stored) {
-        const parsedTransactions = JSON.parse(stored);
-        return parsedTransactions.map((t) => ({
-          ...t,
-          date: new Date(t.date)
-        }));
-      }
-    } catch (error) {
-      console.error('Error parsing stored transactions:', error);
-    }
-  }
-  return [];
-};
+import { useTransactionContext } from '@/app/contexts/TransactionContext';
 
 export default function Dashboard() {
-  const [selectedMonth, setSelectedMonth] = useState(getCurrentMonthYear());
-  const [transactions, setTransactions] = useState(getStoredTransactions());
-
-  // Load transactions from localStorage on initial render
+  const { transactions, setTransactions } = useTransactionContext();
+  
+  // Get stored transactions from localStorage
   useEffect(() => {
-    setTransactions(getStoredTransactions());
-  }, []);
+    const getStoredTransactions = () => {
+      if (typeof window === 'undefined') return [];
+      
+      try {
+        const stored = localStorage.getItem('transactions');
+        return stored ? JSON.parse(stored) : [];
+      } catch (error) {
+        console.error('Error parsing stored transactions:', error);
+        return [];
+      }
+    };
 
-  // Save transactions to localStorage whenever they change
+    const storedTransactions = getStoredTransactions();
+    setTransactions(storedTransactions);
+  }, [setTransactions]);
+  
+  // Save transactions to localStorage when they change
   useEffect(() => {
-    if (typeof window !== 'undefined' && transactions.length > 0) {
-      // Convert dates to strings before storing
-      const transactionsToStore = transactions.map(t => ({
-        ...t,
-        date: t.date.toISOString()
-      }));
-      localStorage.setItem('transactions', JSON.stringify(transactionsToStore));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('transactions', JSON.stringify(transactions));
     }
   }, [transactions]);
-
+  
   return (
-    <MonthContext.Provider value={{ selectedMonth, setSelectedMonth }}>
-      <TransactionContext.Provider value={{ transactions, setTransactions }}>
-        <DashboardLayout>
-          <div className="p-4 md:p-6">
-            <h1 className="mb-6 text-2xl font-bold text-gray-800 dark:text-white">Financial Dashboard</h1>
-            
-            <SummaryCards />
-            
-            <div className="grid grid-cols-1 gap-6 mt-6 lg:grid-cols-2">
-              <div className="p-4 bg-white rounded-lg shadow dark:bg-gray-800">
-                <h2 className="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">Monthly Expenses</h2>
-                <div className="h-64">
-                  <ExpensesChart />
-                </div>
-              </div>
-              
-              <div className="p-4 bg-white rounded-lg shadow dark:bg-gray-800">
-                <h2 className="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">Spending by Category</h2>
-                <div className="h-64">
-                  <CategoryPieChart />
-                </div>
-              </div>
-            </div>
-            
-            <div className="mt-6">
-              <div className="p-4 bg-white rounded-lg shadow dark:bg-gray-800">
-                <h2 className="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">Recent Transactions</h2>
-                <TransactionList showAddButton={true} />
-              </div>
-            </div>
-          </div>
-        </DashboardLayout>
-      </TransactionContext.Provider>
-    </MonthContext.Provider>
+    <DashboardLayout>
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <div className="md:col-span-8">
+          <SummaryCards />
+          <ExpensesChart />
+          <TransactionList 
+            limit={5} 
+            showAddButton={true} 
+          />
+        </div>
+        <div className="md:col-span-4">
+          <CategoryPieChart />
+        </div>
+      </div>
+    </DashboardLayout>
   );
 } 

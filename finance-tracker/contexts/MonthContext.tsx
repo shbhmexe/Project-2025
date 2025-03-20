@@ -19,20 +19,12 @@ export const MonthContext = createContext<MonthContextType>({
 export const useMonthContext = () => useContext(MonthContext);
 
 // Provider component for wrapping application parts that need this context
-interface MonthProviderProps {
-  children: ReactNode;
-  initialMonth?: string;
-}
-
-export const MonthProvider = ({ 
-  children, 
-  initialMonth = getCurrentMonthYear() 
-}: MonthProviderProps) => {
-  const [selectedMonth, setSelectedMonth] = useState(initialMonth);
-
+export function MonthProvider({ children }: { children: ReactNode }) {
+  const [selectedMonth, setSelectedMonth] = useState(getCurrentMonthYear());
+  
   return (
     <MonthContext.Provider value={{ selectedMonth, setSelectedMonth }}>
       {children}
     </MonthContext.Provider>
   );
-}; 
+} 
