@@ -102,6 +102,22 @@ code {
   border-color: #3498db;
 }
 
+/* Location info in dark mode - fix for hidden text */
+.dark-mode .card .bg-light {
+  background-color: #495057 !important;
+  color: #f8f9fa !important;
+}
+
+.dark-mode .card .bg-light strong,
+.dark-mode .card .bg-light span,
+.dark-mode .card .bg-light i {
+  color: #f8f9fa !important;
+}
+
+.dark-mode .weather-info {
+  color: #f8f9fa !important;
+}
+
 /* Green theme specific styles */
 .green-theme-text {
   color: #00c851 !important;
