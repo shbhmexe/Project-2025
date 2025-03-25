@@ -16,12 +16,12 @@ export const themes = {
     cardBg: '#343a40',
     headerBg: '#0d47a1'
   },
-  pink: {
-    name: 'pink',
-    backgroundColor: 'linear-gradient(135deg, #fff0f6, #ffb6c1, #ffa6c9)', // Pink gradient
-    textColor: '#212529',
+  green: {
+    name: 'green',
+    backgroundColor: 'linear-gradient(135deg, #d4fc79, #00c851, #96e6a1)', // Neon green gradient
+    textColor: '#103900',
     cardBg: '#ffffff',
-    headerBg: '#e83e8c'
+    headerBg: '#00c851'
   }
 };
 
@@ -59,6 +59,9 @@ export const ThemeProvider = ({ children }) => {
       document.documentElement.style.setProperty('--text-color', currentTheme.textColor);
       document.documentElement.style.setProperty('--card-bg', currentTheme.cardBg);
       document.documentElement.style.setProperty('--header-bg', currentTheme.headerBg);
+      
+      // Set data-theme attribute
+      document.body.setAttribute('data-theme', currentTheme.name);
       
       // Update body classes for dark mode
       if (currentTheme.name === 'dark') {

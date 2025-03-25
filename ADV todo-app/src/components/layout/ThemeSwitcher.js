@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { ThemeContext, themes } from '../../utils/themeContext';
+import { ThemeContext } from '../../utils/themeContext';
 
 const ThemeSwitcher = () => {
   const { currentTheme, toggleTheme } = useContext(ThemeContext);
@@ -26,11 +26,11 @@ const ThemeSwitcher = () => {
         </button>
         <button
           type="button"
-          className={`btn btn-sm ${currentTheme.name === 'pink' ? 'btn-light text-primary' : 'btn-outline-light'}`}
-          onClick={() => toggleTheme('pink')}
-          title="Pink Theme"
+          className={`btn btn-sm ${currentTheme.name === 'green' ? 'btn-light text-success' : 'btn-outline-light'}`}
+          onClick={() => toggleTheme('green')}
+          title="Green Theme"
         >
-          <i className="bi bi-hearts"></i>
+          <i className="bi bi-flower1"></i>
         </button>
       </div>
     </div>
