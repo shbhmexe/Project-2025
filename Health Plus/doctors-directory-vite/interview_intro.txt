@@ -1,0 +1,16 @@
+Health Plus: Interview Introduction
+
+I developed Health Plus, a doctor directory web application that helps users find healthcare providers in India. The platform allows users to search and filter doctors based on specialty, location, availability, and ratings.
+
+Key Functionality:
+The application features a responsive interface with a doctor search system that updates results in real-time as filters are applied. Users can view detailed doctor profiles including specialties, ratings, availability, and contact information.
+
+My Key Contributions:
+I personally implemented a theme toggle feature that switches to a yellowish theme specifically designed for eye comfort during extended use. I also ensured the application is fully responsive across all devices (mobile, tablet, desktop) by implementing custom breakpoints in the layout.
+
+Technical Implementation:
+I built this using React 19 with Vite because I discovered TailwindCSS wasn't working properly with React alone. This combination provided better developer experience and resolved the styling issues. For state management, I used React's useState hooks for component-level state and implemented Context API for the theme management system.
+
+The filtering system uses JavaScript's filter method to process the doctor data based on user-selected criteria, updating the UI dynamically without page refreshes. For animations and transitions, I integrated Framer Motion to enhance user experience.
+
+The architecture follows a component-based structure with reusable UI elements like DoctorCard, Filters, and ThemeToggle components. The application maintains a clean separation between data, UI components, and application logic. 

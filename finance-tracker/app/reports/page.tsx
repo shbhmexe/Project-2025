@@ -29,7 +29,7 @@ export default function ReportsPage() {
   const [selectedMonth, setSelectedMonth] = useState(getCurrentMonthYear());
   const [transactions, setTransactions] = useState<Transaction[]>(getStoredTransactions());
   const [reportType, setReportType] = useState('monthly');
-  const [availableMonths, setAvailableMonths] = useState([]);
+  const [availableMonths, setAvailableMonths] = useState<string[]>([]);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear().toString());
   
   // Load transactions and generate available months on initial render

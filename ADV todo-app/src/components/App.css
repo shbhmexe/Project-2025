@@ -1,24 +1,101 @@
 .min-vh-100 {
-    min-height: 100vh;
-  }
-  
-  .min-vh-100 {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #ffffff, #4cac5c, #dfe9f3); /* Soft white to light blue gradient */
+  min-height: 100vh;
 }
 
-  
-  .task-completed {
-    text-decoration: line-through;
-    opacity: 0.7;
+.task-completed {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
   }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .row {
-      flex-direction: column;
-    }
-    .col-md-4, .col-md-8 {
-      width: 100%;
-    }
+  .col-md-4, .col-md-8 {
+    width: 100%;
   }
+}
+
+/* General Animation Effects */
+.fade-in {
+  animation: fadeIn 0.5s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Task Item Styling */
+.task-item-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.task-item-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms, transform 500ms;
+}
+
+.task-item-exit {
+  opacity: 1;
+}
+
+.task-item-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 500ms, transform 500ms;
+}
+
+/* Weather Info Styling */
+.weather-info {
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+/* Priority Badges */
+.priority-badge {
+  display: inline-block;
+  padding: 0.25em 0.6em;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Custom Checkbox Styling */
+.form-check-input:checked {
+  background-color: #198754;
+  border-color: #198754;
+}
+
+/* Header and Footer */
+.navbar-brand {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Login Form */
+.auth-container {
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+/* Animation for deleted tasks */
+.task-deleted {
+  animation: slideOut 0.5s forwards;
+}
+
+@keyframes slideOut {
+  0% { 
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% { 
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
