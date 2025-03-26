@@ -1,16 +1,34 @@
 import SingleBlog from "@/components/Blog/SingleBlog";
 import blogData from "@/components/Blog/blogData";
 import Breadcrumb from "@/components/Common/Breadcrumb";
+import Link from "next/link";
 
 import { Metadata } from "next";
 
-`export const metadata: Metadata = {
+export const metadata: Metadata = {
   title: "Blog Page | Comprehensive Handwritten Notes for MDU and IITM BTech Courses Students.",
   description: "Comprehensive Handwritten Notes for MDU and IITM BTech Courses Students.",
-  // other metadata
-};`
+};
 
-const Blog = () => {
+const Blog = ({ 
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) => {
+  // Get the current page from the URL query parameters, default to 1
+  const page = searchParams?.page ? parseInt(searchParams.page as string) : 1;
+  
+  // Number of blogs per page
+  const blogsPerPage = 6;
+  
+  // Calculate total number of pages
+  const totalPages = Math.ceil(blogData.length / blogsPerPage);
+  
+  // Get the blogs for the current page
+  const startIndex = (page - 1) * blogsPerPage;
+  const endIndex = startIndex + blogsPerPage;
+  const currentBlogs = blogData.slice(startIndex, endIndex);
+  
   return (
     <div className="mt-10">
       <Breadcrumb
@@ -21,7 +39,7 @@ const Blog = () => {
       <section className="pb-[120px] pt-[120px]">
         <div className="container">
           <div className="-mx-4 flex flex-wrap justify-center">
-            {blogData.map((blog) => (
+            {currentBlogs.map((blog) => (
               <div
                 key={blog.id}
                 className="w-full px-4 md:w-2/3 lg:w-1/2 xl:w-1/3"
@@ -38,64 +56,44 @@ const Blog = () => {
             <div className="w-full px-4">
               <ul className="flex items-center justify-center pt-8">
                 <li className="mx-1">
-                  <a
-                    href="#0"
-                    className="flex h-9 min-w-[36px] items-center justify-center rounded-md bg-body-color bg-opacity-[15%] px-4 text-sm text-body-color transition hover:bg-primary hover:bg-opacity-100 hover:text-white"
+                  <Link
+                    href={page > 1 ? `/blog?page=${page - 1}` : `/blog?page=1`}
+                    className={`flex h-9 min-w-[36px] items-center justify-center rounded-md bg-body-color bg-opacity-[15%] px-4 text-sm text-body-color transition hover:bg-primary hover:bg-opacity-100 hover:text-white ${page <= 1 ? 'cursor-not-allowed opacity-50' : ''}`}
                   >
                     Prev
-                  </a>
+                  </Link>
                 </li>
+                
+                {/* Generate page numbers dynamically */}
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                  <li key={pageNum} className="mx-1">
+                    <Link
+                      href={`/blog?page=${pageNum}`}
+                      className={`flex h-9 min-w-[36px] items-center justify-center rounded-md ${
+                        pageNum === page 
+                          ? 'bg-primary text-white' 
+                          : 'bg-body-color bg-opacity-[15%] text-body-color hover:bg-primary hover:bg-opacity-100 hover:text-white'
+                      } px-4 text-sm transition`}
+                    >
+                      {pageNum}
+                    </Link>
+                  </li>
+                ))}
+                
                 <li className="mx-1">
-                  <a
-                    href="#0"
-                    className="flex h-9 min-w-[36px] items-center justify-center rounded-md bg-body-color bg-opacity-[15%] px-4 text-sm text-body-color transition hover:bg-primary hover:bg-opacity-100 hover:text-white"
-                  >
-                    1
-                  </a>
-                </li>
-                <li className="mx-1">
-                  <a
-                    href="#0"
-                    className="flex h-9 min-w-[36px] items-center justify-center rounded-md bg-body-color bg-opacity-[15%] px-4 text-sm text-body-color transition hover:bg-primary hover:bg-opacity-100 hover:text-white"
-                  >
-                    2
-                  </a>
-                </li>
-                <li className="mx-1">
-                  <a
-                    href="#0"
-                    className="flex h-9 min-w-[36px] items-center justify-center rounded-md bg-body-color bg-opacity-[15%] px-4 text-sm text-body-color transition hover:bg-primary hover:bg-opacity-100 hover:text-white"
-                  >
-                    3
-                  </a>
-                </li>
-                <li className="mx-1">
-                  <span className="flex h-9 min-w-[36px] cursor-not-allowed items-center justify-center rounded-md bg-body-color bg-opacity-[15%] px-4 text-sm text-body-color">
-                    ...
-                  </span>
-                </li>
-                <li className="mx-1">
-                  <a
-                    href="#0"
-                    className="flex h-9 min-w-[36px] items-center justify-center rounded-md bg-body-color bg-opacity-[15%] px-4 text-sm text-body-color transition hover:bg-primary hover:bg-opacity-100 hover:text-white"
-                  >
-                    12
-                  </a>
-                </li>
-                <li className="mx-1">
-                  <a
-                    href="#0"
-                    className="flex h-9 min-w-[36px] items-center justify-center rounded-md bg-body-color bg-opacity-[15%] px-4 text-sm text-body-color transition hover:bg-primary hover:bg-opacity-100 hover:text-white"
+                  <Link
+                    href={page < totalPages ? `/blog?page=${page + 1}` : `/blog?page=${totalPages}`}
+                    className={`flex h-9 min-w-[36px] items-center justify-center rounded-md bg-body-color bg-opacity-[15%] px-4 text-sm text-body-color transition hover:bg-primary hover:bg-opacity-100 hover:text-white ${page >= totalPages ? 'cursor-not-allowed opacity-50' : ''}`}
                   >
                     Next
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
           </div>
         </div>
       </section>
-      </div>
+    </div>
   );
 };
 
