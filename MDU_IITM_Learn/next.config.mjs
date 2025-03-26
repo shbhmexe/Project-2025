@@ -8,7 +8,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   eslint: {
-    // Disabling ESLint during build
+    // Disabling ESLint during builds
     ignoreDuringBuilds: true,
   },
 };

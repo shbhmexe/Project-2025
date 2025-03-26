@@ -3,16 +3,13 @@ import TagButton from "@/components/Blog/TagButton";
 import blogData from "@/components/Blog/blogData";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-
 import { Metadata } from "next";
-
-type Props = {
-  params: { id: string };
-};
 
 export async function generateMetadata({
   params,
-}: Props): Promise<Metadata> {
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
   const id = parseInt(params.id);
   const blog = blogData.find((blog) => blog.id === id);
 
@@ -29,9 +26,11 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogDetailsPage({
+export default function Page({
   params,
-}: Props) {
+}: {
+  params: { id: string };
+}) {
   const id = parseInt(params.id);
   const blog = blogData.find((blog) => blog.id === id);
 
