@@ -3,7 +3,12 @@
     "env": {
       "VITE_FIREBASE_API_KEY": "AIzaSyDKhO7T_x23L0QlXoGTUKzc_XrwNpUg5zQ",
       "VITE_FIREBASE_AUTH_DOMAIN": "communion-app-auth.firebaseapp.com",
-      "VITE_FIREBASE_PROJECT_ID": "communion-app-auth"
+      "VITE_FIREBASE_PROJECT_ID": "communion-app-auth",
+      "VITE_FIREBASE_STORAGE_BUCKET": "communion-app-auth.appspot.com",
+      "VITE_FIREBASE_MESSAGING_SENDER_ID": "684054997926",
+      "VITE_FIREBASE_APP_ID": "1:684054997926:web:9af3f89d01f175ba4dde55",
+      "VITE_GITHUB_CLIENT_ID": "0v23115zyDK7UdxkLG6B",
+      "VITE_GOOGLE_CLIENT_ID": "684054997926-d8are4hdm086u5d65mii3hmmk8bl9e27.apps.googleusercontent.com"
     }
   },
   "rewrites": [
