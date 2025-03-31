@@ -162,8 +162,16 @@ const AuthPage = () => {
         setError('Authentication canceled. Please try again.');
       } else if (error.code === 'auth/network-request-failed') {
         setError('Network error. Please check your internet connection and try again.');
+      } else if (error.code === 'auth/unauthorized-domain') {
+        setError('This domain is not authorized for OAuth operations. Please use the app on the authorized domain.');
+      } else if (error.code === 'auth/internal-error') {
+        setError('An internal error occurred. Please try again later.');
+      } else if (error.code === 'auth/api-key-not-valid') {
+        setError('API configuration error. Please contact the administrator.');
+      } else if (error.message) {
+        setError(error.message);
       } else {
-        setError(`Authentication failed: ${error.message || 'Please try again.'}`);
+        setError('Google authentication failed. Please try again later.');
       }
     } finally {
       setLoading(false);
@@ -190,8 +198,16 @@ const AuthPage = () => {
         setError('Authentication canceled. Please try again.');
       } else if (error.code === 'auth/account-exists-with-different-credential') {
         setError('An account already exists with the same email address but different sign-in credentials.');
+      } else if (error.code === 'auth/unauthorized-domain') {
+        setError('This domain is not authorized for OAuth operations. Please use the app on the authorized domain.');
+      } else if (error.code === 'auth/internal-error') {
+        setError('An internal error occurred. Please try again later.');
+      } else if (error.code === 'auth/api-key-not-valid') {
+        setError('API configuration error. Please contact the administrator.');
+      } else if (error.message) {
+        setError(error.message);
       } else {
-        setError(`Authentication failed: ${error.message || 'Please try again.'}`);
+        setError('GitHub authentication failed. Please try again later.');
       }
     } finally {
       setLoading(false);

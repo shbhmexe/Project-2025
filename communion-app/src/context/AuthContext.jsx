@@ -83,6 +83,11 @@ export const AuthProvider = ({ children }) => {
       await auth.signOut();
       
       // Use Firebase's Google authentication popup
+      googleProvider.setCustomParameters({
+        prompt: 'select_account',
+        login_hint: ''
+      });
+      
       const result = await signInWithPopup(auth, googleProvider);
       console.log("Google auth succeeded with user:", result.user);
       
@@ -98,6 +103,12 @@ export const AuthProvider = ({ children }) => {
       // If error is related to popup being blocked, show helpful message
       if (error.code === 'auth/popup-blocked') {
         throw new Error('Popup was blocked by the browser. Please allow popups for this site.');
+      } else if (error.code === 'auth/cancelled-popup-request') {
+        throw new Error('Authentication cancelled. Please try again.');
+      } else if (error.code === 'auth/unauthorized-domain') {
+        throw new Error('This domain is not authorized for OAuth operations. Contact the developer.');
+      } else if (error.code === 'auth/internal-error') {
+        throw new Error('Internal authentication error. Please try again later.');
       }
       
       // Show general error
@@ -131,6 +142,12 @@ export const AuthProvider = ({ children }) => {
       // If error is related to popup being blocked, show helpful message
       if (error.code === 'auth/popup-blocked') {
         throw new Error('Popup was blocked by the browser. Please allow popups for this site.');
+      } else if (error.code === 'auth/cancelled-popup-request') {
+        throw new Error('Authentication cancelled. Please try again.');
+      } else if (error.code === 'auth/unauthorized-domain') {
+        throw new Error('This domain is not authorized for OAuth operations. Contact the developer.');
+      } else if (error.code === 'auth/account-exists-with-different-credential') {
+        throw new Error('An account already exists with the same email address but different sign-in credentials.');
       }
       
       // Show general error
