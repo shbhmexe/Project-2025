@@ -29,6 +29,7 @@ Check out the live demo: [Communion App](https://communion-liard.vercel.app/)
 - **Maps**: Leaflet.js
 - **State Management**: React Context API
 - **Storage**: Local Storage for persistent data
+- **Authentication**: Firebase Authentication with Google and GitHub OAuth
 
 ## 📋 Pages
 
@@ -80,14 +81,20 @@ The application is fully responsive and optimized for:
    yarn install
    ```
 
-3. Start the development server
+3. Copy the example environment file and update with your credentials
+   ```bash
+   cp .env.example .env
+   ```
+   Then edit the `.env` file with your actual Firebase and OAuth credentials.
+
+4. Start the development server
    ```bash
    npm run dev
    # or
    yarn dev
    ```
 
-4. Open your browser and navigate to `http://localhost:3000`
+5. Open your browser and navigate to `http://localhost:3000`
 
 ## 📂 Project Structure
 
@@ -106,6 +113,8 @@ communion-app/
 ├── scripts/                # Utility scripts
 ├── .gitignore              # Git ignore file
 ├── package.json            # Project dependencies
+├── .env.example            # Example environment variables
+├── .env                    # Environment variables (not committed to Git)
 └── README.md               # Project documentation
 ```
 
@@ -138,7 +147,18 @@ The authentication system includes:
 - User registration
 - Login functionality
 - Password recovery (UI only)
-- Social login options (UI only)
+- Social login options (Google and GitHub)
+
+### Setting Up Authentication
+
+To enable authentication features, you need to:
+
+1. Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
+2. Set up Authentication in your Firebase project and enable Google and GitHub providers
+3. Create OAuth credentials for Google at [Google Cloud Console](https://console.cloud.google.com/)
+4. Create OAuth credentials for GitHub at [GitHub Developer Settings](https://github.com/settings/developers)
+5. Add your authorized domains in the Firebase project settings
+6. Update your `.env` file with the credentials (following the structure in `.env.example`)
 
 ## 🤝 Contributing
 

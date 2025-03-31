@@ -2,13 +2,10 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import { firebaseConfig } from '../config/authConfig';
 
 // Initialize Firebase with Google Cloud project configuration
-const app = initializeApp({
-  apiKey: "AIzaSyDKhO7T_x23L0QlXoGTUKzc_XrwNpUg5zQ",
-  authDomain: "communion-app-auth.firebaseapp.com",
-  projectId: "communion-app-auth",
-});
+const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();

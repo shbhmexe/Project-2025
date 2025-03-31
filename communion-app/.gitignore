@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment and auth configuration files
+.env
+.env.local
+.env.development
+.env.production
+src/config/authConfig.js
