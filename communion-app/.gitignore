@@ -23,9 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
-# Environment and auth configuration files
+# Environment files
 .env
 .env.local
 .env.development
 .env.production
-src/config/authConfig.js

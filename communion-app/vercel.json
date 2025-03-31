@@ -1,0 +1,12 @@
+{
+  "build": {
+    "env": {
+      "VITE_FIREBASE_API_KEY": "AIzaSyDKhO7T_x23L0QlXoGTUKzc_XrwNpUg5zQ",
+      "VITE_FIREBASE_AUTH_DOMAIN": "communion-app-auth.firebaseapp.com",
+      "VITE_FIREBASE_PROJECT_ID": "communion-app-auth"
+    }
+  },
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+} 

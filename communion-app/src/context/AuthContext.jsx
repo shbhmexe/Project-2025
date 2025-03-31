@@ -4,7 +4,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { firebaseConfig } from '../config/authConfig';
 
-// Initialize Firebase with Google Cloud project configuration
+// Initialize Firebase with config
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
