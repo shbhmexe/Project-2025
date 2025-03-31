@@ -1,10 +1,13 @@
 import { CalendarIcon, MapPinIcon, UserGroupIcon } from '@heroicons/react/24/outline'
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useTheme, THEMES } from '../context/ThemeContext'
+import { useAuth } from '../context/AuthContext'
 
 const EventCard = ({ event }) => {
   const { theme } = useTheme();
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
   
   // Get category color class based on event category and theme
   const getCategoryColor = (category) => {
@@ -87,6 +90,15 @@ const EventCard = ({ event }) => {
     return images[imageIndex];
   };
 
+  const handleCardClick = (e) => {
+    // If the user clicks on the card but is not authenticated, redirect to auth page
+    if (!currentUser) {
+      e.preventDefault();
+      navigate('/auth');
+    }
+    // If authenticated, the Link will work normally
+  };
+
   return (
     <motion.div
       layout
@@ -97,7 +109,7 @@ const EventCard = ({ event }) => {
       transition={{ duration: 0.3 }}
       className="card group overflow-hidden cursor-pointer"
     >
-      <Link to={`/events/${event.id}`} className="block h-full">
+      <Link to={`/events/${event.id}`} className="block h-full" onClick={handleCardClick}>
         {/* Event Image */}
         <div className="relative h-48 overflow-hidden">
           <img 
@@ -153,7 +165,7 @@ const EventCard = ({ event }) => {
             ))}
           </div>
           <div className="flex items-center font-medium transition-colors" style={{ color: 'var(--color-accent)' }}>
-            Learn More
+            {currentUser ? 'Learn More' : 'Sign in to view'}
             <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
