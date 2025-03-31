@@ -1,29 +1,4 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { 
-  GoogleAuthProvider, 
-  GithubAuthProvider,
-  signInWithPopup, 
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  updateProfile,
-  getAuth 
-} from 'firebase/auth';
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig, defaultAvatars } from '../config/authConfig';
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-// Configure providers
-const googleProvider = new GoogleAuthProvider();
-googleProvider.addScope('https://www.googleapis.com/auth/userinfo.email');
-googleProvider.addScope('https://www.googleapis.com/auth/userinfo.profile');
-googleProvider.setCustomParameters({ prompt: 'select_account' });
-
-const githubProvider = new GithubAuthProvider();
-githubProvider.addScope('user:email');
-githubProvider.addScope('read:user');
 
 export const AuthContext = createContext(null);
 
@@ -33,85 +8,34 @@ export const AuthProvider = ({ children }) => {
 
   // Check for user data in localStorage on initial load
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user) {
-        const formattedUser = formatUserData(user);
-        setCurrentUser(formattedUser);
-        localStorage.setItem('currentUser', JSON.stringify(formattedUser));
-      } else {
-        // Try to get from localStorage as backup
-        const storedUser = localStorage.getItem('currentUser');
-        if (storedUser) {
-          setCurrentUser(JSON.parse(storedUser));
-        } else {
-          setCurrentUser(null);
-          localStorage.removeItem('currentUser');
-        }
-      }
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-  // Format user data consistently
-  const formatUserData = (user) => {
-    let provider = 'email';
-    if (user.providerData && user.providerData.length > 0) {
-      if (user.providerData[0].providerId === 'google.com') {
-        provider = 'google';
-      } else if (user.providerData[0].providerId === 'github.com') {
-        provider = 'github';
-      }
+    const storedUser = localStorage.getItem('currentUser');
+    if (storedUser) {
+      setCurrentUser(JSON.parse(storedUser));
     }
-
-    return {
-      uid: user.uid,
-      displayName: user.displayName || user.email?.split('@')[0] || 'User',
-      email: user.email,
-      photoURL: user.photoURL || defaultAvatars[provider],
-      provider: provider
-    };
-  };
+    setLoading(false);
+  }, []);
 
   const loginWithGoogle = async () => {
     try {
       setLoading(true);
-      console.log("Starting Google authentication...");
+      console.log("Simulating Google authentication...");
       
-      // Force authentication popup to show every time
-      await auth.signOut();
+      // Create mock Google user with random ID
+      const googleUser = {
+        uid: 'google-user-' + Math.random().toString(36).substring(2, 7),
+        displayName: 'Google Test User',
+        email: 'google.user@example.com',
+        photoURL: 'https://lh3.googleusercontent.com/a/default-user',
+        provider: 'google'
+      };
       
-      // Use Firebase's Google authentication popup
-      googleProvider.setCustomParameters({
-        prompt: 'select_account',
-        login_hint: ''
-      });
+      console.log("Mock Google auth success - User:", googleUser);
+      setCurrentUser(googleUser);
+      localStorage.setItem('currentUser', JSON.stringify(googleUser));
       
-      const result = await signInWithPopup(auth, googleProvider);
-      console.log("Google auth succeeded with user:", result.user);
-      
-      // Create formatted user
-      const formattedUser = formatUserData(result.user);
-      setCurrentUser(formattedUser);
-      localStorage.setItem('currentUser', JSON.stringify(formattedUser));
-      
-      return formattedUser;
+      return googleUser;
     } catch (error) {
-      console.error('Google authentication error:', error);
-      
-      // If error is related to popup being blocked, show helpful message
-      if (error.code === 'auth/popup-blocked') {
-        throw new Error('Popup was blocked by the browser. Please allow popups for this site.');
-      } else if (error.code === 'auth/cancelled-popup-request') {
-        throw new Error('Authentication cancelled. Please try again.');
-      } else if (error.code === 'auth/unauthorized-domain') {
-        throw new Error('This domain is not authorized for OAuth operations. Contact the developer.');
-      } else if (error.code === 'auth/internal-error') {
-        throw new Error('Internal authentication error. Please try again later.');
-      }
-      
-      // Show general error
+      console.error('Error in mock Google authentication:', error);
       throw error;
     } finally {
       setLoading(false);
@@ -121,58 +45,51 @@ export const AuthProvider = ({ children }) => {
   const loginWithGithub = async () => {
     try {
       setLoading(true);
-      console.log("Starting GitHub authentication...");
+      console.log("Simulating GitHub authentication...");
       
-      // Force authentication popup to show every time
-      await auth.signOut();
+      // Simple GitHub login with mock data
+      const githubUser = {
+        uid: 'github-user-' + Math.random().toString(36).substring(2, 7),
+        displayName: 'GitHub Test User',
+        email: 'github.user@example.com',
+        photoURL: 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png',
+        provider: 'github'
+      };
       
-      // Use Firebase's GitHub authentication popup
-      const result = await signInWithPopup(auth, githubProvider);
-      console.log("GitHub auth succeeded with user:", result.user);
+      console.log("Mock GitHub auth success - User:", githubUser);
+      setCurrentUser(githubUser);
+      localStorage.setItem('currentUser', JSON.stringify(githubUser));
       
-      // Create formatted user
-      const formattedUser = formatUserData(result.user);
-      setCurrentUser(formattedUser);
-      localStorage.setItem('currentUser', JSON.stringify(formattedUser));
-      
-      return formattedUser;
+      return githubUser;
     } catch (error) {
-      console.error('GitHub authentication error:', error);
-      
-      // If error is related to popup being blocked, show helpful message
-      if (error.code === 'auth/popup-blocked') {
-        throw new Error('Popup was blocked by the browser. Please allow popups for this site.');
-      } else if (error.code === 'auth/cancelled-popup-request') {
-        throw new Error('Authentication cancelled. Please try again.');
-      } else if (error.code === 'auth/unauthorized-domain') {
-        throw new Error('This domain is not authorized for OAuth operations. Contact the developer.');
-      } else if (error.code === 'auth/account-exists-with-different-credential') {
-        throw new Error('An account already exists with the same email address but different sign-in credentials.');
-      }
-      
-      // Show general error
+      console.error('Error in mock GitHub authentication:', error);
       throw error;
     } finally {
       setLoading(false);
     }
   };
 
-  const loginWithEmailPassword = async (email, password) => {
+  const loginWithEmailPassword = async (email, password, name = '') => {
     try {
       setLoading(true);
       console.log("Logging in with email and password...");
       
-      const result = await signInWithEmailAndPassword(auth, email, password);
-      console.log("Email login succeeded with user:", result.user);
+      // Simple email login with provided info
+      const emailUser = {
+        uid: 'email-user-' + Math.random().toString(36).substring(2, 7),
+        displayName: name || email.split('@')[0],
+        email: email,
+        photoURL: `https://ui-avatars.com/api/?name=${encodeURIComponent(name || email.split('@')[0])}&background=random`,
+        provider: 'email'
+      };
       
-      // Create formatted user
-      const formattedUser = formatUserData(result.user);
-      setCurrentUser(formattedUser);
-      localStorage.setItem('currentUser', JSON.stringify(formattedUser));
+      console.log("Email login success - User:", emailUser);
+      setCurrentUser(emailUser);
+      localStorage.setItem('currentUser', JSON.stringify(emailUser));
       
-      return formattedUser;
+      return emailUser;
     } catch (error) {
-      console.error('Email login error:', error);
+      console.error('Error signing in with email:', error);
       throw error;
     } finally {
       setLoading(false);
@@ -184,41 +101,32 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       console.log("Registering new user with email and password...");
       
-      const result = await createUserWithEmailAndPassword(auth, email, password);
+      // Just use similar logic as login but with registration messaging
+      const newUser = {
+        uid: 'email-user-' + Math.random().toString(36).substring(2, 7),
+        displayName: name || email.split('@')[0],
+        email: email,
+        photoURL: `https://ui-avatars.com/api/?name=${encodeURIComponent(name || email.split('@')[0])}&background=random`,
+        provider: 'email'
+      };
       
-      // Update profile with display name
-      if (name) {
-        await updateProfile(result.user, { 
-          displayName: name,
-          photoURL: `${defaultAvatars.email}&name=${encodeURIComponent(name)}`
-        });
-      }
+      console.log("Registration success - User:", newUser);
+      setCurrentUser(newUser);
+      localStorage.setItem('currentUser', JSON.stringify(newUser));
       
-      console.log("Registration succeeded with user:", result.user);
-      
-      // Create formatted user
-      const formattedUser = formatUserData(result.user);
-      setCurrentUser(formattedUser);
-      localStorage.setItem('currentUser', JSON.stringify(formattedUser));
-      
-      return formattedUser;
+      return newUser;
     } catch (error) {
-      console.error('Registration error:', error);
+      console.error('Error registering with email:', error);
       throw error;
     } finally {
       setLoading(false);
     }
   };
 
-  const logout = async () => {
-    try {
-      await auth.signOut();
-      setCurrentUser(null);
-      localStorage.removeItem('currentUser');
-    } catch (error) {
-      console.error('Logout error:', error);
-      throw error;
-    }
+  const logout = () => {
+    console.log("Logging out user");
+    setCurrentUser(null);
+    localStorage.removeItem('currentUser');
   };
 
   const value = {

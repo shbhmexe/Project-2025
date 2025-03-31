@@ -10,8 +10,8 @@ export const defaultAvatars = {
 
 // Default display names for social providers
 export const defaultNames = {
-  google: 'Google User',
-  github: 'GitHub User'
+  google: 'Google Test User',
+  github: 'GitHub Test User'
 };
 
 // Mock validation settings

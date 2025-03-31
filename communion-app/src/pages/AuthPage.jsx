@@ -114,28 +114,14 @@ const AuthPage = () => {
     
     try {
       if (isLogin) {
-        await loginWithEmailPassword(formData.email, formData.password);
+        await loginWithEmailPassword(formData.email, formData.password, formData.name);
       } else {
         await registerWithEmailPassword(formData.email, formData.password, formData.name);
       }
       navigate('/events');
     } catch (error) {
       console.error('Auth error:', error);
-      
-      // Format Firebase error messages for better user experience
-      if (error.code === 'auth/invalid-email') {
-        setError('Invalid email format. Please check your email address.');
-      } else if (error.code === 'auth/user-not-found') {
-        setError('No account found with this email. Please sign up first.');
-      } else if (error.code === 'auth/wrong-password') {
-        setError('Incorrect password. Please try again or reset your password.');
-      } else if (error.code === 'auth/weak-password') {
-        setError('Password is too weak. Please use a stronger password.');
-      } else if (error.code === 'auth/email-already-in-use') {
-        setError('An account with this email already exists. Please login instead.');
-      } else {
-        setError(`Authentication failed: ${error.message || 'Please try again.'}`);
-      }
+      setError('Authentication failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -154,25 +140,7 @@ const AuthPage = () => {
       }
     } catch (error) {
       console.error('Google auth error:', error);
-      
-      // Format Firebase error messages for better user experience
-      if (error.code === 'auth/popup-blocked') {
-        setError('Please allow pop-ups for this site to enable Google authentication.');
-      } else if (error.code === 'auth/cancelled-popup-request') {
-        setError('Authentication canceled. Please try again.');
-      } else if (error.code === 'auth/network-request-failed') {
-        setError('Network error. Please check your internet connection and try again.');
-      } else if (error.code === 'auth/unauthorized-domain') {
-        setError('This domain is not authorized for OAuth operations. Please use the app on the authorized domain.');
-      } else if (error.code === 'auth/internal-error') {
-        setError('An internal error occurred. Please try again later.');
-      } else if (error.code === 'auth/api-key-not-valid') {
-        setError('API configuration error. Please contact the administrator.');
-      } else if (error.message) {
-        setError(error.message);
-      } else {
-        setError('Google authentication failed. Please try again later.');
-      }
+      setError('Authentication failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -190,25 +158,7 @@ const AuthPage = () => {
       }
     } catch (error) {
       console.error('GitHub auth error:', error);
-      
-      // Format Firebase error messages for better user experience
-      if (error.code === 'auth/popup-blocked') {
-        setError('Please allow pop-ups for this site to enable GitHub authentication.');
-      } else if (error.code === 'auth/cancelled-popup-request') {
-        setError('Authentication canceled. Please try again.');
-      } else if (error.code === 'auth/account-exists-with-different-credential') {
-        setError('An account already exists with the same email address but different sign-in credentials.');
-      } else if (error.code === 'auth/unauthorized-domain') {
-        setError('This domain is not authorized for OAuth operations. Please use the app on the authorized domain.');
-      } else if (error.code === 'auth/internal-error') {
-        setError('An internal error occurred. Please try again later.');
-      } else if (error.code === 'auth/api-key-not-valid') {
-        setError('API configuration error. Please contact the administrator.');
-      } else if (error.message) {
-        setError(error.message);
-      } else {
-        setError('GitHub authentication failed. Please try again later.');
-      }
+      setError('Authentication failed. Please try again.');
     } finally {
       setLoading(false);
     }
