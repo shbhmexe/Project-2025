@@ -19,7 +19,7 @@ A comprehensive educational platform built for B.Tech students of Maharaja Suraj
 - [License](#license)
 - [Contact](#contact)
 
-## Overview
+## Overviews
 
 The MDU IITM Learning Platform is designed to serve as a centralized hub for all educational resources needed by B.Tech students at MDU IITM Janakpuri. It provides easy access to study materials, lecture notes, previous year question papers, syllabus information, and much more.
 
