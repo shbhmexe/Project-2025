@@ -1,6 +1,8 @@
+"use client";
 import { Testimonial } from "@/types/testimonial";
 import SectionTitle from "../Common/SectionTitle";
 import SingleTestimonial from "./SingleTestimonial";
+import { useEffect, useRef, useState } from "react";
 
 const testimonialData: Testimonial[] = [
   {
@@ -8,7 +10,7 @@ const testimonialData: Testimonial[] = [
     name: "Vikram",
     designation: "BTech IT Student",
     content:
-      "Fantastic platform! The free notes are a lifesaver, especially when juggling multiple subjects. Everything is laid out in a way that’s easy to understand, and it’s made my study sessions much more productive.",
+      "Fantastic platform! The free notes are a lifesaver, especially when juggling multiple subjects. Everything is laid out in a way that's easy to understand, and it's made my study sessions much more productive.",
     image: "/images/testimonials/auth-01.png",
     star: 5,
   },
@@ -26,13 +28,77 @@ const testimonialData: Testimonial[] = [
     name: "Aakash",
     designation: "BTech Electrical Student",
     content:
-      "MDU IITM Notes for BTech is a fantastic resource! The notes are detailed and easy to understand, and having free access to them has been a huge advantage in my studies. It’s made exam prep so much more manageable!.",
+      "MDU IITM Notes for BTech is a fantastic resource! The notes are detailed and easy to understand, and having free access to them has been a huge advantage in my studies. It's made exam prep so much more manageable!.",
+    image: "/images/testimonials/8017294.png",
+    star: 5,
+  },
+  {
+    id: 4,
+    name: "Priya",
+    designation: "BTech CS Student",
+    content:
+      "I've tried many resources, but MDU IITM Notes stands out for clarity and organization. The structured approach to explaining complex concepts makes even the hardest topics easier to grasp. Highly recommended!",
+    image: "/images/testimonials/9131478.png",
+    star: 5,
+  },
+  {
+    id: 5,
+    name: "Rahul",
+    designation: "BTech ECE Student",
+    content:
+      "These notes have been my go-to resource throughout my degree. The quality is excellent, and they cover everything in the syllabus. Having them readily available has saved me so much time and stress.",
+    image: "/images/testimonials/8017294.png",
+    star: 5,
+  },
+  {
+    id: 6,
+    name: "Ananya",
+    designation: "BTech Mechanical Student",
+    content:
+      "The depth of content in MDU IITM Notes is impressive. I can always rely on finding comprehensive explanations for even the most complex mechanical engineering topics. It has become an essential part of my study routine.",
+    image: "/images/testimonials/9131478.png",
+    star: 5,
+  },
+  {
+    id: 7,
+    name: "Rohan",
+    designation: "BTech Chemical Student",
+    content:
+      "As a Chemical Engineering student, finding quality notes can be challenging. MDU IITM Notes solved this problem completely! The materials are detailed, accurate, and follow the syllabus perfectly. An absolute game-changer.",
     image: "/images/testimonials/8017294.png",
     star: 5,
   },
 ];
 
 const Testimonials = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!isPaused) {
+        setActiveIndex((current) => {
+          const next = (current + 1) % testimonialData.length;
+          // Scroll to the active testimonial smoothly
+          const container = scrollRef.current;
+          if (container) {
+            const activeItem = container.querySelector(`.testimonial-item:nth-child(${next + 1})`);
+            if (activeItem) {
+              container.scrollTo({
+                left: (activeItem as HTMLElement).offsetLeft - container.offsetLeft,
+                behavior: 'smooth'
+              });
+            }
+          }
+          return next;
+        });
+      }
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [isPaused]);
+
   return (
     <section className="dark:bg-bg-color-dark bg-gray-light relative z-10 py-16 md:py-20 lg:py-28">
       <div className="container">
@@ -42,12 +108,55 @@ const Testimonials = () => {
           center
         />
 
-        <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
-          {testimonialData.map((testimonial) => (
-            <SingleTestimonial key={testimonial.id} testimonial={testimonial} />
+        <div 
+          ref={scrollRef}
+          className="flex overflow-x-auto carousel scrollbar-hide pb-8"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          {testimonialData.map((testimonial, index) => (
+            <div 
+              key={testimonial.id} 
+              className={`testimonial-item flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4 transition-all duration-300 ${
+                index === activeIndex ? 'opacity-100' : 'opacity-80'
+              }`}
+            >
+              <SingleTestimonial testimonial={testimonial} />
+            </div>
+          ))}
+        </div>
+
+        {/* Indicators */}
+        <div className="flex justify-center space-x-2 mt-4">
+          {testimonialData.map((_, index) => (
+            <button
+              key={index}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === activeIndex 
+                  ? 'bg-primary scale-110' 
+                  : 'bg-gray-300 dark:bg-gray-600'
+              }`}
+              onClick={() => {
+                setActiveIndex(index);
+                // Scroll to the clicked indicator's corresponding testimonial
+                const container = scrollRef.current;
+                if (container) {
+                  const clickedItem = container.querySelector(`.testimonial-item:nth-child(${index + 1})`);
+                  if (clickedItem) {
+                    container.scrollTo({
+                      left: (clickedItem as HTMLElement).offsetLeft - container.offsetLeft,
+                      behavior: 'smooth'
+                    });
+                  }
+                }
+              }}
+              aria-label={`Go to testimonial ${index + 1}`}
+            />
           ))}
         </div>
       </div>
+
+      {/* Decorative SVGs */}
       <div className="absolute right-0 top-5 z-[-1]">
         <svg
           width="238"
@@ -176,6 +285,25 @@ const Testimonials = () => {
           </defs>
         </svg>
       </div>
+      
+      <style jsx>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        
+        .carousel {
+          scroll-behavior: smooth;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;  /* Firefox */
+          -ms-overflow-style: none;  /* IE and Edge */
+        }
+        
+        @media (max-width: 768px) {
+          .carousel .testimonial-item {
+            width: 100%;
+          }
+        }
+      `}</style>
     </section>
   );
 };

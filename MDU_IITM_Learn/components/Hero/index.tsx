@@ -25,7 +25,7 @@ const Hero = () => {
                 </h1>
 
                 <p className="dark:text-body-color-dark mb-12 text-base !leading-relaxed text-body-color sm:text-lg md:text-xl ">
-                  Our platform offers a comprehensive collection of handwritten notes, previous year questions (PYQs), lab manuals, and EDGS sheets tailored for BTech students in  computer-related branches such as <span className="text-blue-600 dark:text-yellow-400 font-bold"> Computer Science (CS), Information Technology (IT), Artificial Intelligence & Machine Learning (AI & ML), Artificial Intelligence & Data Science (AIDS), and more.</span> These resources are meticulously curated to support your academic journey, providing in-depth insights and practical knowledge across various computing disciplines.</p>
+                  Our platform offers a comprehensive collection of handwritten notes, previous year questions (PYQs), lab manuals, and EDGS sheets tailored for BTech students in  computer-related branches such as <span className="text-blue-600 dark:text-yellow-400 font-bold"> Computer Science (CS), Information Technology (IT), Artificial Intelligence & Machine Learning (AI & ML), Artificial Intelligence & Data Science (AI & DS), and more.</span> These resources are meticulously curated to support your academic journey, providing in-depth insights and practical knowledge across various computing disciplines.</p>
                 <div className="flex items-center justify-center space-x-4 flex-wrap md:flex-nowrap">
 
                   {/* 🔥 Get Notes Button */}
