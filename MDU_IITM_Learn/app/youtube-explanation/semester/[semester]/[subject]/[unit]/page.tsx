@@ -33,10 +33,10 @@ const videoLinks: Record<string, Record<string, string>> = {
     "1": "https://www.youtube.com/watch?v=wMb-CQSKLiA&list=PL3qvHcrYGy1sU_1nMMVrfFEhYROpQtVXV",
     "2": "https://www.youtube.com/watch?v=5EWrcsK3q7g",
   }
-  "Chemistry-I":{
-    "1": "https://www.youtube.com/watch?v=wMb-CQSKLiA&list=PL3qvHcrYGy1sU_1nMMVrfFEhYROpQtVXV",
-    "2": "https://www.youtube.com/watch?v=5EWrcsK3q7g",
-  }
+  // "Chemistry-I":{
+  //   "1": "https://www.youtube.com/watch?v=wMb-CQSKLiA&list=PL3qvHcrYGy1sU_1nMMVrfFEhYROpQtVXV",
+  //   "2": "https://www.youtube.com/watch?v=5EWrcsK3q7g",
+  // }
 };
 
 export default function VideoPage() {
