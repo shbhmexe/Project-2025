@@ -39,6 +39,28 @@ const Header = () => {
     setOpenIndex(openIndex === index ? -1 : index);
   };
 
+  // Notice banner visibility state
+  const [showNotice, setShowNotice] = useState(true);
+  const [fadeNotice, setFadeNotice] = useState(false);
+
+  // Hide notice after 10 seconds with animation
+  useEffect(() => {
+    const totalDisplayTime = 24000; // 2 rotations at 12s each
+    
+    const fadeTimer = setTimeout(() => {
+      setFadeNotice(true);
+    }, totalDisplayTime - 1000); // Start fade slightly before hiding
+    
+    const hideTimer = setTimeout(() => {
+      setShowNotice(false);
+    }, totalDisplayTime);
+    
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(hideTimer);
+    };
+  }, []);
+
   return (
     <header
       className={`header left-0 top-0 z-40 w-full ${sticky
@@ -46,6 +68,21 @@ const Header = () => {
         : "absolute bg-transparent"
       }`}
     >
+      {showNotice && (
+        <div className={`w-full bg-gradient-to-r from-primary to-blue-700 py-3 text-center overflow-hidden border-b-2 border-blue-300 shadow-md transition-all duration-300 ${fadeNotice ? 'animate-fadeOut' : ''}`}>
+          <div className="animate-marquee whitespace-nowrap flex items-center justify-center tracking-wide">
+            <span className="inline-flex items-center gap-2 font-semibold text-amber-400">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              IMPORTANT NOTICE:
+            </span>
+            <span className="mx-3 text-white font-medium">
+              2nd Semester Notes, PYQ's and Syllabus is now available on website | Access latest study materials for better preparation | Download now!
+            </span>
+          </div>
+        </div>
+      )}
       <div className="container">
         <div className="relative -mx-4 flex items-center justify-between">
           {/* Logo Section */}

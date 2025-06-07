@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const subjectsBySemester: Record<number, string[]> = {
   1: ["Mathematics-I", "Semiconductor-Physics", "English", "Basic-Electrical-Engineering"],
-  2: ["Mathematics-II", "Chemistry", "Programming", "Workshop"],
+  2: ["Mathematics-II", "Chemistry-I", "Programming For Problem Solving", "Workshop Technology"],
 };
 
 export default function SubjectPage() {

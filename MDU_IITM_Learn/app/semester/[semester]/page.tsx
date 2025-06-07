@@ -5,13 +5,13 @@ import { motion } from "framer-motion";
 
 const subjectsBySemester: Record<number, string[]> = {
   1: ["Mathematics-I", "Semiconductor-Physics", "English", "Basic-Electrical-Engineering", "EDG-Sheets", "Physics-Lab", "BEE-Lab"],
-  2: ["Mathematics-II", "Chemistry-I", "Programming For Problem Solving", "Workshop Technology", "Chemistry Lab-1", "Programming in C Lab", "Language Lab"],
-  3: ["DBMS", "OS", "CN"],
-  4: ["AI", "ML", "Software Engineering"],
-  5: ["Mathematics", "Physics", "Chemistry"],
-  6: ["Data Structures", "OOPs", "Discrete Math"],
-  7: ["DBMS", "OS", "CN"],
-  8: ["AI", "ML", "Software Engineering"],
+  2: ["Mathematics-II", "Chemistry-I", "PPS", "Workshop-Technology", "Chemistry-Lab-1", "Programming-in-C-Lab", "Language-Lab", "Manufacturing-lab"],
+  // 3: ["DBMS", "OS", "CN"],
+  // 4: ["AI", "ML", "Software Engineering"],
+  // 5: ["Mathematics", "Physics", "Chemistry"],
+  // 6: ["Data Structures", "OOPs", "Discrete Math"],
+  // 7: ["DBMS", "OS", "CN"],
+  // 8: ["AI", "ML", "Software Engineering"],
 };
 
 export default function SemesterPage() {

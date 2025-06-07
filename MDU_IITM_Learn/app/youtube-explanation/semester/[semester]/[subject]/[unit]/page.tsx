@@ -8,7 +8,7 @@ const videoLinks: Record<string, Record<string, string>> = {
     "1": "https://youtu.be/sHSlfJugXe4?si=UuR95RMmok5Z_qaZ",
     "2": "https://www.youtube.com/watch?v=pfN1_rrEEuw",
     "3": "https://www.youtube.com/watch?v=_6oRqxY6O5w",
-    "4": "https://www.youtube.com/watch?v=cZkscKSX_9I",
+    "4": "https://www.youtube.com/watch?v=cZkscKSX_9I&list=PLhSp9OSVmeyIVQpCt2kwsC1dNVl1GwlVn&index=28",
     "Beta Gamma Function": "https://www.youtube.com/watch?v=ffNpqBVyYew",
     "Evolutes and Involutes": "https://www.youtube.com/watch?v=WBVtY0J-b54",
     "Maclaurin Series": "https://youtu.be/nS29gTQj8lo?si=WyNep0aQHUWP8t5t",
@@ -30,6 +30,10 @@ const videoLinks: Record<string, Record<string, string>> = {
     "Electrical ONE SHOT": "https://www.youtube.com/playlist?list=PL-vEH_IPWrhAda9e2l6QtfYQASGFA5yPS"
   },
   English:{
+    "1": "https://www.youtube.com/watch?v=wMb-CQSKLiA&list=PL3qvHcrYGy1sU_1nMMVrfFEhYROpQtVXV",
+    "2": "https://www.youtube.com/watch?v=5EWrcsK3q7g",
+  }
+  "Chemistry-I":{
     "1": "https://www.youtube.com/watch?v=wMb-CQSKLiA&list=PL3qvHcrYGy1sU_1nMMVrfFEhYROpQtVXV",
     "2": "https://www.youtube.com/watch?v=5EWrcsK3q7g",
   }

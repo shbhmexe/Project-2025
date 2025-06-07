@@ -10,13 +10,10 @@ const subjectsBySemester: Record<number, { name: string; link: string }[]> = {
     { name: "Basic Electrical Engineering", link: "https://drive.google.com/drive/folders/1fpYPmC3qPJH_DqeG9E5kvBzIYu8vETSG?usp=drive_link" },
   ],
   2: [
-    { name: "Mathematics-II", link: "https://drive.google.com/your_math2_pyq_link" },
-    { name: "Chemistry-I", link: "https://drive.google.com/your_chemistry_pyq_link" },
-    { name: "Programming For Problem Solving", link: "https://drive.google.com/your_pfps_pyq_link" },
-    { name: "Workshop Technology", link: "https://drive.google.com/your_workshop_pyq_link" },
-    { name: "Chemistry Lab-1", link: "https://drive.google.com/your_chemistry_lab_pyq_link" },
-    { name: "Programming in C Lab", link: "https://drive.google.com/your_c_lab_pyq_link" },
-    { name: "Language Lab", link: "https://drive.google.com/your_language_lab_pyq_link" },
+    { name: "Mathematics-II", link: "https://drive.google.com/drive/folders/1qYA8sZTuhWhr_H-nRE_i_iJawAEHNkm_?usp=drive_link" },
+    { name: "Chemistry-I", link: "https://drive.google.com/drive/folders/1eor4OspUxRJt7o4aKm0XTifQZk3ma0KD?usp=sharing" },
+    { name: "PPS", link: "https://drive.google.com/drive/folders/1jQYnqrFXjlhLI5zXjsSk3zyz0i92LcWV?usp=drive_link" },
+    { name: "Workshop Technology", link: "https://drive.google.com/drive/folders/18EP9O6bcMTv9kgFnszftTOcKgIkHkmc5?usp=sharing" },
   ],
 };
 

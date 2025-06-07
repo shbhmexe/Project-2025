@@ -46,6 +46,20 @@ module.exports = {
       // => @media (min-width: 1400px) { ... }
     },
     extend: {
+      animation: {
+        marquee: 'marquee 12s linear 2',
+        fadeOut: 'fadeOut 0.8s ease-out forwards',
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
+        fadeOut: {
+          '0%': { opacity: '1', transform: 'translateY(0)' },
+          '100%': { opacity: '0', transform: 'translateY(-10px)' },
+        },
+      },
       colors: {
         current: "currentColor",
         transparent: "transparent",

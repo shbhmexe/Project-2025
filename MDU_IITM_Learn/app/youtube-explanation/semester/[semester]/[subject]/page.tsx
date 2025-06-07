@@ -18,6 +18,7 @@ const unitsBySubject: Record<string, string[]> = {
   "Semiconductor-Physics": ["1", "2", "3", "4"],
   English: ["1", "2"],
   "Basic-Electrical-Engineering": ["1", "2", "3", "4", "Electrical ONE SHOT"],
+  "Chemistry-I": ["1", "2", "3"]
 };
 
 export default function UnitPage() {

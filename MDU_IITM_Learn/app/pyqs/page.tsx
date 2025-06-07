@@ -32,7 +32,7 @@ export default function PYQsPage() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
           >
-            {sem === "1" ? (
+            {sem === "1" || sem === "2" ?  (
               <Link
                 href={`/semester/${sem}/pyqs`}
                 className="px-4 py-3 sm:px-6 sm:py-4 text-md sm:text-lg font-semibold 
