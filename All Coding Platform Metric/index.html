@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AllMetric | Track Your Coding Progress</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="https://img.icons8.com/color/48/000000/source-code.png">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                <h1>AllMetric</h1>
+            </div>
+            <p class="tagline">Track coding metrics across all platforms</p>
+        </header>
+
+        <div class="user-container">
+            <div class="platform-selector">
+                <p>Select Platform:</p>
+                <div class="platform-buttons">
+                    <button class="platform-btn active" data-platform="leetcode">
+                        <img src="https://leetcode.com/_next/static/images/logo-dark-c96c407d175e36c81e236fcfdd682a0b.png" alt="LeetCode">
+                        <span>LeetCode</span>
+                    </button>
+                    <button class="platform-btn" data-platform="gfg">
+                        <img src="https://img.icons8.com/color/48/000000/GeeksforGeeks.png" alt="GeeksforGeeks">
+                        <span>GFG</span>
+                    </button>
+                    <button class="platform-btn" data-platform="codestudio">
+                        <img src="https://img.icons8.com/color/48/000000/codingninjas.png" alt="CodeStudio">
+                        <span>CodeStudio</span>
+                    </button>
+                    <button class="platform-btn" data-platform="codeforces">
+                        <img src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/48/000000/external-codeforces-programming-competitions-and-contests-programming-community-logo-color-tal-revivo.png" alt="Codeforces">
+                        <span>Codeforces</span>
+                    </button>
+                    <button class="platform-btn" data-platform="codechef">
+                        <img src="https://img.icons8.com/color/48/000000/codechef.png" alt="CodeChef">
+                        <span>CodeChef</span>
+                    </button>
+                </div>
+            </div>
+            <div class="user-input-container">
+                <div class="input-wrapper">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="Enter your username" id="user-input">
+                </div>
+                <button id="search-btn"><i class="fas fa-search"></i> Search</button>
+            </div>
+            <p class="status-message" id="status-message"></p>
+        </div>
+
+        <div class="stats-container hidden" id="stats-container">
+            <div class="user-profile" id="user-profile">
+                <!-- User profile info will be added here -->
+            </div>
+            
+            <div class="platform-specific-stats" id="leetcode-stats">
+                <h2 class="section-title"><i class="fas fa-chart-pie"></i> Problem Solving Progress</h2>
+                <div class="progress">
+                    <div class="progress-item">
+                        <div class="easy-progress circle">
+                            <span id="easy-label"></span>
+                            <p>Easy</p>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="medium-progress circle">
+                            <span id="medium-label"></span>
+                            <p>Medium</p>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="hard-progress circle">
+                            <span id="hard-label"></span>
+                            <p>Hard</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-title"><i class="fas fa-keyboard"></i> Submission Stats</h2>
+                <div class="stats-cards">
+                    <!-- Stats cards will be populated here by JS -->
+                </div>
+            </div>
+            
+            <div class="platform-specific-stats hidden" id="gfg-stats">
+                <!-- GFG Stats will be displayed here -->
+            </div>
+            
+            <div class="platform-specific-stats hidden" id="codestudio-stats">
+                <!-- CodeStudio Stats will be displayed here -->
+            </div>
+            
+            <div class="platform-specific-stats hidden" id="codeforces-stats">
+                <!-- Codeforces Stats will be displayed here -->
+            </div>
+            
+            <div class="platform-specific-stats hidden" id="codechef-stats">
+                <!-- CodeChef Stats will be displayed here -->
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>Made with <i class="fas fa-heart"></i> for Coders</p>
+            <p class="version">Version 1.0.0</p>
+        </footer>
+    </div>
+
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loader"></div>
+        <p>Fetching data...</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
