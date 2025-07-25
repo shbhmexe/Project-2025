@@ -39,7 +39,7 @@ export default function AboutPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <ScrambledText scrambleChars="!@#$%^&*()_+{}|:<>?[]\;'\",./-=" duration={800} speed={30} radius={15}>
+              <ScrambledText scrambleChars="!@#$%^&*()_+" duration={800} speed={30} radius={15}>
                 About <span className="text-blue-600 dark:text-blue-400">ScamAlert</span>
               </ScrambledText>
             </motion.h1>
@@ -49,7 +49,7 @@ export default function AboutPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
             >
-              <ScrambledText scrambleChars="!@#$%^&*()_+{}|:<>?[]\;'\",./-=" duration={600} speed={25} radius={10}>
+              <ScrambledText scrambleChars="!@#$%^&*()_+" duration={600} speed={25} radius={10}>
                 Our mission is to protect users from online scams and create a safer digital environment for everyone.
               </ScrambledText>
             </motion.p>
@@ -95,7 +95,7 @@ export default function AboutPage() {
                 variants={fadeIn}
                 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6"
               >
-                <ScrambledText scrambleChars="!@#$%^&*()_+{}|:<>?[]\;'\",./-=" duration={700} speed={28} radius={12}>
+                <ScrambledText scrambleChars="!@#$%^&*()_+" duration={700} speed={28} radius={12}>
                   Our Story
                 </ScrambledText>
               </motion.h2>
@@ -104,7 +104,7 @@ export default function AboutPage() {
                 variants={fadeIn}
                 className="text-lg text-gray-600 dark:text-gray-300 mb-6"
               >
-                <ScrambledText scrambleChars="!@#$%^&*()_+{}|:<>?[]\;'\",./-=" duration={600} speed={25} radius={10}>
+                <ScrambledText scrambleChars="!@#$%^&*()_+" duration={600} speed={25} radius={10}>
                   ScamAlert was founded in 2023 with a singular mission: to protect individuals and businesses from the growing threat of online scams. Our founder experienced firsthand the devastating impact of falling victim to a sophisticated phishing attack, losing valuable data and compromising sensitive information.
                 </ScrambledText>
               </motion.p>
@@ -113,7 +113,7 @@ export default function AboutPage() {
                 variants={fadeIn}
                 className="text-lg text-gray-600 dark:text-gray-300 mb-6"
               >
-                <ScrambledText scrambleChars="!@#$%^&*()_+{}|:<>?[]\;'\",./-=" duration={600} speed={25} radius={10}>
+                <ScrambledText scrambleChars="!@#$%^&*()_+" duration={600} speed={25} radius={10}>
                   This personal experience fueled the passion to create an accessible tool that anyone could use to verify suspicious messages, emails, and websites before becoming victims themselves.
                 </ScrambledText>
               </motion.p>
@@ -122,7 +122,7 @@ export default function AboutPage() {
                 variants={fadeIn}
                 className="text-lg text-gray-600 dark:text-gray-300"
               >
-                <ScrambledText scrambleChars="!@#$%^&*()_+{}|:<>?[]\;'\",./-=" duration={600} speed={25} radius={10}>
+                <ScrambledText scrambleChars="!@#$%^&*()_+" duration={600} speed={25} radius={10}>
                   Today, we are proud to have helped millions of users stay safe online, identifying countless scams before they could cause harm.
                 </ScrambledText>
               </motion.p>
@@ -142,12 +142,12 @@ export default function AboutPage() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              <ScrambledText scrambleChars="!@#$%^&*()_+{}|:<>?[]\;'\",./-=" duration={700} speed={28} radius={12}>
+              <ScrambledText scrambleChars="!@#$%^&*()_+" duration={700} speed={28} radius={12}>
                 Meet Our Team
               </ScrambledText>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              <ScrambledText scrambleChars="!@#$%^&*()_+{}|:<>?[]\;'\",./-=" duration={600} speed={25} radius={10}>
+              <ScrambledText scrambleChars="!@#$%^&*()_+" duration={600} speed={25} radius={10}>
                 Dedicated experts passionate about online security and user protection
               </ScrambledText>
             </p>
@@ -173,17 +173,17 @@ export default function AboutPage() {
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
-                    <ScrambledText scrambleChars="!@#$%^&*()_+{}|:<>?[]\;'\",./-=" duration={500} speed={20} radius={8}>
+                    <ScrambledText scrambleChars="!@#$%^&*()_+" duration={500} speed={20} radius={8}>
                       {member.name}
                     </ScrambledText>
                   </h3>
                   <p className="text-blue-600 dark:text-blue-400 mb-4">
-                    <ScrambledText scrambleChars="!@#$%^&*()_+{}|:<>?[]\;'\",./-=" duration={400} speed={18} radius={6}>
+                    <ScrambledText scrambleChars="!@#$%^&*()_+" duration={400} speed={18} radius={6}>
                       {member.role}
                     </ScrambledText>
                   </p>
                   <p className="text-gray-600 dark:text-gray-300">
-                    <ScrambledText scrambleChars="!@#$%^&*()_+{}|:<>?[]\;'\",./-=" duration={600} speed={22} radius={8}>
+                    <ScrambledText scrambleChars="!@#$%^&*()_+" duration={600} speed={22} radius={8}>
                       {member.bio}
                     </ScrambledText>
                   </p>
@@ -205,12 +205,12 @@ export default function AboutPage() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              <ScrambledText scrambleChars="!@#$%^&*()_+{}|:<>?[]\;'\",./-=" duration={700} speed={28} radius={12}>
+              <ScrambledText scrambleChars="!@#$%^&*()_+" duration={700} speed={28} radius={12}>
                 Our Core Values
               </ScrambledText>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              <ScrambledText scrambleChars="!@#$%^&*()_+{}|:<>?[]\;'\",./-=" duration={600} speed={25} radius={10}>
+              <ScrambledText scrambleChars="!@#$%^&*()_+" duration={600} speed={25} radius={10}>
                 The principles that guide everything we do
               </ScrambledText>
             </p>
@@ -234,12 +234,12 @@ export default function AboutPage() {
                   {value.icon}
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                  <ScrambledText scrambleChars="!@#$%^&*()_+{}|:<>?[]\;'\",./-=" duration={500} speed={22} radius={8}>
+                  <ScrambledText scrambleChars="!@#$%^&*()_+" duration={500} speed={22} radius={8}>
                     {value.title}
                   </ScrambledText>
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300">
-                  <ScrambledText scrambleChars="!@#$%^&*()_+{}|:<>?[]\;'\",./-=" duration={600} speed={24} radius={10}>
+                  <ScrambledText scrambleChars="!@#$%^&*()_+" duration={600} speed={24} radius={10}>
                     {value.description}
                   </ScrambledText>
                 </p>
