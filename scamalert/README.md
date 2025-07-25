@@ -1,6 +1,63 @@
-# ScamAlert Backend API
+# ScamAlert - AI-Powered Scam Detection Platform
 
-A comprehensive Next.js 13+ backend API for detecting scam messages and malicious URLs using advanced NLP techniques and external security services.
+<div align="center">
+  <img src="https://img.shields.io/badge/Next.js-15.4.4-black?style=flat-square&logo=next.js" alt="Next.js">
+  <img src="https://img.shields.io/badge/React-19.1.0-blue?style=flat-square&logo=react" alt="React">
+  <img src="https://img.shields.io/badge/TailwindCSS-4.0-blue?style=flat-square&logo=tailwindcss" alt="TailwindCSS">
+  <img src="https://img.shields.io/badge/Framer_Motion-12.23.9-black?style=flat-square&logo=framer" alt="Framer Motion">
+  <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License">
+</div>
+
+## 🛡️ Overview
+
+**ScamAlert** is an advanced AI-powered platform designed to protect users from online scams, phishing attempts, and fraudulent activities. Using sophisticated pattern recognition, keyword analysis, and machine learning algorithms, ScamAlert analyzes text messages, emails, URLs, and other digital content to identify potential threats and keep users safe online.
+
+### ✨ Key Features
+
+- **🤖 AI-Powered Detection**: Advanced algorithms analyze text patterns, keywords, and suspicious content
+- **🔗 URL Analysis**: Comprehensive scanning of URLs for malicious domains and phishing attempts  
+- **📱 Real-Time Scanning**: Instant analysis of messages, emails, and web content
+- **⚡ Interactive UI**: Modern, responsive interface with smooth animations
+- **📊 Threat Analytics**: Detailed reporting on scam patterns and risk levels
+- **🎯 Multi-Category Detection**: Identifies various scam types including financial, phishing, and social engineering
+- **🔒 Privacy-First**: Local processing ensures your data stays secure
+
+## 🚀 Demo
+
+Experience ScamAlert live: [Live Demo](http://localhost:3000) *(Run locally with `npm run dev`)*
+
+### Screenshots
+
+- **Modern Homepage**: Interactive hero section with animated background
+- **Scan Interface**: Real-time threat analysis with detailed results
+- **Responsive Design**: Seamless experience across all devices
+- **Dark Mode**: Automatic theme switching support
+
+## 🏗️ Tech Stack
+
+### Frontend
+- **Next.js 15.4.4** - React framework for production
+- **React 19.1.0** - User interface library
+- **TailwindCSS 4.0** - Utility-first CSS framework
+- **Framer Motion 12.23.9** - Animation library
+- **GSAP 3.13.0** - High-performance animations
+- **OGL 1.0.11** - WebGL library for interactive graphics
+
+### Backend & APIs
+- **Next.js API Routes** - Serverless API endpoints
+- **Node.js** - JavaScript runtime
+- **Express Validator** - Input validation middleware
+- **Winston** - Logging library
+- **Rate Limiter Flexible** - API rate limiting
+
+### Security & Performance
+- **Helmet** - Security headers
+- **CORS** - Cross-origin resource sharing
+- **Environment Variables** - Secure configuration management
+
+### Development Tools
+- **ESLint** - Code linting
+- **PostCSS** - CSS processing
 
 ## 🚀 Features
 
@@ -15,13 +72,39 @@ A comprehensive Next.js 13+ backend API for detecting scam messages and maliciou
 ## 📁 Project Structure
 
 ```
-app/
-├── api/
-│   └── scan/
-│       ├── route.js          # Main API endpoint
-│       └── integrations.js   # External API utilities
-└── scan/                     # Frontend (your existing UI)
-.env.local                    # Environment configuration
+scamalert/
+├── app/                          # Next.js App Router
+│   ├── api/                      # API routes
+│   │   └── scan/                 # Scan endpoints
+│   │       ├── route.js          # Main scan API
+│   │       ├── services.js       # Analysis services
+│   │       ├── mock-services.js  # Mock AI services
+│   │       └── integrations.js   # External integrations
+│   ├── components/               # Reusable components
+│   │   ├── auth/                 # Authentication components
+│   │   ├── Navigation.js         # Main navigation
+│   │   ├── Footer.js             # Site footer
+│   │   ├── ScrambledText.js      # Text animation effect
+│   │   ├── RippleGrid.js         # Interactive background
+│   │   └── TiltedCard.js         # 3D card components
+│   ├── contexts/                 # React contexts
+│   │   └── AuthContext.js        # Authentication context
+│   ├── scan/                     # Scan page components
+│   │   ├── components/           # Scan-specific components
+│   │   └── page.js               # Main scan interface
+│   ├── how-it-works/            # Information pages
+│   ├── about/                   # About page
+│   ├── contact/                 # Contact page
+│   ├── auth/                    # Authentication pages
+│   ├── globals.css              # Global styles
+│   ├── layout.js                # Root layout
+│   └── page.js                  # Homepage
+├── public/                      # Static assets
+├── package.json                 # Dependencies
+├── tailwind.config.js           # Tailwind configuration
+├── next.config.js               # Next.js configuration
+├── .env.local                   # Environment variables
+└── README.md                    # This file
 ```
 
 ## 🔧 Installation 6 Setup
@@ -55,6 +138,75 @@ MAX_TEXT_LENGTH=10000
 4. **Start the development server**
 ```bash
 npm run dev
+```
+
+5. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+## 🎯 Usage
+
+### Basic Scanning
+
+1. **Navigate to the Scan Page**: Visit `/scan` or click "Start Scanning" from the homepage
+2. **Input Content**: Paste suspicious text, email content, or URLs into the textarea
+3. **Analyze**: Click "Scan for Threats" to begin analysis
+4. **Review Results**: View detailed threat assessment with risk level and recommendations
+
+### Frontend Features
+
+- **Interactive Homepage**: Modern landing page with animated components
+- **Real-time Scanning**: Instant analysis with loading states and animations
+- **Threat Visualization**: Color-coded threat levels and detailed breakdowns
+- **Scan History**: Track recent scans and their results
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
+- **Dark Mode Support**: Automatic theme detection and switching
+
+## 🎨 Components
+
+### Core Components
+
+#### ScrambledText
+Animated text effect with customizable scrambling:
+```jsx
+<ScrambledText
+  className="text-4xl font-bold"
+  radius={120}
+  duration={1.5}
+  speed={0.6}
+  scrambleChars=":._#@"
+>
+  Your Text Here
+</ScrambledText>
+```
+
+#### RippleGrid
+Interactive background grid with mouse interaction:
+```jsx
+<RippleGrid
+  gridColor="#008000"
+  gridSize={15}
+  rippleIntensity={0.14}
+  mouseInteraction={true}
+/>
+```
+
+#### ScanForm
+Main scanning interface component:
+```jsx
+<ScanForm 
+  onScan={handleScan}
+  placeholder="Paste suspicious content here..."
+/>
+```
+
+#### TiltedCard
+3D animated card component:
+```jsx
+<TiltedCard
+  title="Feature Title"
+  description="Feature description"
+  icon={IconComponent}
+/>
 ```
 
 ## 🔌 API Endpoints
@@ -266,6 +418,50 @@ For questions or issues:
 3. Test with simple messages first before complex ones
 4. Use debug mode for detailed analysis information
 
+## 🗺️ Roadmap
+
+### v2.0 (Q2 2025)
+- [ ] Advanced machine learning integration
+- [ ] Real-time threat intelligence feeds
+- [ ] Browser extension
+- [ ] Mobile app development
+- [ ] User authentication and profiles
+- [ ] Threat reporting system
+
+### v2.1 (Q3 2025)
+- [ ] Multi-language support
+- [ ] Enterprise API dashboard
+- [ ] Webhook integrations
+- [ ] Advanced reporting analytics
+- [ ] Email integration plugin
+- [ ] Custom rule engine
+
+### v2.2 (Q4 2025)
+- [ ] AI model training interface
+- [ ] Team collaboration features
+- [ ] Advanced threat hunting tools
+- [ ] Integration marketplace
+- [ ] White-label solutions
+
+## 🙏 Acknowledgments
+
+- **Next.js Team** - For the amazing React framework
+- **Tailwind CSS** - For the utility-first CSS framework
+- **Framer Motion** - For smooth animations
+- **Vercel** - For hosting and deployment platform
+- **Open Source Community** - For various libraries and tools used in this project
+
+## 📞 Contact & Support
+
+- **Issues**: [GitHub Issues](https://github.com/yourusername/scamalert/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/yourusername/scamalert/discussions)
+- **Email**: scamalert@protonmail.com
+- **Documentation**: Complete inline documentation available
+
 ---
 
-**Built with Next.js 13+ App Router | Ready for production use**
+<div align="center">
+  <p>Built with ❤️ by the ScamAlert Team</p>
+  <p>Protecting users from digital threats, one scan at a time.</p>
+  <p><strong>Built with Next.js 15+ App Router | Ready for production use</strong></p>
+</div>
