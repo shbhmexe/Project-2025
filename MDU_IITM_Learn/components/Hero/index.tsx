@@ -8,7 +8,7 @@ const Hero = () => {
     <>
       <section
         id="home"
-        className="dark:bg-gray-dark relative z-10  overflow-hidden bg-white pb-16 pt-[120px] md:pb-[120px]  md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px] "
+        className="relative z-10 overflow-hidden bg-background pb-16 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
       >
         <meta name="google-site-verification" content="wyzLSCVE6q08S-47RMTg-6M3tybRAmxVyRU3WOrVLLY" />
         <div className="container">
@@ -18,15 +18,21 @@ const Hero = () => {
                 className="wow fadeInUp mx-auto max-w-[800px] text-center"
                 data-wow-delay=".2s"
               >
-                <h1 className="mb-5 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
-                  Comprehensive Handwritten Notes for
-                  <span className="text-blue-600 dark:text-yellow-400"> MDU and IITM </span>
+                <h1 className="mb-6 text-4xl font-bold leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
+                  Comprehensive{" "}
+                  <span className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent">
+                    Handwritten Notes
+                  </span>{" "}
+                  for{" "}
+                  <span className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent">
+                    MDU and IITM
+                  </span>{" "}
                   BTech Courses Students.
                 </h1>
-
-                <p className="dark:text-body-color-dark mb-12 text-base !leading-relaxed text-body-color sm:text-lg md:text-xl ">
-                  Our platform offers a comprehensive collection of handwritten notes, previous year questions (PYQs), lab manuals, and EDGS sheets tailored for BTech students in  computer-related branches such as <span className="text-blue-600 dark:text-yellow-400 font-bold"> Computer Science (CS), Information Technology (IT), Artificial Intelligence & Machine Learning (AI & ML), Artificial Intelligence & Data Science (AI & DS), and more.</span> These resources are meticulously curated to support your academic journey, providing in-depth insights and practical knowledge across various computing disciplines.</p>
-                <div className="flex items-center justify-center space-x-4 flex-wrap md:flex-nowrap">
+                <p className="mb-8 text-base font-medium text-muted-foreground sm:text-lg md:text-xl lg:text-2xl">
+                  Our platform offers a comprehensive collection of handwritten notes, previous year papers, and other essential study materials to help you excel in your BTech journey.
+                </p>
+                <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
 
                   {/* 🔥 Get Notes Button */}
                   <motion.div
@@ -39,7 +45,7 @@ const Hero = () => {
                   >
                     <Link
                       href="/notes"
-                      className="rounded-md bg-gradient-to-r from-[#2563EB] to-[#3B82F6] hover:from-[#1E40AF] hover:to-[#2563EB] px-6 py-3 md:px-8 md:py-4 text-sm md:text-base font-semibold text-white overflow-hidden relative block"
+                      className="button-primary px-6 py-3 md:px-8 md:py-4 text-sm md:text-base overflow-hidden relative block bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-300 shadow-md transition duration-200 hover:from-emerald-600 hover:to-emerald-400"
                     >
                       🔥 Get Notes
                       <motion.div
@@ -62,7 +68,7 @@ const Hero = () => {
                   >
                     <Link
                       href="/pyqs"
-                      className="rounded-md bg-gradient-to-r from-[#4B5563] to-[#6B7280] hover:from-[#374151] hover:to-[#4B5563] px-6 py-3 md:px-8 md:py-4 text-sm md:text-base font-semibold text-white overflow-hidden relative block"
+                      className="button-secondary px-6 py-3 md:px-8 md:py-4 text-sm md:text-base overflow-hidden relative block bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-300 shadow-md transition duration-200 hover:from-emerald-600 hover:to-emerald-400"
                     >
                       📜 Get PYQs
                       <motion.div
@@ -87,22 +93,21 @@ const Hero = () => {
                 >
                   <Link
                     href="/youtube-explanation/semester"
-                    className="rounded-md bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 px-8 py-4 text-base font-semibold text-white overflow-hidden relative  mt-5 flex items-center justify-center mb-[-10px]"
+                    className="button-secondary px-8 py-4 text-base overflow-hidden relative mt-5 flex items-center justify-center mb-[-10px] bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-300 shadow-md transition duration-200 hover:from-emerald-600 hover:to-emerald-400"
                   >
                     {/* Image Wrapper */}
-                    <div className="w-10 h-10 mr-2">
+                    {/* <div className="w-10 h-10 mr-2">
                       <img
-                        src="https://static-00.iconduck.com/assets.00/youtube-icon-512x364-iqs00mng.png"
-                        alt="youtube"
+                        src="https://www.google.com/url?sa=i&url=https%3A%2F%2Ficons-for-free.com%2Fyou%2Byoutube%2Byt%2Bicon-1320183903610647272%2F&psig=AOvVaw3HGDwOjcMF-XuzbcW1UMWk&ust=1755607191470000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCOjQq8uwlI8DFQAAAAAdAAAAABAL"
                         className="w-full h-full object-contain"
                       />
-                    </div>
+                    </div> */}
 
-                    Get YouTube Explanation
+                    ▶️ Get YouTube Explanation
 
                     {/* Animated Shine Effect */}
                     <motion.div
-                      className="absolute inset-0 bg-white opacity-20"
+                      className="absolute inset-0 bg-white/20"
                       animate={{ x: ["-100%", "100%"] }}
                       transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
                     />
@@ -115,8 +120,10 @@ const Hero = () => {
             </div>
           </div>
         </div>
+{/* //hero section svg */}
         <div className="absolute right-0 top-0 z-[-1] opacity-30 lg:opacity-100">
-          <svg
+          <svg  
+            className="bgradient-to-r from-blue-500 to-purple-500"
             width="450"
             height="556"
             viewBox="0 0 450 556"

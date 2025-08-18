@@ -40,7 +40,7 @@ export default function SubjectPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className="min-h-screen flex flex-col items-center justify-center px-6 bg-white dark:bg-black text-gray-900 dark:text-white"
+      className="min-h-screen flex flex-col items-center justify-center px-6 bg-background text-foreground"
     >
       {/* Heading with Animation */}
       <motion.h1
@@ -49,32 +49,28 @@ export default function SubjectPage() {
         transition={{ duration: 0.6, delay: 0.2 }}
         className="text-4xl md:text-5xl font-extrabold mb-6 md:mb-8 text-center flex flex-col items-center"
       >
-        <span className="text-cyan-400">📖 Download Notes for</span>
-        <span className="text-yellow-400">{subject}</span>
+        <span className="text-primary">📖 Download Notes for</span>
+        <span className="text-secondary">{subject}</span>
       </motion.h1>
 
       {/* Animated Download Button */}
       <motion.div
         className="relative w-full max-w-xs md:max-w-md h-[100px] md:h-[120px] rounded-xl p-1"
-        whileHover={{ scale: 1.05 }}
+        whileHover={{ scale: 1.03 }}
       >
         {/* Inner Box */}
         <motion.a
           href={notesLink}
           target="_blank"
-          className="flex flex-col items-center justify-center w-full h-full rounded-lg shadow-md overflow-hidden relative text-lg font-bold"
-          whileHover={{ scale: 1.05 }}
-          style={{
-            backgroundColor: "#2563eb", // Blue color for both themes
-            color: "white",
-          }}
+          className="card flex flex-col items-center justify-center w-full h-full rounded-lg overflow-hidden relative text-lg font-bold bg-primary text-primary-foreground"
+          whileHover={{ scale: 1.01 }}
         >
           <span>🔥 Get {subject} Notes</span>
           <span className="text-sm opacity-75">Click to Download</span>
 
           {/* Light Flow Animation */}
           <motion.div
-            className="absolute inset-0 bg-white opacity-10"
+            className="absolute inset-0 bg-white/10"
             animate={{ x: ["-100%", "100%"] }}
             transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
           />

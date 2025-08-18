@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <>
       <footer
-        className="dark:bg-gray-dark bg-white pt-16 md:pt-20 lg:pt-24"
+        className="bg-background pt-16 md:pt-20 lg:pt-24 border-t border-border"
         data-wow-delay=".1s"
       >
         <div className="container">
@@ -29,14 +29,14 @@ const Footer = () => {
                     height={30}
                   />
                 </Link>
-                <p className="dark:text-body-color-dark mb-9 text-base leading-relaxed text-body-color ">
+                <p className="mb-9 text-base leading-relaxed text-muted-foreground ">
                   Elevating MDU and IITM B.Tech Success with Cutting-Edge Learning Resources
                 </p>
                 <div className="flex items-center">
                   <a
                     href="https://github.com/shbhmexe/Projects-2024"
                     aria-label="github"
-                    className="dark:text-body-color-dark mr-6 text-body-color duration-300 hover:text-primary dark:hover:text-primary"
+                    className="mr-6 text-muted-foreground duration-300 hover:text-primary"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -45,7 +45,7 @@ const Footer = () => {
                   <a
                     href="https://www.instagram.com/shbhm.exe/"
                     aria-label="instagram"
-                    className="dark:text-body-color-dark mr-6 text-body-color duration-300 hover:text-primary dark:hover:text-primary"
+                    className="mr-6 text-muted-foreground duration-300 hover:text-primary"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -54,7 +54,7 @@ const Footer = () => {
                   <a
                     href="https://www.linkedin.com/in/shubham-shukla-62095032a/"
                     aria-label="linkedin"
-                    className="dark:text-body-color-dark mr-6 text-body-color duration-300 hover:text-primary dark:hover:text-primary"
+                    className="mr-6 text-muted-foreground duration-300 hover:text-primary"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -63,7 +63,7 @@ const Footer = () => {
                   <a
                     href="https://discord.gg/BSfNGWHE"
                     aria-label="discord"
-                    className="dark:text-body-color-dark text-body-color duration-300 hover:text-primary dark:hover:text-primary  "
+                    className="text-muted-foreground duration-300 hover:text-primary  "
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -75,14 +75,14 @@ const Footer = () => {
 
             <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
               <div className="mb-12 lg:mb-16">
-                <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
+                <h2 className="mb-10 text-xl font-bold text-foreground">
                   Useful Links
                 </h2>
                 <ul>
                   <li>
                     <a
                       href="/blog"
-                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:hover:text-primary"
+                      className="mb-4 inline-block text-base text-muted-foreground duration-300 hover:text-primary"
                     >
                       Blog
                     </a>
@@ -91,7 +91,7 @@ const Footer = () => {
                   <li>
                     <a
                       href="/Aboutpage"
-                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:hover:text-primary"
+                      className="mb-4 inline-block text-base text-muted-foreground duration-300 hover:text-primary"
                     >
                       About
                     </a>
@@ -102,14 +102,14 @@ const Footer = () => {
 
             <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
               <div className="mb-12 lg:mb-16">
-                <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
+                <h2 className="mb-10 text-xl font-bold text-foreground">
                   Terms
                 </h2>
                 <ul>
                   <li>
                     <a
                       href="/privacy-policy"
-                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:hover:text-primary"
+                      className="mb-4 inline-block text-base text-muted-foreground duration-300 hover:text-primary"
                     >
                       Privacy Policy
                     </a>
@@ -120,14 +120,14 @@ const Footer = () => {
 
             <div className="w-full px-4 md:w-1/2 lg:w-4/12 xl:w-3/12">
               <div className="mb-12 lg:mb-16">
-                <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
+                <h2 className="mb-10 text-xl font-bold text-foreground">
                   Support & Help
                 </h2>
                 <ul>
                   <li>
                     <a
                       href="/contact"
-                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:hover:text-primary"
+                      className="mb-4 inline-block text-base text-muted-foreground duration-300 hover:text-primary"
                     >
                       Open Support Ticket
                     </a>
@@ -135,7 +135,7 @@ const Footer = () => {
                   <li>
                     <a
                       href="/Terms-Conditions"
-                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:hover:text-primary"
+                      className="mb-4 inline-block text-base text-muted-foreground duration-300 hover:text-primary"
                     >
                       Terms and Conditions
                     </a>
@@ -145,18 +145,19 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-300 to-transparent dark:via-gray-600 my-8"></div>
+          <div className="h-px w-full bg-gradient-to-r from-transparent via-border to-transparent my-8"></div>
           <div className="py-8">
-            <p className="text-center text-base text-body-color dark:text-white ">
-          © 2025 MDU-IITM LEARNING. Developed by  
-                <a
-                 className="underline text-blue-400 transition duration-300 ease-in-out hover:text-green-500 "
-                 target="_blank"
-                  rel="noopener noreferrer"
-                 href="https://www.linkedin.com/in/shubham-shukla-62095032a/"
-                >
-                _Shubham Shukla
-                </a>
+            <p className="text-center text-sm md:text-base text-muted-foreground">
+              © 2025 MDU-IITM LEARNING. Developed by
+              <a
+                href="https://www.linkedin.com/in/shubham-shukla-62095032a/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Shubham Shukla LinkedIn"
+                className="ml-2 inline-block text-primary font-semibold   transition-colors duration-200 hover:text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 rounded"
+              >
+                Shubham Shukla
+              </a>
             </p>
           </div>
         </div>

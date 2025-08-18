@@ -30,7 +30,7 @@ const Blog = ({
   const currentBlogs = blogData.slice(startIndex, endIndex);
   
   return (
-    <div className="mt-10">
+    <div className="mt-10 bg-background text-foreground">
       <Breadcrumb
         pageName="Blog Grid"
         description="Unlock the power of structured learning with insightful study techniques, expertly crafted to enhance your academic performance."
@@ -58,7 +58,7 @@ const Blog = ({
                 <li className="mx-1">
                   <Link
                     href={page > 1 ? `/blog?page=${page - 1}` : `/blog?page=1`}
-                    className={`flex h-9 min-w-[36px] items-center justify-center rounded-md bg-body-color bg-opacity-[15%] px-4 text-sm text-body-color transition hover:bg-primary hover:bg-opacity-100 hover:text-white ${page <= 1 ? 'cursor-not-allowed opacity-50' : ''}`}
+                    className={`flex h-9 min-w-[36px] items-center justify-center rounded-md bg-muted px-4 text-sm text-muted-foreground transition hover:bg-primary hover:text-primary-foreground ${page <= 1 ? 'cursor-not-allowed opacity-50' : ''}`}
                   >
                     Prev
                   </Link>
@@ -71,8 +71,8 @@ const Blog = ({
                       href={`/blog?page=${pageNum}`}
                       className={`flex h-9 min-w-[36px] items-center justify-center rounded-md ${
                         pageNum === page 
-                          ? 'bg-primary text-white' 
-                          : 'bg-body-color bg-opacity-[15%] text-body-color hover:bg-primary hover:bg-opacity-100 hover:text-white'
+                          ? 'bg-primary text-primary-foreground' 
+                          : 'bg-muted text-muted-foreground hover:bg-primary hover:text-primary-foreground'
                       } px-4 text-sm transition`}
                     >
                       {pageNum}
@@ -83,7 +83,7 @@ const Blog = ({
                 <li className="mx-1">
                   <Link
                     href={page < totalPages ? `/blog?page=${page + 1}` : `/blog?page=${totalPages}`}
-                    className={`flex h-9 min-w-[36px] items-center justify-center rounded-md bg-body-color bg-opacity-[15%] px-4 text-sm text-body-color transition hover:bg-primary hover:bg-opacity-100 hover:text-white ${page >= totalPages ? 'cursor-not-allowed opacity-50' : ''}`}
+                    className={`flex h-9 min-w-[36px] items-center justify-center rounded-md bg-muted px-4 text-sm text-muted-foreground transition hover:bg-primary hover:text-primary-foreground ${page >= totalPages ? 'cursor-not-allowed opacity-50' : ''}`}
                   >
                     Next
                   </Link>

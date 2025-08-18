@@ -38,8 +38,7 @@ export default function SemesterPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className="min-h-screen flex flex-col items-center justify-center px-4 py-10 md:py-20 transition-all duration-300 
-      bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:via-gray-950 dark:to-black text-black dark:text-white"
+      className="min-h-screen flex flex-col items-center justify-center px-4 py-10 md:py-20 transition-all duration-300 bg-background text-foreground"
     >
       {/* Semester Header */}
       <motion.h1
@@ -49,7 +48,7 @@ export default function SemesterPage() {
         className="text-3xl md:text-4xl font-extrabold mb-6 md:mb-10 text-center"
       >
         📚 Select Subject for Semester{" "}
-        <span className="text-blue-500 dark:text-cyan-400">{semesterNum}</span>
+        <span className="text-primary">{semesterNum}</span>
       </motion.h1>
 
       {/* Grid for Subjects */}
@@ -64,18 +63,16 @@ export default function SemesterPage() {
             >
               <Link
                 href={`/semester/${semesterNum}/subjects/${subject}`}
-                className="px-4 py-3 sm:px-6 sm:py-4 text-md sm:text-lg font-semibold text-gray-900 dark:text-gray-200 
-                bg-gradient-to-r from-green-400 to-green-500 dark:from-green-600 dark:to-green-700 
-                rounded-lg shadow-md transition-all duration-300 flex items-center justify-center"
+                className="px-4 py-3 sm:px-6 sm:py-4 text-md sm:text-lg font-semibold rounded-lg shadow-md transition-all duration-300 flex items-center justify-center bg-card text-foreground border border-border hover:shadow-md"
               >
-                <motion.span whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                <motion.span whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
                   {subject}
                 </motion.span>
               </Link>
             </motion.div>
           ))
         ) : (
-          <div className="col-span-2 sm:col-span-3 text-center text-lg text-gray-500">
+          <div className="col-span-2 sm:col-span-3 text-center text-lg text-muted-foreground">
             ⚠️ No subjects found for this semester.
           </div>
         )}

@@ -44,7 +44,7 @@ export default function UnitPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
-      className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:via-gray-950 dark:to-black text-black dark:text-white px-4"
+     className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground px-4"
     >
       <motion.h1
         initial={{ opacity: 0, y: -20 }}

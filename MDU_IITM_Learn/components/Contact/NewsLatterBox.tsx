@@ -43,13 +43,13 @@ const NewsLatterBox = () => {
 
   return (
     <div
-      className="wow fadeInUp shadow-three dark:bg-gray-dark relative z-10 rounded-sm bg-white p-8 sm:p-11 lg:p-8 xl:p-11"
+      className="wow fadeInUp card relative z-10 p-8 sm:p-11 lg:p-8 xl:p-11"
       data-wow-delay=".2s"
     >
-      <h3 className="mb-4 text-2xl font-bold leading-tight text-black dark:text-white">
+      <h3 className="mb-4 text-2xl font-bold leading-tight text-foreground">
         Subscribe to receive future updates
       </h3>
-      <p className="mb-6 border-b border-body-color border-opacity-25 pb-6 text-base leading-relaxed text-body-color dark:border-white dark:border-opacity-25">
+      <p className="mb-6 border-b border-border pb-6 text-base leading-relaxed text-muted-foreground">
         Enter your details to subscribe to our newsletter.
       </p>
 
@@ -61,7 +61,7 @@ const NewsLatterBox = () => {
           onChange={handleChange}
           placeholder="Enter your name"
           required
-          className="border-stroke dark:text-body-color-dark dark:shadow-two mb-4 w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
+          className="mb-4 w-full rounded-md border border-border bg-card px-6 py-3 text-base text-foreground outline-none focus:border-primary"
         />
         <input
           type="email"
@@ -70,12 +70,12 @@ const NewsLatterBox = () => {
           onChange={handleChange}
           placeholder="Enter your email"
           required
-          className="border-stroke dark:text-body-color-dark dark:shadow-two mb-4 w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
+          className="mb-4 w-full rounded-md border border-border bg-card px-6 py-3 text-base text-foreground outline-none focus:border-primary"
         />
         <button
           type="submit"
           disabled={loading}
-          className="shadow-submit dark:shadow-submit-dark mb-5 flex w-full cursor-pointer items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white duration-300 hover:bg-primary/90"
+          className="mb-5 flex w-full cursor-pointer items-center justify-center button-primary px-9 py-4 text-base"
         >
           {loading ? "Subscribing..." : "Subscribe"}
         </button>

@@ -19,7 +19,7 @@ export default function Syllabus() {
   };
 
   return (
-    <div className="p-6 text-center mb-12">
+    <div className="p-6 text-center mb-12 bg-background text-foreground">
       <h1 className="text-4xl sm:text-5xl md:text-6xl text-center px-4 mt-32 sm:mt-40 md:mt-52">
         For All Branch
       </h1>
@@ -42,12 +42,11 @@ export default function Syllabus() {
               <motion.div
                 whileHover={isAvailable ? { scale: 1.05, boxShadow: "0px 5px 15px rgba(0, 102, 255, 0.3)" } : {}}
                 whileTap={isAvailable ? { scale: 0.97 } : {}}
-                className={`p-4 rounded-lg transition-all text-lg font-semibold text-center
-                  ${
-                    isAvailable
-                      ? "bg-gradient-to-r from-blue-700 to-purple-700 text-white hover:from-blue-800 hover:to-purple-800"
-                      : "bg-gradient-to-r from-gray-700 to-gray-900 text-gray-300 cursor-not-allowed"
-                  }`}
+                className={`p-4 rounded-lg transition-all text-lg font-semibold text-center ${
+                  isAvailable
+                    ? "card border border-border bg-card text-foreground hover:shadow-md"
+                    : "bg-muted text-muted-foreground cursor-not-allowed"
+                }`}
               >
                 {semester.replace("semester", "Semester ")}{" "}
                 {!isAvailable && "(Not Available)"}
@@ -73,7 +72,7 @@ export default function Syllabus() {
                   boxShadow: "0px 5px 15px rgba(128, 0, 128, 0.3)",
                 }}
                 whileTap={{ scale: 0.97 }}
-                className="p-4 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-lg hover:from-pink-700 hover:to-purple-700 transition-all w-full"
+                className="p-4 button-secondary w-full"
                 onClick={() => window.open(link, "_blank")}
               >
                 {subject}
