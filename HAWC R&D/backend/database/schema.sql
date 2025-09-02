@@ -1,0 +1,22 @@
+CREATE DATABASE IF NOT EXISTS codeigniter_db;
+
+USE codeigniter_db;
+
+CREATE TABLE IF NOT EXISTS auth_user (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  first_name VARCHAR(100) NOT NULL,
+  last_name VARCHAR(100) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS teachers (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  university_name VARCHAR(255) NOT NULL,
+  gender ENUM('male', 'female', 'other') NOT NULL,
+  year_joined INT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES auth_user(id) ON DELETE CASCADE
+);

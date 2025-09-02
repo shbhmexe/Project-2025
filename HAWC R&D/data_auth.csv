@@ -1,0 +1,5 @@
+id,email,first_name,last_name,password,created_at
+1,test@example.com,John,Doe,$2b$10$QXocMDYdmBHtkPRIlarSN.Qr62Qk2bPG.lFTFRKw.unGarsZi1V/K,"2025-09-02 21:30:19"
+2,shubhushukla586@gmail.com,Shubham,shukla,$2b$10$1GfF5b43uS6vP3kaZUY3o.obRRf6.uEw/.rKP2lxILOCeseap3duW,"2025-09-02 21:57:22"
+3,example@gmail.com,John,Doe,$2b$10$sKxj3c5YPAsShZKpAxduWu0O79hQ2sK.efkNnbyFddEJptTObp6JS,"2025-09-02 22:38:18"
+4,shbhm@gmail.com,shbhm,Doe,$2b$10$GDDeVAQmUS0DVkZ1jABls.lv0rGB5keuKPs0HK1.XCFMOhakmBd1q,"2025-09-02 23:03:00"

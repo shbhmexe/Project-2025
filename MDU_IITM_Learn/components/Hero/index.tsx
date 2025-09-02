@@ -3,6 +3,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 
+
 const Hero = () => {
   return (
     <>
@@ -18,6 +19,7 @@ const Hero = () => {
                 className="wow fadeInUp mx-auto max-w-[800px] text-center"
                 data-wow-delay=".2s"
               >
+                
                 <h1 className="mb-6 text-4xl font-bold leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
                   Comprehensive{" "}
                   <span className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent">
