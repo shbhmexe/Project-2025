@@ -1,0 +1,102 @@
+[
+  {
+    "id": "1",
+    "name": "Wireless Bluetooth Headphones",
+    "slug": "wireless-bluetooth-headphones",
+    "description": "Premium noise-cancelling headphones with 30-hour battery life and crystal-clear audio quality.",
+    "price": 79.99,
+    "category": "Electronics",
+    "inventory": 45,
+    "lastUpdated": "2025-10-29T10:00:00Z"
+  },
+  {
+    "id": "2",
+    "name": "Smart Fitness Watch",
+    "slug": "smart-fitness-watch",
+    "description": "Track your fitness goals with heart rate monitoring, GPS, and sleep tracking capabilities.",
+    "price": 129.99,
+    "category": "Electronics",
+    "inventory": 8,
+    "lastUpdated": "2025-10-29T09:30:00Z"
+  },
+  {
+    "id": "3",
+    "name": "Ergonomic Office Chair",
+    "slug": "ergonomic-office-chair",
+    "description": "Comfortable office chair with lumbar support and adjustable height for long working hours.",
+    "price": 249.99,
+    "category": "Furniture",
+    "inventory": 15,
+    "lastUpdated": "2025-10-29T08:45:00Z"
+  },
+  {
+    "id": "4",
+    "name": "Mechanical Keyboard RGB",
+    "slug": "mechanical-keyboard-rgb",
+    "description": "Gaming keyboard with customizable RGB lighting and mechanical switches for precise typing.",
+    "price": 89.99,
+    "category": "Electronics",
+    "inventory": 32,
+    "lastUpdated": "2025-10-29T11:00:00Z"
+  },
+  {
+    "id": "5",
+    "name": "4K Webcam",
+    "slug": "4k-webcam",
+    "description": "Professional-grade webcam with 4K resolution, auto-focus, and built-in microphone.",
+    "price": 149.99,
+    "category": "Electronics",
+    "inventory": 3,
+    "lastUpdated": "2025-10-29T10:30:00Z"
+  },
+  {
+    "id": "6",
+    "name": "Portable SSD 1TB",
+    "slug": "portable-ssd-1tb",
+    "description": "Ultra-fast external storage with USB-C connectivity and compact design.",
+    "price": 119.99,
+    "category": "Electronics",
+    "inventory": 50,
+    "lastUpdated": "2025-10-29T09:00:00Z"
+  },
+  {
+    "id": "7",
+    "name": "Standing Desk Converter",
+    "slug": "standing-desk-converter",
+    "description": "Adjustable desk riser for ergonomic standing work setup with dual monitor support.",
+    "price": 179.99,
+    "category": "Furniture",
+    "inventory": 12,
+    "lastUpdated": "2025-10-29T08:00:00Z"
+  },
+  {
+    "id": "8",
+    "name": "Wireless Mouse",
+    "slug": "wireless-mouse",
+    "description": "Precision wireless mouse with ergonomic design and long battery life.",
+    "price": 34.99,
+    "category": "Electronics",
+    "inventory": 67,
+    "lastUpdated": "2025-10-29T11:15:00Z"
+  },
+  {
+    "id": "9",
+    "name": "USB-C Hub 7-in-1",
+    "slug": "usb-c-hub-7-in-1",
+    "description": "Multi-port USB-C hub with HDMI, USB 3.0, SD card reader, and power delivery.",
+    "price": 45.99,
+    "category": "Electronics",
+    "inventory": 5,
+    "lastUpdated": "2025-10-29T10:45:00Z"
+  },
+  {
+    "id": "10",
+    "name": "LED Desk Lamp",
+    "slug": "led-desk-lamp",
+    "description": "Adjustable LED lamp with multiple brightness levels and color temperatures.",
+    "price": 39.99,
+    "category": "Furniture",
+    "inventory": 28,
+    "lastUpdated": "2025-10-29T09:15:00Z"
+  }
+]
