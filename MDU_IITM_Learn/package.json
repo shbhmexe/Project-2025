@@ -19,7 +19,7 @@
     "framer-motion": "^12.4.3",
     "mongoose": "^8.10.1",
     "motion": "^12.23.12",
-    "next": "^15.1.7",
+    "next": "15.1.9",
     "next-seo": "^6.6.0",
     "next-sitemap": "^4.2.3",
     "next-themes": "^0.2.1",
