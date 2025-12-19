@@ -1,54 +1,72 @@
 "use client";
+
 import Link from "next/link";
 import { motion } from "framer-motion";
 
+import { Badge } from "@/components/ui/badge";
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+
 const semesters = ["1", "2", "3", "4", "5", "6", "7", "8"];
+const enabledSemesters = new Set(["1", "2"]);
 
 export default function PYQsPage() {
   return (
-    <motion.div
+    <motion.main
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-      className="min-h-screen flex flex-col items-center justify-center px-4 py-10 md:py-20 transition-all duration-300 bg-background text-foreground"
+      transition={{ duration: 0.4 }}
+      className="min-h-screen bg-background text-foreground pt-40 md:pt-44 pb-16"
     >
-      <motion.h1
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="text-3xl md:text-4xl font-extrabold mb-6 md:mb-10 text-center"
-      >
-        📜 Select Your{" "}
-        <span className="text-primary">Semester for PYQs</span>
-      </motion.h1>
+      <div className="container">
+        <div className="mx-auto max-w-2xl text-center">
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">PYQs</h1>
+          <p className="mt-2 text-muted-foreground">
+            Select a semester to open previous year question papers.
+          </p>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 w-full max-w-md sm:max-w-xl md:max-w-2xl">
-        {semesters.map((sem, index) => (
-          <motion.div
-            key={sem}
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-          >
-              {sem === "1" || sem === "2" ?  (
-              <Link
-                href={`/semester/${sem}/pyqs`}
-                className="px-4 py-3 sm:px-6 sm:py-4 text-md sm:text-lg font-semibold rounded-lg shadow-md transition-all duration-300 flex items-center justify-center bg-card text-foreground border border-border hover:shadow-md"
-              >
-                <motion.span whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                  Semester {sem}
-                </motion.span>
-              </Link>
-              ) : (
-              <div
-                  className="px-4 py-3 sm:px-6 sm:py-4 text-md sm:text-lg font-semibold text-muted-foreground bg-muted cursor-not-allowed rounded-lg shadow-md flex items-center justify-center"
-              >
-                🚫 Not Available
-              </div>
-            )}
-          </motion.div>
-        ))}
+          <div className="mt-4 flex flex-wrap justify-center gap-2">
+            <Badge variant="secondary">Sem 1–2 available</Badge>
+          </div>
+        </div>
+
+        <div className="mx-auto mt-12 grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {semesters.map((sem) => {
+            const enabled = enabledSemesters.has(sem);
+
+            if (enabled) {
+              return (
+                <Link
+                  key={sem}
+                  href={`/semester/${sem}/pyqs`}
+                  className="group block focus-visible:outline-none"
+                >
+                  <Card className="h-full transition-shadow group-hover:shadow-md group-focus-visible:ring-2 group-focus-visible:ring-ring group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-background">
+                    <CardHeader className="pb-4">
+                      <CardTitle>Semester {sem}</CardTitle>
+                      <CardDescription>View subject-wise PYQs</CardDescription>
+                    </CardHeader>
+                    <CardFooter className="pt-0">
+                      <span className="text-sm font-medium text-primary">Open →</span>
+                    </CardFooter>
+                  </Card>
+                </Link>
+              );
+            }
+
+            return (
+              <Card key={sem} className="h-full opacity-60">
+                <CardHeader className="pb-4">
+                  <CardTitle>Semester {sem}</CardTitle>
+                  <CardDescription>Coming soon</CardDescription>
+                </CardHeader>
+                <CardFooter className="pt-0">
+                  <Badge variant="secondary">Not available</Badge>
+                </CardFooter>
+              </Card>
+            );
+          })}
+        </div>
       </div>
-    </motion.div>
+    </motion.main>
   );
 }

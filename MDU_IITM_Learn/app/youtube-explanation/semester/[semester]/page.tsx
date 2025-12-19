@@ -1,57 +1,84 @@
-"use client";
-import { useParams, useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 const subjectsBySemester: Record<number, string[]> = {
   1: ["Mathematics-I", "Semiconductor-Physics", "English", "Basic-Electrical-Engineering"],
-  2: ["Mathematics-II", "Chemistry-I", "Programming For Problem Solving", "Workshop Technology"],
 };
 
-export default function SubjectPage() {
-  const params = useParams() as { semester?: string }; // 👈 Explicitly define the expected type
-  const router = useRouter();
-  
-  const semesterNum = Number(params.semester); // 👈 Now `params.semester` is correctly inferred
+function prettyLabel(slug: string) {
+  return slug.replace(/-/g, " ");
+}
 
-  if (isNaN(semesterNum) || !subjectsBySemester[semesterNum]) {
+export default function YouTubeSubjectsPage({ params }: { params: { semester: string } }) {
+  const semesterNum = Number(params.semester);
+  const subjects = subjectsBySemester[semesterNum] || [];
+
+  if (!params.semester || Number.isNaN(semesterNum) || subjects.length === 0) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center text-gray-900 dark:text-white">
-        <h1 className="text-2xl font-bold">Invalid Semester</h1>
-        <p>Please go back and select a valid semester.</p>
-      </div>
+      <main className="min-h-screen bg-background text-foreground pt-36 md:pt-40 pb-16">
+        <div className="container">
+          <Button asChild variant="ghost" className="gap-2">
+            <Link href="/youtube-explanation/semester">
+              <ArrowLeft className="h-4 w-4" />
+              Back
+            </Link>
+          </Button>
+
+          <div className="mx-auto mt-10 max-w-2xl text-center">
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Semester {params.semester}</h1>
+            <p className="mt-2 text-muted-foreground">YouTube explanations for this semester are not available yet.</p>
+
+            <div className="mt-4 flex flex-wrap justify-center gap-2">
+              <Badge variant="secondary">Coming soon</Badge>
+            </div>
+          </div>
+        </div>
+      </main>
     );
   }
 
-  const subjects = subjectsBySemester[semesterNum];
-
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center 
-      bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:via-gray-950 dark:to-black 
-      text-black dark:text-white transition-all duration-300">
-      
-      {/* Title */}
-      <h1 className="text-3xl font-bold mb-6">
-        Select Your <span className="text-blue-600">Subject :</span>
-      </h1>
+    <main className="min-h-screen bg-background text-foreground pt-36 md:pt-40 pb-16">
+      <div className="container">
+        <div className="flex items-center justify-between gap-4">
+          <Button asChild variant="ghost" className="gap-2">
+            <Link href="/youtube-explanation/semester">
+              <ArrowLeft className="h-4 w-4" />
+              Back
+            </Link>
+          </Button>
+          <Badge variant="secondary">YouTube</Badge>
+        </div>
 
-      {/* Subject Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-        {subjects.map((subject, index) => (
-          <motion.button
-            key={subject}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: index * 0.1 }}
-            className="px-6 py-3 rounded-lg font-semibold transition-all flex items-center justify-center w-44
-              bg-blue-600 text-white hover:bg-blue-700 shadow-md"
-            onClick={() => router.push(`/youtube-explanation/semester/${semesterNum}/${subject}`)}
-          >
-            {subject}
-          </motion.button>
-        ))}
+        <div className="mx-auto mt-6 max-w-2xl text-center">
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Semester {semesterNum}</h1>
+          <p className="mt-2 text-muted-foreground">Select a subject to browse unit-wise playlists.</p>
+        </div>
+
+        <div className="mx-auto mt-12 grid w-full max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {subjects.map((subject) => (
+            <Link
+              key={subject}
+              href={`/youtube-explanation/semester/${semesterNum}/${subject}`}
+              className="group block focus-visible:outline-none"
+            >
+              <Card className="h-full transition-shadow group-hover:shadow-md group-focus-visible:ring-2 group-focus-visible:ring-ring group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-background">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-base sm:text-lg">{prettyLabel(subject)}</CardTitle>
+                  <CardDescription>Browse units</CardDescription>
+                </CardHeader>
+                <CardFooter className="pt-0">
+                  <span className="text-sm font-medium text-primary">Open →</span>
+                </CardFooter>
+              </Card>
+            </Link>
+          ))}
+        </div>
       </div>
-    </div>
+    </main>
   );
 }

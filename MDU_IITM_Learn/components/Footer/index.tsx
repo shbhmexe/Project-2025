@@ -90,7 +90,7 @@ const Footer = () => {
 
                   <li>
                     <a
-                      href="/Aboutpage"
+                      href="/about"
                       className="mb-4 inline-block text-base text-muted-foreground duration-300 hover:text-primary"
                     >
                       About

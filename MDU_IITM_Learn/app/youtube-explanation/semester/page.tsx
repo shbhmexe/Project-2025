@@ -1,53 +1,71 @@
-"use client";
-import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import Link from "next/link";
+import type { Metadata } from "next";
 
-const semesters = [1, 2, 3, 4, 5, 6, 7, 8];
+import { Badge } from "@/components/ui/badge";
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
-export default function SemesterPage() {
-  const router = useRouter();
+export const metadata: Metadata = {
+  title: "YouTube Explanations | MDU IITM Learn",
+  description: "Semester-wise curated YouTube explanations for subjects and units.",
+};
 
+const semesters = ["1", "2", "3", "4", "5", "6", "7", "8"];
+const enabledSemesters = new Set(["1"]);
+
+export default function YouTubeSemesterPage() {
   return (
-    <div
-      className="min-h-screen flex flex-col items-center justify-center 
-      bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:via-gray-950 dark:to-black 
-      text-black dark:text-white transition-all duration-300"
-    >
-      {/* Title */}
-      <motion.h1
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="text-3xl font-bold mb-6 flex items-center gap-2"
-      >
-        Select Your <span className="text-blue-600">Semester :</span>
-      </motion.h1>
+    <main className="min-h-screen bg-background text-foreground pt-40 md:pt-44 pb-16">
+      <div className="container">
+        <div className="mx-auto max-w-2xl text-center">
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">YouTube Explanations</h1>
+          <p className="mt-2 text-muted-foreground">
+            Select a semester to browse subject-wise unit playlists and explanations.
+          </p>
 
-      {/* Semester Buttons */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {semesters.map((semester, index) => {
-          const isEnabled = semester === 1; // Enable only Semester 1 for now
+          <div className="mt-4 flex flex-wrap justify-center gap-2">
+            <Badge variant="secondary">Sem 1 available</Badge>
+            <Badge variant="outline">More coming soon</Badge>
+          </div>
+        </div>
 
-          return (
-            <motion.button
-              key={semester}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              whileHover={isEnabled ? { scale: 1.1 } : {}}
-              whileTap={isEnabled ? { scale: 0.95 } : {}}
-              onClick={() => isEnabled && router.push(`/youtube-explanation/semester/${semester}`)}
-              className={`px-6 py-3 rounded-lg font-semibold transition-all flex items-center justify-center w-36
-                ${isEnabled 
-                  ? "bg-blue-600 text-white hover:bg-blue-700 shadow-md cursor-pointer" 
-                  : "bg-gray-300 dark:bg-gray-800 text-gray-600 dark:text-gray-500 cursor-not-allowed"
-                }`}
-            >
-              Semester {semester} {!isEnabled && "🚫"}
-            </motion.button>
-          );
-        })}
+        <div className="mx-auto mt-12 grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {semesters.map((sem) => {
+            const enabled = enabledSemesters.has(sem);
+
+            if (enabled) {
+              return (
+                <Link
+                  key={sem}
+                  href={`/youtube-explanation/semester/${sem}`}
+                  className="group block focus-visible:outline-none"
+                >
+                  <Card className="h-full transition-shadow group-hover:shadow-md group-focus-visible:ring-2 group-focus-visible:ring-ring group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-background">
+                    <CardHeader className="pb-4">
+                      <CardTitle>Semester {sem}</CardTitle>
+                      <CardDescription>Browse subjects</CardDescription>
+                    </CardHeader>
+                    <CardFooter className="pt-0">
+                      <span className="text-sm font-medium text-primary">Open →</span>
+                    </CardFooter>
+                  </Card>
+                </Link>
+              );
+            }
+
+            return (
+              <Card key={sem} className="h-full opacity-60">
+                <CardHeader className="pb-4">
+                  <CardTitle>Semester {sem}</CardTitle>
+                  <CardDescription>Coming soon</CardDescription>
+                </CardHeader>
+                <CardFooter className="pt-0">
+                  <Badge variant="secondary">Not available</Badge>
+                </CardFooter>
+              </Card>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </main>
   );
 }

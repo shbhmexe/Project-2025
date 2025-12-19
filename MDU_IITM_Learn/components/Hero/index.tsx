@@ -39,21 +39,19 @@ const Hero = () => {
                   {/* 🔥 Get Notes Button */}
                   <motion.div
                     whileHover={{
-                      scale: 1.1,
-                      boxShadow: "0px 0px 15px rgba(30, 144, 255, 0.7)", // Soft vibrant blue glow
+                      scale: 1.06,
                     }}
-                    whileTap={{ scale: 0.95 }}
-                    className="relative"
+                    whileTap={{ scale: 0.97 }}
+                    className="relative flex w-full justify-center sm:w-auto"
                   >
                     <Link
                       href="/notes"
-                      className="button-primary px-6 py-3 md:px-8 md:py-4 text-sm md:text-base overflow-hidden relative block bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-300 shadow-md transition duration-200 hover:from-emerald-600 hover:to-emerald-400"
+                      className="group relative inline-flex w-full max-w-[340px] items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-emerald-500/25 ring-1 ring-white/15 transition-all duration-200 hover:shadow-emerald-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:w-auto sm:max-w-none sm:px-6 sm:py-3 sm:text-sm md:px-8 md:py-4 md:text-base"
                     >
-                      🔥 Get Notes
-                      <motion.div
-                        className="absolute inset-0 bg-white opacity-10"
-                        animate={{ x: ["-100%", "100%"] }}
-                        transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
+                      <span className="relative z-10">Get Notes</span>
+                      <span
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-0 -translate-x-full skew-x-12 bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 transition duration-700 group-hover:translate-x-full group-hover:opacity-100"
                       />
                     </Link>
                   </motion.div>
@@ -62,21 +60,19 @@ const Hero = () => {
                   {/* 📜 Get PYQs Button */}
                   <motion.div
                     whileHover={{
-                      scale: 1.1,
-                      boxShadow: "0px 0px 15px rgba(107, 114, 128, 0.6)", // Soft gray glow
+                      scale: 1.06,
                     }}
-                    whileTap={{ scale: 0.95 }}
-                    className="relative"
+                    whileTap={{ scale: 0.97 }}
+                    className="relative flex w-full justify-center sm:w-auto"
                   >
                     <Link
                       href="/pyqs"
-                      className="button-secondary px-6 py-3 md:px-8 md:py-4 text-sm md:text-base overflow-hidden relative block bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-300 shadow-md transition duration-200 hover:from-emerald-600 hover:to-emerald-400"
+                      className="group relative inline-flex w-full max-w-[340px] items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-emerald-500/25 ring-1 ring-white/15 transition-all duration-200 hover:shadow-emerald-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:w-auto sm:max-w-none sm:px-6 sm:py-3 sm:text-sm md:px-8 md:py-4 md:text-base"
                     >
-                      📜 Get PYQs
-                      <motion.div
-                        className="absolute inset-0 bg-white opacity-10"
-                        animate={{ x: ["-100%", "100%"] }}
-                        transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
+                      <span className="relative z-10">Get PYQs</span>
+                      <span
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-0 -translate-x-full skew-x-12 bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 transition duration-700 group-hover:translate-x-full group-hover:opacity-100"
                       />
                     </Link>
                   </motion.div>
@@ -87,31 +83,19 @@ const Hero = () => {
 
                 <motion.div
                   whileHover={{
-                    scale: 1.1,
-                    boxShadow: "0px 0px 15px rgba(139, 92, 246, 0.6)", // Soft purple glow
+                    scale: 1.06,
                   }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-fit mx-auto"
+                  whileTap={{ scale: 0.97 }}
+                  className="relative mx-auto flex w-full justify-center sm:w-fit"
                 >
                   <Link
                     href="/youtube-explanation/semester"
-                    className="button-secondary px-8 py-4 text-base overflow-hidden relative mt-5 flex items-center justify-center mb-[-10px] bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-300 shadow-md transition duration-200 hover:from-emerald-600 hover:to-emerald-400"
+                    className="group relative mt-5 mb-[-10px] inline-flex w-full max-w-[340px] items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-emerald-500/25 ring-1 ring-white/15 transition-all duration-200 hover:shadow-emerald-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:w-auto sm:max-w-none"
                   >
-                    {/* Image Wrapper */}
-                    {/* <div className="w-10 h-10 mr-2">
-                      <img
-                        src="https://www.google.com/url?sa=i&url=https%3A%2F%2Ficons-for-free.com%2Fyou%2Byoutube%2Byt%2Bicon-1320183903610647272%2F&psig=AOvVaw3HGDwOjcMF-XuzbcW1UMWk&ust=1755607191470000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCOjQq8uwlI8DFQAAAAAdAAAAABAL"
-                        className="w-full h-full object-contain"
-                      />
-                    </div> */}
-
-                    ▶️ Get YouTube Explanation
-
-                    {/* Animated Shine Effect */}
-                    <motion.div
-                      className="absolute inset-0 bg-white/20"
-                      animate={{ x: ["-100%", "100%"] }}
-                      transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
+                    <span className="relative z-10">Get YouTube Explanation</span>
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-0 -translate-x-full skew-x-12 bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 transition duration-700 group-hover:translate-x-full group-hover:opacity-100"
                     />
                   </Link>
 

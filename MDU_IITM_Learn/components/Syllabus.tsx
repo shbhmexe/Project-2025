@@ -1,86 +1,113 @@
 "use client";
+
 import { motion } from "framer-motion";
-import { useState, useRef } from "react";
+import { useMemo, useState } from "react";
+
 import { syllabusData } from "@/app/Syllabus/syllabusData";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+const AVAILABLE_SEMESTERS = ["semester1", "semester2"] as const;
+type AvailableSemester = (typeof AVAILABLE_SEMESTERS)[number];
+
+function labelSemester(semesterKey: string) {
+  return semesterKey.replace("semester", "Semester ");
+}
 
 export default function Syllabus() {
-  const [selectedSemester, setSelectedSemester] = useState<string | null>(null);
-  const subjectSectionRef = useRef<HTMLDivElement | null>(null);
+  const [activeSemester, setActiveSemester] = useState<AvailableSemester>("semester1");
+  const [query, setQuery] = useState("");
 
-  const handleSemesterClick = (semester: string) => {
-    setSelectedSemester(semester);
-
-    setTimeout(() => {
-      subjectSectionRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "center", // Bring subjects to the center
-      });
-    }, 300);
+  const filterSubjects = (semesterKey: AvailableSemester) => {
+    const entries = Object.entries(syllabusData[semesterKey] || {});
+    const q = query.trim().toLowerCase();
+    if (!q) return entries;
+    return entries.filter(([subject]) => subject.toLowerCase().includes(q));
   };
 
+  const totalSubjects = useMemo(() => {
+    return Object.keys(syllabusData[activeSemester] || {}).length;
+  }, [activeSemester]);
+
   return (
-    <div className="p-6 text-center mb-12 bg-background text-foreground">
-      <h1 className="text-4xl sm:text-5xl md:text-6xl text-center px-4 mt-32 sm:mt-40 md:mt-52">
-        For All Branch
-      </h1>
-      <br />
-      <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-center px-4 mb-4">
-        Select a Semester (Syllabus) :
-      </h1>
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+      className="min-h-screen bg-background text-foreground pt-40 md:pt-44 pb-16"
+    >
+      <div className="container">
+        <div className="mx-auto max-w-2xl text-center">
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Syllabus</h1>
+          <p className="mt-2 text-muted-foreground">
+            Semester-wise syllabus links for all branches.
+          </p>
 
-      {/* Semester Selection */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-20">
-        {Object.keys(syllabusData).map((semester) => {
-          const isAvailable = semester === "semester1" || semester === "semester2";
-
-          return (
-            <button
-              key={semester}
-              onClick={() => isAvailable && handleSemesterClick(semester)}
-              disabled={!isAvailable}
-            >
-              <motion.div
-                whileHover={isAvailable ? { scale: 1.05, boxShadow: "0px 5px 15px rgba(0, 102, 255, 0.3)" } : {}}
-                whileTap={isAvailable ? { scale: 0.97 } : {}}
-                className={`p-4 rounded-lg transition-all text-lg font-semibold text-center ${
-                  isAvailable
-                    ? "card border border-border bg-card text-foreground hover:shadow-md"
-                    : "bg-muted text-muted-foreground cursor-not-allowed"
-                }`}
-              >
-                {semester.replace("semester", "Semester ")}{" "}
-                {!isAvailable && "(Not Available)"}
-              </motion.div>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Subject Selection */}
-      {selectedSemester && (
-        <div className="mt-8 pb-20" ref={subjectSectionRef}>
-          <h2 className="text-3xl sm:text-5xl font-bold mb-6">
-            Subjects in {selectedSemester.replace("semester", "Semester ")} (Syllabus) :
-          </h2>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
-            {Object.entries(syllabusData[selectedSemester]).map(([subject, link]) => (
-              <motion.button
-                key={subject}
-                whileHover={{
-                  scale: 1.05,
-                  boxShadow: "0px 5px 15px rgba(128, 0, 128, 0.3)",
-                }}
-                whileTap={{ scale: 0.97 }}
-                className="p-4 button-secondary w-full"
-                onClick={() => window.open(link, "_blank")}
-              >
-                {subject}
-              </motion.button>
-            ))}
+          <div className="mt-4 flex flex-wrap justify-center gap-2">
+            <Badge variant="secondary">Sem 1–2 available</Badge>
+            <Badge variant="outline">More coming soon</Badge>
           </div>
         </div>
-      )}
-    </div>
+
+        <div className="mx-auto mt-12 max-w-5xl">
+          <Tabs value={activeSemester} onValueChange={(v) => setActiveSemester(v as AvailableSemester)}>
+            <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+              <TabsList>
+                <TabsTrigger value="semester1">Semester 1</TabsTrigger>
+                <TabsTrigger value="semester2">Semester 2</TabsTrigger>
+              </TabsList>
+
+              <div className="w-full sm:max-w-sm">
+                <Input
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search subjects..."
+                  aria-label="Search syllabus subjects"
+                />
+              </div>
+            </div>
+
+            <div className="mt-4 text-center text-sm text-muted-foreground">
+              {labelSemester(activeSemester)} • {totalSubjects} subjects
+            </div>
+
+            {AVAILABLE_SEMESTERS.map((semesterKey) => {
+              const items = filterSubjects(semesterKey);
+
+              return (
+                <TabsContent key={semesterKey} value={semesterKey}>
+                  {items.length > 0 ? (
+                    <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                      {items.map(([subject, link]) => (
+                        <Card key={subject} className="h-full">
+                          <CardHeader className="pb-4">
+                            <CardTitle className="text-base sm:text-lg">{subject}</CardTitle>
+                            <CardDescription>Open syllabus link</CardDescription>
+                          </CardHeader>
+                          <CardFooter className="pt-0">
+                            <Button asChild size="sm">
+                              <a href={link} target="_blank" rel="noopener noreferrer">
+                                Open
+                              </a>
+                            </Button>
+                          </CardFooter>
+                        </Card>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="mt-6 rounded-lg border border-border bg-card p-6 text-center text-sm text-muted-foreground">
+                      No subjects match “{query.trim()}”.
+                    </div>
+                  )}
+                </TabsContent>
+              );
+            })}
+          </Tabs>
+        </div>
+      </div>
+    </motion.main>
   );
 }

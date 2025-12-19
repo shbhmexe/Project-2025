@@ -1,82 +1,124 @@
-import Head from "next/head";
+import Link from "next/link";
+import type { Metadata } from "next";
 
-export default function TermsAndConditions() {
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+export const metadata: Metadata = {
+  title: "Terms & Conditions | MDU IITM Learn",
+  description: "Terms and conditions for using mduiitmlearn.app.",
+};
+
+const LAST_UPDATED = "December 19, 2025";
+
+const terms: Array<{ title: string; points: string[] }> = [
+  {
+    title: "1. Acceptance of terms",
+    points: [
+      "By accessing or using this website, you agree to these Terms & Conditions.",
+      "If you do not agree, please do not use the website.",
+    ],
+  },
+  {
+    title: "2. Educational purpose",
+    points: [
+      "MDU IITM Learn is an educational resource hub for students.",
+      "Content is provided for learning and convenience; always follow your official syllabus/department guidelines.",
+    ],
+  },
+  {
+    title: "3. Acceptable use",
+    points: [
+      "Do not misuse the site, attempt to break it, or interfere with other users.",
+      "Do not upload/post illegal content or attempt unauthorized access.",
+      "Do not use automated scraping/abuse that harms availability.",
+    ],
+  },
+  {
+    title: "4. Third‑party links",
+    points: [
+      "The site may link to Google Drive, YouTube, or other third-party services.",
+      "We are not responsible for third-party content, availability, or their policies.",
+    ],
+  },
+  {
+    title: "5. Intellectual property",
+    points: [
+      "The website UI, branding, and original content belong to their respective owners.",
+      "If you believe any linked material infringes your rights, contact us and we will review/remove links if needed.",
+    ],
+  },
+  {
+    title: "6. Disclaimer & limitation of liability",
+    points: [
+      "The website is provided “as is” without warranties.",
+      "We are not liable for any direct/indirect damages arising from use of the website or third-party links.",
+    ],
+  },
+  {
+    title: "7. Changes to these terms",
+    points: [
+      "We may update these terms from time to time.",
+      "When we update, we will revise the “Last updated” date on this page.",
+    ],
+  },
+];
+
+export default function TermsAndConditionsPage() {
   return (
-    <>
-      <Head>
-        <title>Terms and Conditions - https://www.mduiitmlearn.app</title>
-        <meta name="description" content="Terms and Conditions of Your Website" />
-      </Head>
+    <main className="min-h-screen bg-background text-foreground pt-40 md:pt-44 pb-16">
+      <div className="container">
+        <div className="mx-auto max-w-2xl text-center">
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Terms &amp; Conditions</h1>
+          <p className="mt-2 text-muted-foreground">Please read these terms carefully before using mduiitmlearn.app.</p>
 
-      <div className="max-w-4xl mx-auto px-6 py-12 mt-36 bg-white dark:bg-gray-800 shadow-lg rounded-lg border border-gray-300 dark:border-gray-700 transition-all duration-300 mb-10">
-        <h1 className="text-3xl font-bold text-center mb-6">Terms and Conditions</h1>
-
-        <div className="mb-4">
-          Welcome to <strong> https://www.mduiitmlearn.app </strong> By using our website, you agree to comply with the following terms and conditions. Please read them carefully.
-        </div>
-
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold">1. Acceptance of Terms</h2>
-          <div className="mb-4">
-            By accessing or using our website, you agree to be bound by these Terms and Conditions. If you do not agree, please do not use our website.
+          <div className="mt-4 flex flex-wrap justify-center gap-2">
+            <Badge variant="secondary">Last updated: {LAST_UPDATED}</Badge>
+            <Badge variant="outline">Educational resources</Badge>
           </div>
         </div>
 
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold">2. Use of Our Website</h2>
-          <div className="mb-4">
-            You agree to use our website for lawful purposes only. You must not engage in activities that:
-            <ul className="list-disc ml-6">
-              <li>Violate any laws or regulations.</li>
-              <li>Infringe on the rights of others.</li>
-              <li>Disrupt or interfere with our websites operation.</li>
-            </ul>
-          </div>
-        </div>
+        <div className="mx-auto mt-12 grid max-w-5xl grid-cols-1 gap-6 lg:grid-cols-2">
+          {terms.map((t) => (
+            <Card key={t.title}>
+              <CardHeader className="pb-4">
+                <CardTitle>{t.title}</CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm text-muted-foreground">
+                <ul className="list-disc space-y-2 pl-5">
+                  {t.points.map((p) => (
+                    <li key={p}>{p}</li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          ))}
 
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold">3. Intellectual Property</h2>
-          <div className="mb-4">
-            All content on this website, including text, images, logos, and trademarks, is the property of <strong>https://www.mduiitmlearn.app </strong> and is protected by copyright laws. You may not reproduce, distribute, or use our content without permission.
-          </div>
-        </div>
+          <Card className="lg:col-span-2">
+            <CardHeader className="pb-4">
+              <CardTitle>Contact</CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-muted-foreground">
+              <p>
+                Email:{" "}
+                <a className="font-medium text-primary hover:underline" href="mailto:mduiitmnotes@gmail.com">
+                  mduiitmnotes@gmail.com
+                </a>
+              </p>
 
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold">4. User Accounts</h2>
-          <div className="mb-4">
-            If you create an account on our website, you are responsible for maintaining the confidentiality of your login information. You agree to notify us immediately if your account is compromised.
-          </div>
-        </div>
-
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold">5. Limitation of Liability</h2>
-          <div className="mb-4">
-            We are not responsible for any direct, indirect, or incidental damages resulting from your use of our website.
-          </div>
-        </div>
-
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold">6. Third-Party Links</h2>
-          <div className="mb-4">
-            Our website may contain links to third-party sites. We are not responsible for the content or practices of these external websites.
-          </div>
-        </div>
-
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold">7. Changes to Terms</h2>
-          <div className="mb-4">
-            We may update these Terms and Conditions from time to time. Please check back regularly to stay informed.
-          </div>
-        </div>
-
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold">8. Contact Us</h2>
-          <div className="mb-4">
-            If you have any questions, feel free to contact us at{" "}
-            <a href="mailto: mduiitmnotes@gmail.com" className="text-blue-500">support@mduiitmlearn.com</a>.
-          </div>
+              <div className="mt-4 flex flex-wrap gap-3">
+                <Button asChild variant="outline" size="sm">
+                  <Link href="/privacy-policy">Privacy Policy</Link>
+                </Button>
+                <Button asChild variant="outline" size="sm">
+                  <Link href="/contact">Contact page</Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
-    </>
+    </main>
   );
 }

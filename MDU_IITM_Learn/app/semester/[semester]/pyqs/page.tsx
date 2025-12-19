@@ -1,80 +1,146 @@
 "use client";
+
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
+import { useMemo, useState } from "react";
+import { ArrowLeft } from "lucide-react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 
 const subjectsBySemester: Record<number, { name: string; link: string }[]> = {
   1: [
-    { name: "Mathematics - 1", link: "https://drive.google.com/drive/folders/1jPBob5pCBv9Ddh7PcU5iMdPJF1KDu4rE?usp=sharing" },
-    { name: "Semiconductor Physics", link: "https://drive.google.com/drive/folders/1PmR4R3zxFnWyUq9IHxgrlsx5PQuQTZVL?usp=drive_link" },
-    { name: "English", link: "https://drive.google.com/drive/folders/1DkizK3aTQ5wTLuqhwCtooTtZfzuNLJXj?usp=sharing" },
-    { name: "Basic Electrical Engineering", link: "https://drive.google.com/drive/folders/1fpYPmC3qPJH_DqeG9E5kvBzIYu8vETSG?usp=drive_link" },
+    {
+      name: "Mathematics - 1",
+      link: "https://drive.google.com/drive/folders/1jPBob5pCBv9Ddh7PcU5iMdPJF1KDu4rE?usp=sharing",
+    },
+    {
+      name: "Semiconductor Physics",
+      link: "https://drive.google.com/drive/folders/1PmR4R3zxFnWyUq9IHxgrlsx5PQuQTZVL?usp=drive_link",
+    },
+    {
+      name: "English",
+      link: "https://drive.google.com/drive/folders/1DkizK3aTQ5wTLuqhwCtooTtZfzuNLJXj?usp=sharing",
+    },
+    {
+      name: "Basic Electrical Engineering",
+      link: "https://drive.google.com/drive/folders/1fpYPmC3qPJH_DqeG9E5kvBzIYu8vETSG?usp=drive_link",
+    },
   ],
   2: [
-    { name: "Mathematics-II", link: "https://drive.google.com/drive/folders/1qYA8sZTuhWhr_H-nRE_i_iJawAEHNkm_?usp=drive_link" },
-    { name: "Chemistry-I", link: "https://drive.google.com/drive/folders/1eor4OspUxRJt7o4aKm0XTifQZk3ma0KD?usp=sharing" },
-    { name: "PPS", link: "https://drive.google.com/drive/folders/1jQYnqrFXjlhLI5zXjsSk3zyz0i92LcWV?usp=drive_link" },
-    { name: "Workshop Technology", link: "https://drive.google.com/drive/folders/18EP9O6bcMTv9kgFnszftTOcKgIkHkmc5?usp=sharing" },
+    {
+      name: "Mathematics-II",
+      link: "https://drive.google.com/drive/folders/1qYA8sZTuhWhr_H-nRE_i_iJawAEHNkm_?usp=drive_link",
+    },
+    {
+      name: "Chemistry-I",
+      link: "https://drive.google.com/drive/folders/1eor4OspUxRJt7o4aKm0XTifQZk3ma0KD?usp=sharing",
+    },
+    {
+      name: "PPS",
+      link: "https://drive.google.com/drive/folders/1jQYnqrFXjlhLI5zXjsSk3zyz0i92LcWV?usp=drive_link",
+    },
+    {
+      name: "Workshop Technology",
+      link: "https://drive.google.com/drive/folders/18EP9O6bcMTv9kgFnszftTOcKgIkHkmc5?usp=sharing",
+    },
   ],
 };
 
 export default function PYQSubjectsPage() {
   const params = useParams();
-  
-  // ✅ Safely extract semester param
+
   const semesterParam = params?.semester;
   const semester = Array.isArray(semesterParam) ? semesterParam[0] : semesterParam;
   const semesterNum = Number(semester);
 
-  // ✅ Handle invalid semester
-  if (isNaN(semesterNum) || !subjectsBySemester[semesterNum]) {
+  const [query, setQuery] = useState("");
+
+  const subjects = useMemo(() => {
+    return subjectsBySemester[semesterNum] || [];
+  }, [semesterNum]);
+
+  const filteredSubjects = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return subjects;
+    return subjects.filter((s) => s.name.toLowerCase().includes(q));
+  }, [query, subjects]);
+
+  if (!semester || Number.isNaN(semesterNum) || subjects.length === 0) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center text-gray-900 dark:text-white">
-        <h1 className="text-2xl font-bold">Invalid Semester</h1>
-        <p className="text-lg">Please go back and select a valid semester or Not available right now.</p>
+      <div className="min-h-screen flex items-center justify-center text-xl font-semibold text-destructive">
+        ❌ Invalid semester.
       </div>
     );
   }
 
-  const subjects = subjectsBySemester[semesterNum];
-
   return (
-    <motion.div
+    <motion.main
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-      className="min-h-screen flex flex-col items-center justify-center px-4 py-10 md:py-20 transition-all duration-300 bg-background text-foreground"
+      transition={{ duration: 0.4 }}
+      className="min-h-screen bg-background text-foreground pt-36 md:pt-40 pb-16"
     >
-      <motion.h1
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="text-3xl md:text-4xl font-extrabold mb-6 md:mb-10 text-center"
-      >
-        📜 Select Subject for PYQs{" "}
-        <span className="text-primary">Semester {semesterNum}</span>
-      </motion.h1>
+      <div className="container">
+        <div className="flex items-center justify-between gap-4">
+          <Button asChild variant="ghost" className="gap-2">
+            <Link href="/pyqs">
+              <ArrowLeft className="h-4 w-4" />
+              Back
+            </Link>
+          </Button>
+          <Badge variant="secondary">PYQs</Badge>
+        </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 w-full max-w-md sm:max-w-xl md:max-w-2xl">
-        {subjects.map((subject, index) => (
-          <motion.div
-            key={subject.name}
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-          >
-            <a
-              href={subject.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-3 sm:px-6 sm:py-4 text-md sm:text-lg font-semibold rounded-lg shadow-md transition-all duration-300 flex items-center justify-center bg-card text-foreground border border-border hover:shadow-md"
-            >
-              <motion.span whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                {subject.name}
-              </motion.span>
-            </a>
-          </motion.div>
-        ))}
+        <div className="mx-auto mt-6 max-w-2xl text-center">
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            Semester {semesterNum}
+          </h1>
+          <p className="mt-2 text-muted-foreground">
+            Select a subject to open the PYQs folder.
+          </p>
+        </div>
+
+        <div className="mx-auto mt-6 w-full max-w-md">
+          <Input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search subjects..."
+            aria-label="Search subjects"
+          />
+        </div>
+
+        <div className="mx-auto mt-12 grid w-full max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {filteredSubjects.length > 0 ? (
+            filteredSubjects.map((subject) => (
+              <a
+                key={subject.name}
+                href={subject.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block focus-visible:outline-none"
+              >
+                <Card className="h-full transition-shadow group-hover:shadow-md group-focus-visible:ring-2 group-focus-visible:ring-ring group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-background">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-base sm:text-lg">{subject.name}</CardTitle>
+                    <CardDescription>Open in Google Drive</CardDescription>
+                  </CardHeader>
+                  <CardFooter className="pt-0">
+                    <span className="text-sm font-medium text-primary">Open →</span>
+                  </CardFooter>
+                </Card>
+              </a>
+            ))
+          ) : (
+            <div className="col-span-full rounded-lg border border-border bg-card p-6 text-center text-sm text-muted-foreground">
+              No subjects match “{query.trim()}”.
+            </div>
+          )}
+        </div>
       </div>
-    </motion.div>
+    </motion.main>
   );
 }

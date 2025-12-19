@@ -1,82 +1,129 @@
 "use client";
-import { useParams } from "next/navigation";
+
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
+import { useMemo, useState } from "react";
+import { ArrowLeft } from "lucide-react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 
 const subjectsBySemester: Record<number, string[]> = {
-  1: ["Mathematics-I", "Semiconductor-Physics", "English", "Basic-Electrical-Engineering", "EDG-Sheets", "Physics-Lab", "BEE-Lab"],
-  2: ["Mathematics-II", "Chemistry-I", "PPS", "Workshop-Technology", "Chemistry-Lab-1", "Programming-in-C-Lab", "Language-Lab", "Manufacturing-lab"],
-  // 3: ["DBMS", "OS", "CN"],
-  // 4: ["AI", "ML", "Software Engineering"],
-  // 5: ["Mathematics", "Physics", "Chemistry"],
-  // 6: ["Data Structures", "OOPs", "Discrete Math"],
-  // 7: ["DBMS", "OS", "CN"],
-  // 8: ["AI", "ML", "Software Engineering"],
+  1: [
+    "Mathematics-I",
+    "Semiconductor-Physics",
+    "English",
+    "Basic-Electrical-Engineering",
+    "EDG-Sheets",
+    "Physics-Lab",
+    "BEE-Lab",
+  ],
+  2: [
+    "Mathematics-II",
+    "Chemistry-I",
+    "PPS",
+    "Workshop-Technology",
+    "Chemistry-Lab-1",
+    "Programming-in-C-Lab",
+    "Language-Lab",
+    "Manufacturing-lab",
+  ],
 };
 
 export default function SemesterPage() {
   const params = useParams();
 
-  // ✅ Proper type assertion for params
   const semesterParam = params?.semester;
-  
-  // ✅ Handle cases where semester is undefined or an array
-  if (!semesterParam || Array.isArray(semesterParam)) {
+  const semester = Array.isArray(semesterParam) ? semesterParam[0] : semesterParam;
+  const semesterNum = Number(semester);
+
+  const [query, setQuery] = useState("");
+
+  const subjects = useMemo(() => {
+    return subjectsBySemester[semesterNum] || [];
+  }, [semesterNum]);
+
+  const filteredSubjects = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return subjects;
+    return subjects.filter((s) => s.toLowerCase().includes(q));
+  }, [query, subjects]);
+
+  if (!semester || Number.isNaN(semesterNum)) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-xl font-bold text-red-500">
+      <div className="min-h-screen flex items-center justify-center text-xl font-semibold text-destructive">
         ❌ Error: Semester not found!
       </div>
     );
   }
 
-  // ✅ Convert string to number safely
-  const semesterNum = Number(semesterParam);
-  const subjects = subjectsBySemester[semesterNum] || [];
-
   return (
-    <motion.div
+    <motion.main
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-      className="min-h-screen flex flex-col items-center justify-center px-4 py-10 md:py-20 transition-all duration-300 bg-background text-foreground"
+      transition={{ duration: 0.4 }}
+      className="min-h-screen bg-background text-foreground pt-36 md:pt-40 pb-16"
     >
-      {/* Semester Header */}
-      <motion.h1
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="text-3xl md:text-4xl font-extrabold mb-6 md:mb-10 text-center"
-      >
-        📚 Select Subject for Semester{" "}
-        <span className="text-primary">{semesterNum}</span>
-      </motion.h1>
+      <div className="container">
+        <div className="flex items-center justify-between gap-4">
+          <Button asChild variant="ghost" className="gap-2">
+            <Link href="/notes">
+              <ArrowLeft className="h-4 w-4" />
+              Back
+            </Link>
+          </Button>
+          <Badge variant="secondary">Notes</Badge>
+        </div>
 
-      {/* Grid for Subjects */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 w-full max-w-md sm:max-w-xl md:max-w-2xl">
-        {subjects.length > 0 ? (
-          subjects.map((subject, index) => (
-            <motion.div
-              key={subject}
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
+        <div className="mx-auto mt-6 max-w-2xl text-center">
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            Semester {semesterNum}
+          </h1>
+          <p className="mt-2 text-muted-foreground">
+            Select a subject to open the notes folder/file.
+          </p>
+        </div>
+
+        <div className="mx-auto mt-6 w-full max-w-md">
+          <Input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search subjects..."
+            aria-label="Search subjects"
+          />
+        </div>
+
+        <div className="mx-auto mt-12 grid w-full max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {filteredSubjects.length > 0 ? (
+            filteredSubjects.map((subject) => (
               <Link
+                key={subject}
                 href={`/semester/${semesterNum}/subjects/${subject}`}
-                className="px-4 py-3 sm:px-6 sm:py-4 text-md sm:text-lg font-semibold rounded-lg shadow-md transition-all duration-300 flex items-center justify-center bg-card text-foreground border border-border hover:shadow-md"
+                className="group block focus-visible:outline-none"
               >
-                <motion.span whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-                  {subject}
-                </motion.span>
+                <Card className="h-full transition-shadow group-hover:shadow-md group-focus-visible:ring-2 group-focus-visible:ring-ring group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-background">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-base sm:text-lg">
+                      {subject.replace(/-/g, " ")}
+                    </CardTitle>
+                    <CardDescription>Open notes</CardDescription>
+                  </CardHeader>
+                  <CardFooter className="pt-0">
+                    <span className="text-sm font-medium text-primary">View →</span>
+                  </CardFooter>
+                </Card>
               </Link>
-            </motion.div>
-          ))
-        ) : (
-          <div className="col-span-2 sm:col-span-3 text-center text-lg text-muted-foreground">
-            ⚠️ No subjects found for this semester.
-          </div>
-        )}
+            ))
+          ) : (
+            <div className="col-span-full rounded-lg border border-border bg-card p-6 text-center text-sm text-muted-foreground">
+              No subjects match “{query.trim()}”.
+            </div>
+          )}
+        </div>
       </div>
-    </motion.div>
+    </motion.main>
   );
 }

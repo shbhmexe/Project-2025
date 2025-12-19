@@ -1,6 +1,9 @@
-"use client";
-import { useParams, useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 const unitsBySubject: Record<string, string[]> = {
   "Mathematics-I": [
@@ -18,83 +21,84 @@ const unitsBySubject: Record<string, string[]> = {
   "Semiconductor-Physics": ["1", "2", "3", "4"],
   English: ["1", "2"],
   "Basic-Electrical-Engineering": ["1", "2", "3", "4", "Electrical ONE SHOT"],
-  // "Chemistry-I": ["1", "2", "3"]
 };
 
-export default function UnitPage() {
-  const params = useParams() ?? {};
-  const router = useRouter();
+function prettyLabel(slug: string) {
+  return slug.replace(/-/g, " ");
+}
 
-  const subject = Array.isArray(params.subject) ? params.subject[0] : params.subject ?? "";
-  const semester = Array.isArray(params.semester) ? params.semester[0] : params.semester ?? "";
+function unitLabel(unit: string) {
+  return /^\d+$/.test(unit) ? `Unit ${unit}` : unit;
+}
 
-  if (!subject || !unitsBySubject[subject]) {
+export default function YouTubeUnitsPage({
+  params,
+}: {
+  params: { semester: string; subject: string };
+}) {
+  const semester = params.semester;
+  const subject = decodeURIComponent(params.subject);
+
+  const units = unitsBySubject[subject] || [];
+
+  if (!semester || !subject || units.length === 0) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center text-gray-900 dark:text-white">
-        <h1 className="text-2xl font-bold">Invalid Subject</h1>
-        <p>Please go back and select a valid subject.</p>
-      </div>
+      <main className="min-h-screen bg-background text-foreground pt-36 md:pt-40 pb-16">
+        <div className="container">
+          <Button asChild variant="ghost" className="gap-2">
+            <Link href="/youtube-explanation/semester">
+              <ArrowLeft className="h-4 w-4" />
+              Back
+            </Link>
+          </Button>
+
+          <div className="mx-auto mt-10 max-w-2xl text-center">
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Invalid subject</h1>
+            <p className="mt-2 text-muted-foreground">Please go back and select a valid subject.</p>
+          </div>
+        </div>
+      </main>
     );
   }
 
-  const units = unitsBySubject[subject];
-
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.3 }}
-     className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground px-4"
-    >
-      <motion.h1
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="text-3xl font-bold mb-6 transition-all duration-300"
-      >
-        Select Your <span className="text-blue-600 transition-all duration-300">Unit</span> :
-      </motion.h1>
+    <main className="min-h-screen bg-background text-foreground pt-36 md:pt-40 pb-16">
+      <div className="container">
+        <div className="flex items-center justify-between gap-4">
+          <Button asChild variant="ghost" className="gap-2">
+            <Link href={`/youtube-explanation/semester/${semester}`}>
+              <ArrowLeft className="h-4 w-4" />
+              Back
+            </Link>
+          </Button>
+          <Badge variant="secondary">YouTube</Badge>
+        </div>
 
-      {/* ✅ 3-LINE RESPONSIVE GRID LAYOUT ✅ */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-w-4xl">
-        {units.map((unit, index) => (
-          <motion.button
-            key={unit}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: index * 0.1 }}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-lg font-semibold"
-            onClick={() => router.push(`/youtube-explanation/semester/${semester}/${subject}/${unit}`)}
-          >
-            {unit}
-          </motion.button>
-        ))}
+        <div className="mx-auto mt-6 max-w-2xl text-center">
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{prettyLabel(subject)}</h1>
+          <p className="mt-2 text-muted-foreground">Select a unit to open YouTube in a new tab.</p>
+        </div>
+
+        <div className="mx-auto mt-12 grid w-full max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {units.map((unit) => (
+            <Link
+              key={unit}
+              href={`/youtube-explanation/semester/${semester}/${encodeURIComponent(subject)}/${encodeURIComponent(unit)}`}
+              className="group block focus-visible:outline-none"
+            >
+              <Card className="h-full transition-shadow group-hover:shadow-md group-focus-visible:ring-2 group-focus-visible:ring-ring group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-background">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-base sm:text-lg">{unitLabel(unit)}</CardTitle>
+                  <CardDescription>Open on YouTube</CardDescription>
+                </CardHeader>
+                <CardFooter className="pt-0">
+                  <span className="text-sm font-medium text-primary">Open →</span>
+                </CardFooter>
+              </Card>
+            </Link>
+          ))}
+        </div>
       </div>
-
-      {/* Divider */}
-      {/* <div className="w-4/5 md:w-2/3 border-t border-gray-400 dark:border-gray-600 mt-20"></div> */}
-
-      {/* ⚠️ Caution Message */}
-      {/* <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.5 }}
-        className="mt-4 text-center"
-      >
-        <h2 className="text-lg font-semibold flex items-center justify-center gap-2">
-          ⚠️ Caution Before Opening Notes
-        </h2>
-        <p className="text-sm text-gray-700 dark:text-gray-300 mt-1">
-          For a <strong>better experience</strong>, install an <strong>AdBlocker extension</strong> on <strong>desktop</strong>
-          or use <strong>Private DNS</strong> on <strong>mobile</strong>:
-        </p>
-
-        <p className="text-sm font-semibold mt-1">
-          DNS: <code className="bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded">dns.adguard.com</code>
-        </p>
-      </motion.div> */}
-    </motion.div>
+    </main>
   );
 }
