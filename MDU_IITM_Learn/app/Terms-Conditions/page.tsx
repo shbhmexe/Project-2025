@@ -4,7 +4,7 @@ export default function TermsAndConditions() {
   return (
     <>
       <Head>
-        <title>Terms and Conditions - https://mduiitmlearn.vercel.app</title>
+        <title>Terms and Conditions - https://www.mduiitmlearn.app</title>
         <meta name="description" content="Terms and Conditions of Your Website" />
       </Head>
 
@@ -12,7 +12,7 @@ export default function TermsAndConditions() {
         <h1 className="text-3xl font-bold text-center mb-6">Terms and Conditions</h1>
 
         <div className="mb-4">
-          Welcome to <strong> https://mduiitmlearn.vercel.app </strong> By using our website, you agree to comply with the following terms and conditions. Please read them carefully.
+          Welcome to <strong> https://www.mduiitmlearn.app </strong> By using our website, you agree to comply with the following terms and conditions. Please read them carefully.
         </div>
 
         <div className="mt-6">
@@ -37,7 +37,7 @@ export default function TermsAndConditions() {
         <div className="mt-6">
           <h2 className="text-xl font-semibold">3. Intellectual Property</h2>
           <div className="mb-4">
-            All content on this website, including text, images, logos, and trademarks, is the property of <strong>https://mduiitmlearn.vercel.app </strong> and is protected by copyright laws. You may not reproduce, distribute, or use our content without permission.
+            All content on this website, including text, images, logos, and trademarks, is the property of <strong>https://www.mduiitmlearn.app </strong> and is protected by copyright laws. You may not reproduce, distribute, or use our content without permission.
           </div>
         </div>
 

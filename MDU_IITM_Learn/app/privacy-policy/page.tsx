@@ -7,7 +7,7 @@ export default function PrivacyPolicy() {
     <>
     
       <Head>
-        <title>Privacy Policy - https://mduiitmlearn.vercel.app</title>
+        <title>Privacy Policy - https://www.mduiitmlearn.app</title>
         <meta name="description" content="Privacy Policy of Your Website" />
       </Head>
 
@@ -32,7 +32,7 @@ export default function PrivacyPolicy() {
           transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
           className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6"
         >
-          Welcome to <strong className="text-blue-600 dark:text-blue-400">https://mduiitmlearn.vercel.app </strong> 
+          Welcome to <strong className="text-blue-600 dark:text-blue-400">https://www.mduiitmlearn.app </strong> 
           We respect your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and protect your information.
         </motion.p>
 

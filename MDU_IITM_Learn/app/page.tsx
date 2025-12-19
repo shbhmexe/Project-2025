@@ -21,18 +21,18 @@ export const metadata: Metadata = {
   authors: [
     {
       name: "Shubham Shukla",
-      url: "https://mduiitmlearn.vercel.app", // ✅ Ensure HTTPS is included
+      url: "https://www.mduiitmlearn.app", // ✅ Ensure HTTPS is included
     },
   ],
   openGraph: {
     title: "MDU, IITM, DITM, MVSIT & AKIDO B.Tech Notes, EDG Sheets & PYQs – Best Study Resources",
     description:
       "Get semester-wise study resources, previous year questions, and notes in one place.",
-    url: "https://mduiitmlearn.vercel.app",
+    url: "https://www.mduiitmlearn.app",
     siteName: "MDU ROHTAK IITM JANAKPURI",
     images: [
       {
-        url: "https://mduiitmlearn.vercel.app/logo/brand1.png", // ✅ Full URL required for SEO
+        url: "https://www.mduiitmlearn.app/logo/brand1.png", // ✅ Full URL required for SEO
         width: 1200,
         height: 630,
         alt: "MDU IITM Study Resources",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     description:
       "Access MDU IITM notes, PYQs, syllabus, study resources, EDGE sheets, and practical files in one place!",
     images: [
-      "https://mduiitmlearn.vercel.app/logo/1.png", // ✅ Full URL for Twitter Cards
+      "https://www.mduiitmlearn.app/logo/1.png", // ✅ Full URL for Twitter Cards
     ],
   },
   robots: "index, follow",

@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }) {
         <meta property="og:description" content="Comprehensive handwritten notes for BTech students." />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="/logo/ogimage.png" />
-        <meta property="og:url" content="https://mduiitmlearn.vercel.app" />
+        <meta property="og:url" content="https://www.mduiitmlearn.app" />
         <meta name="meta:description" content="Comprehensive handwritten notes for BTech students." />
 
         {/* ✅ Structured Data JSON-LD */}
@@ -22,38 +22,38 @@ function MyApp({ Component, pageProps }) {
           "@context": "https://schema.org",
           "@type": "WebSite",
           "name": "MDU IITM Learn",
-          "url": "https://mduiitmlearn.vercel.app/",
+          "url": "https://www.mduiitmlearn.app/",
           "description": "Get semester-wise notes, PYQs, EDG sheets, practical files, and lab manuals for MDU, IITM, DITM, MVSIT, and AKIDO.",
           "publisher": {
             "@type": "Organization",
             "name": "MDU IITM Learn",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://mduiitmlearn.vercel.app/logo.png",
+              "url": "https://www.mduiitmlearn.app/logo.png",
               "width": 600,
               "height": 600
             }
           },
           "potentialAction": {
             "@type": "SearchAction",
-            "target": "https://mduiitmlearn.vercel.app/search?q={search_term}",
+            "target": "https://www.mduiitmlearn.app/search?q={search_term}",
             "query-input": "required name=search_term"
           },
           "hasPart": [
             {
               "@type": "CollectionPage",
               "name": "Notes",
-              "url": "https://mduiitmlearn.vercel.app/notes"
+              "url": "https://www.mduiitmlearn.app/notes"
             },
             {
               "@type": "CollectionPage",
               "name": "Previous Year Questions",
-              "url": "https://mduiitmlearn.vercel.app/pyqs"
+              "url": "https://www.mduiitmlearn.app/pyqs"
             },
             {
               "@type": "CollectionPage",
               "name": "Syllabus",
-              "url": "https://mduiitmlearn.vercel.app/syllabus"
+              "url": "https://www.mduiitmlearn.app/syllabus"
             }
           ],
           "educationalOrganization": {
@@ -78,12 +78,12 @@ function MyApp({ Component, pageProps }) {
               {
                 "@type": "CreativeWork",
                 "name": "Semester 1 Notes",
-                "url": "https://mduiitmlearn.vercel.app/notes/semester-1"
+                "url": "https://www.mduiitmlearn.app/notes/semester-1"
               },
               {
                 "@type": "CreativeWork",
                 "name": "Semester 2 Notes",
-                "url": "https://mduiitmlearn.vercel.app/notes/semester-2"
+                "url": "https://www.mduiitmlearn.app/notes/semester-2"
               }
             ]
           }

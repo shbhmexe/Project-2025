@@ -132,7 +132,7 @@ mdu-IITM-learn/
 
 ### Students
 
-1. Visit the platform at [https://mduiitmlearn.vercel.app/](https://mduiitmlearn.vercel.app/)
+1. Visit the platform at [https://www.mduiitmlearn.app/](https://www.mduiitmlearn.app/)
 2. Create an account or log in with your student credentials
 3. Navigate through the different sections to access study materials
 4. Download resources for offline study
@@ -202,7 +202,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 For any queries or suggestions, please reach out to:
 - **Email**: [mduiitmnotes@gmail.com](mailto:mduiitmnotes@gmail.com)
-- **Website**: [https://mduiitmlearn.vercel.app/](https://mduiitmlearn.vercel.app/)
+- **Website**: [https://www.mduiitmlearn.app/](https://www.mduiitmlearn.app/)
 
 ## Author
 👨‍💻 **Shubham Shukla**

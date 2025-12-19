@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://mduitmlearn.vercel.app",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://www.mduiitmlearn.app",
   generateRobotsTxt: false,
   generateIndexSitemap: false,
   sitemapSize: 5000,
@@ -8,7 +8,7 @@ module.exports = {
 
   robotsTxtOptions: {
     additionalSitemaps: [
-      "https://mduitmlearn.vercel.app/sitemap.xml"
+      "https://www.mduiitmlearn.app/sitemap.xml"
     ],
     policies: [
       {
