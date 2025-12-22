@@ -59,7 +59,7 @@ function TypewriterLine({
                             {line.prefix}{" "}
                         </span>
                     )}
-                    <span className={isVisible ? (line.textColor || "text-zinc-300") : "text-transparent"}>
+                    <span className={isVisible ? (line.textColor || "text-zinc-100") : "text-transparent"}>
                         {isVisible ? displayedText : line.text}
                         {isTyping && <span className="animate-pulse">▌</span>}
                     </span>
@@ -97,7 +97,7 @@ export function AnimatedTerminal({ title, lines }: AnimatedTerminalProps) {
         if (currentLine < lines.length) {
             setTimeout(() => {
                 setCurrentLine(prev => prev + 1);
-            }, 150);
+            }, 100);
         } else {
             setIsComplete(true);
         }
@@ -106,19 +106,20 @@ export function AnimatedTerminal({ title, lines }: AnimatedTerminalProps) {
     return (
         <div
             ref={containerRef}
-            className="overflow-hidden rounded-xl border border-border/40 bg-zinc-900 shadow-2xl text-left"
+            className="overflow-hidden rounded-2xl border border-zinc-200 dark:border-white/10 bg-zinc-900 shadow-2xl dark:bg-zinc-950/40 dark:backdrop-blur-xl text-left group"
         >
             {/* Terminal Header */}
-            <div className="flex items-center gap-2 border-b border-zinc-700 bg-zinc-800 px-4 py-3">
-                <div className="flex gap-1.5">
-                    <span className="h-3 w-3 rounded-full bg-red-500"></span>
-                    <span className="h-3 w-3 rounded-full bg-yellow-500"></span>
-                    <span className="h-3 w-3 rounded-full bg-green-500"></span>
+            <div className="flex items-center gap-2 border-b border-zinc-200 dark:border-white/5 bg-zinc-800 dark:bg-white/5 px-4 py-3">
+                <div className="flex gap-2">
+                    <span className="h-3 w-3 rounded-full bg-[#FF5F56] shadow-[0_0_10px_rgba(255,95,86,0.2)]"></span>
+                    <span className="h-3 w-3 rounded-full bg-[#FFBD2E] shadow-[0_0_10px_rgba(255,189,46,0.2)]"></span>
+                    <span className="h-3 w-3 rounded-full bg-[#27C93F] shadow-[0_0_10px_rgba(39,201,63,0.2)]"></span>
                 </div>
-                <span className="ml-2 text-xs text-zinc-400">{title}</span>
+                <span className="ml-4 text-[11px] font-medium uppercase tracking-widest text-zinc-400 dark:text-zinc-500">{title}</span>
             </div>
+
             {/* Terminal Body - Fixed height container */}
-            <div className="p-4 font-mono text-sm leading-relaxed sm:p-5">
+            <div className="p-6 font-mono text-[13px] leading-relaxed sm:text-[14px]">
                 {lines.map((line, index) => (
                     <TypewriterLine
                         key={index}
@@ -131,13 +132,16 @@ export function AnimatedTerminal({ title, lines }: AnimatedTerminalProps) {
                 {/* Blinking cursor at the end */}
                 <div className="mt-3 h-6">
                     {isComplete && (
-                        <>
-                            <span className="text-emerald-400">$</span>
-                            <span className="ml-2 animate-pulse text-zinc-300">▌</span>
-                        </>
+                        <div className="flex items-center gap-2">
+                            <span className="text-emerald-400 font-bold">$</span>
+                            <span className="h-4 w-2 bg-emerald-500 animate-[pulse_0.8s_infinite] shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+                        </div>
                     )}
                 </div>
             </div>
+
+            {/* Subtle bottom shine */}
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-500/10 to-transparent" />
         </div>
     );
 }

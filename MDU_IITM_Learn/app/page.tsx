@@ -12,12 +12,12 @@ import { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react"
 
 export const metadata: Metadata = {
-  title: "MDU, IITM, DITM, MVSIT & AKIDO B.Tech Notes, EDG Sheets & PYQs – Best Study Resources",
-  description: 
-  "Access Maharshi Dayanand University (MDU) and IITM Janakpuri B.Tech student notes, PYQs, syllabus, study resources, EDGE sheets, lab manuals, and practical files in one place! Students of DITM, MVSIT, AKIDO, and other affiliated colleges can find all semester and all-year notes, including assignments and future updates, to help excel in their studies.",
+  title: "MDU IITM LEARN - B.Tech Notes & Study Materials",
+  description:
+    "Access Maharshi Dayanand University (MDU) and IITM Janakpuri B.Tech student notes, PYQs, syllabus, study resources, EDGE sheets, lab manuals, and practical files in one place! Students of DITM, MVSIT, AKIDO, and other affiliated colleges can find all semester and all-year notes, including assignments and future updates, to help excel in their studies.",
 
-    keywords:
-    "MDU IITM Notes, PYQs, Syllabus, Study Material, EDGE Sheets, Practical Files, MDU Rohtak, BTech Notes, IPU, Semester Notes, Engineering Study Material, Previous Year Questions, IITM Janakpuri, Free Study Resources, MDU Exam Prep DITM, MVSIT, AKIDO, Maharshi Dayanand University (MDU)",  
+  keywords:
+    "MDU IITM Notes, PYQs, Syllabus, Study Material, EDGE Sheets, Practical Files, MDU Rohtak, BTech Notes, IPU, Semester Notes, Engineering Study Material, Previous Year Questions, IITM Janakpuri, Free Study Resources, MDU Exam Prep DITM, MVSIT, AKIDO, Maharshi Dayanand University (MDU)",
   authors: [
     {
       name: "Shubham Shukla",

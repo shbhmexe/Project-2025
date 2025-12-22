@@ -158,6 +158,21 @@ html::-webkit-scrollbar {
     .animate-glowMedian {
       animation: glowMedian 3s infinite ease-in-out;
     }
+    .animate-cell-ripple {
+      animation: cell-ripple var(--duration, 200ms) ease-out none 1 var(--delay, 0ms);
+    }
+  }
+
+  @keyframes cell-ripple {
+    0% {
+      opacity: 0.4;
+    }
+    50% {
+      opacity: 0.8;
+    }
+    100% {
+      opacity: 0.4;
+    }
   }
 
   @layer components {

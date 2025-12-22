@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Newspaper } from "lucide-react";
 import Link from "next/link";
+import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import SingleBlog from "./SingleBlog";
 import blogData from "./blogData";
 
@@ -59,12 +60,10 @@ const Blog = () => {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="flex justify-center mt-12"
         >
-          <Link
-            href="/blog"
-            className="group relative inline-flex items-center gap-2 px-8 py-3 text-base font-semibold rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/30 hover:border-emerald-500/50 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all"
-          >
-            More Blogs
-            <span className="group-hover:translate-x-1 transition-transform">→</span>
+          <Link href="/blog">
+            <InteractiveHoverButton className="shadow-[0_0_20px_rgba(16,185,129,0.2)] hover:shadow-[0_0_30px_rgba(16,185,129,0.4)] px-8 py-3">
+              More Blogs
+            </InteractiveHoverButton>
           </Link>
         </motion.div>
       </div>

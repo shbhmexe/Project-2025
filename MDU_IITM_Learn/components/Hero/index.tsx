@@ -1,18 +1,50 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
+import LightPillar from "@/components/LightPillar";
 
 const TRUSTED_AVATARS = ["A", "S", "R", "P", "K"];
 
 const Hero = () => {
+  const { theme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDarkMode = mounted && (theme === "dark" || resolvedTheme === "dark");
+
   return (
     <>
       <section
         id="home"
-        className="relative z-10 overflow-hidden bg-background pb-16 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
+        className="relative z-10 overflow-hidden pb-16 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
       >
+        <div className="absolute inset-0 -z-30 bg-background" />
+        {isDarkMode && (
+          <div className="absolute inset-0 -z-20 hidden lg:block overflow-hidden opacity-30 pointer-events-none">
+            <LightPillar
+              topColor="#10b981"
+              bottomColor="#059669"
+              intensity={1.0}
+              rotationSpeed={0.3}
+              glowAmount={0.005}
+              pillarWidth={3.0}
+              pillarHeight={0.4}
+              noiseIntensity={0.5}
+              pillarRotation={30}
+              interactive={false}
+              mixBlendMode="normal"
+            />
+            {/* Bottom fade mask - reduced height to allow animation to show clearly */}
+            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-transparent to-transparent z-[1] pointer-events-none" />
+          </div>
+        )}
         <meta name="google-site-verification" content="wyzLSCVE6q08S-47RMTg-6M3tybRAmxVyRU3WOrVLLY" />
-        <div className="container">
+        <div className="container relative z-20">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
               <div
@@ -149,7 +181,7 @@ const Hero = () => {
           </div>
         </div>
         {/* //hero section svg */}
-        <div className="absolute right-0 top-0 z-[-1] opacity-30 lg:opacity-100">
+        <div className={`absolute right-0 top-0 z-[-1] opacity-30 lg:opacity-100 ${isDarkMode ? 'lg:hidden' : ''}`}>
           <svg
             className="bgradient-to-r from-blue-500 to-purple-500"
             width="450"
@@ -288,7 +320,7 @@ const Hero = () => {
             </defs>
           </svg>
         </div>
-        <div className="absolute bottom-0 left-0 z-[-1] opacity-30 lg:opacity-100">
+        <div className={`absolute bottom-0 left-0 z-[-1] opacity-30 lg:opacity-100 ${isDarkMode ? 'lg:hidden' : ''}`}>
           <svg
             width="364"
             height="201"

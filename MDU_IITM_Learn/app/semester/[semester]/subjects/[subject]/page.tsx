@@ -3,7 +3,10 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import { ArrowLeft, Heart } from "lucide-react";
+import { useTheme } from "next-themes";
+import LightPillar from "@/components/LightPillar";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -33,6 +36,14 @@ const notesLinks: Record<string, string> = {
 export default function SubjectPage() {
   const params = useParams();
   const { isFavorite, toggleFavorite } = useFavoriteNotes();
+  const { theme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDarkMode = mounted && (theme === "dark" || resolvedTheme === "dark");
 
   const semesterParam = params?.semester;
   const subjectParam = params?.subject;
@@ -55,80 +66,102 @@ export default function SubjectPage() {
   const fav = isFavorite({ semester: semesterNum, subject });
 
   return (
-    <motion.main
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4 }}
-      className="min-h-screen bg-background text-foreground pt-36 md:pt-40 pb-16"
-    >
-      <div className="container">
-        <Button asChild variant="ghost" className="gap-2">
-          <Link href={`/semester/${semester}`}>
-            <ArrowLeft className="h-4 w-4" />
-            Back to subjects
-          </Link>
-        </Button>
-
-        <div className="mx-auto mt-8 max-w-2xl">
-          <Card>
-            <CardHeader>
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <div>
-                  <CardTitle className="text-2xl sm:text-3xl">{prettySubject}</CardTitle>
-                  <CardDescription>Semester {semester} • Notes</CardDescription>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => toggleFavorite({ semester: semesterNum, subject })}
-                    className={cn(
-                      "gap-2",
-                      fav &&
-                        "border-emerald-500/40 bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/15 hover:text-emerald-700"
-                    )}
-                    aria-pressed={fav}
-                  >
-                    <Heart fill={fav ? "currentColor" : "none"} />
-                    {fav ? "Favorited" : "Favorite"}
-                  </Button>
-                  <Badge variant="secondary">Notes</Badge>
-                </div>
-              </div>
-            </CardHeader>
-
-            <CardContent>
-              {notesLink ? (
-                <p className="text-sm text-muted-foreground">
-                  This will open Google Drive in a new tab.
-                </p>
-              ) : (
-                <p className="text-sm text-destructive">
-                  Link not available for this subject yet.
-                </p>
-              )}
-            </CardContent>
-
-            <CardFooter className="flex flex-wrap gap-3">
-              {notesLink ? (
-                <Button asChild>
-                  <a href={notesLink} target="_blank" rel="noopener noreferrer">
-                    Open Notes
-                  </a>
-                </Button>
-              ) : (
-                <Button disabled>Open Notes</Button>
-              )}
-
-              <Button asChild variant="outline">
-                <Link href="/notes">All Semesters</Link>
-              </Button>
-            </CardFooter>
-          </Card>
+    <div className="relative overflow-hidden">
+      {/* Background Animation for Dark Mode */}
+      <div className="absolute inset-0 -z-30 bg-background" />
+      {isDarkMode && (
+        <div className="absolute inset-0 -z-20 hidden lg:block overflow-hidden opacity-20 pointer-events-none">
+          <LightPillar
+            topColor="#10b981"
+            bottomColor="#059669"
+            intensity={0.8}
+            rotationSpeed={0.2}
+            glowAmount={0.003}
+            pillarWidth={2.0}
+            pillarHeight={0.3}
+            noiseIntensity={0.5}
+            pillarRotation={45}
+            interactive={false}
+            mixBlendMode="normal"
+          />
         </div>
-      </div>
-    </motion.main>
+      )}
+
+      <motion.main
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4 }}
+        className="relative z-10 min-h-screen pt-36 md:pt-40 pb-16"
+      >
+        <div className="container">
+          <Button asChild variant="ghost" className="gap-2">
+            <Link href={`/semester/${semester}`}>
+              <ArrowLeft className="h-4 w-4" />
+              Back to subjects
+            </Link>
+          </Button>
+
+          <div className="mx-auto mt-8 max-w-2xl">
+            <Card>
+              <CardHeader>
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div>
+                    <CardTitle className="text-2xl sm:text-3xl">{prettySubject}</CardTitle>
+                    <CardDescription>Semester {semester} • Notes</CardDescription>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => toggleFavorite({ semester: semesterNum, subject })}
+                      className={cn(
+                        "gap-2",
+                        fav &&
+                        "border-emerald-500/40 bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/15 hover:text-emerald-700"
+                      )}
+                      aria-pressed={fav}
+                    >
+                      <Heart fill={fav ? "currentColor" : "none"} />
+                      {fav ? "Favorited" : "Favorite"}
+                    </Button>
+                    <Badge variant="secondary">Notes</Badge>
+                  </div>
+                </div>
+              </CardHeader>
+
+              <CardContent>
+                {notesLink ? (
+                  <p className="text-sm text-muted-foreground">
+                    This will open Google Drive in a new tab.
+                  </p>
+                ) : (
+                  <p className="text-sm text-destructive">
+                    Link not available for this subject yet.
+                  </p>
+                )}
+              </CardContent>
+
+              <CardFooter className="flex flex-wrap gap-3">
+                {notesLink ? (
+                  <Button asChild>
+                    <a href={notesLink} target="_blank" rel="noopener noreferrer">
+                      Open Notes
+                    </a>
+                  </Button>
+                ) : (
+                  <Button disabled>Open Notes</Button>
+                )}
+
+                <Button asChild variant="outline">
+                  <Link href="/notes">All Semesters</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
+        </div>
+      </motion.main>
+    </div>
   );
 }

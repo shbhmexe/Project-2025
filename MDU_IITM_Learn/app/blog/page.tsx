@@ -10,25 +10,25 @@ export const metadata: Metadata = {
   description: "Comprehensive Handwritten Notes for MDU and IITM BTech Courses Students.",
 };
 
-const Blog = ({ 
+const Blog = ({
   searchParams,
 }: {
   searchParams?: { [key: string]: string | string[] | undefined };
 }) => {
   // Get the current page from the URL query parameters, default to 1
   const page = searchParams?.page ? parseInt(searchParams.page as string) : 1;
-  
+
   // Number of blogs per page
   const blogsPerPage = 6;
-  
+
   // Calculate total number of pages
   const totalPages = Math.ceil(blogData.length / blogsPerPage);
-  
+
   // Get the blogs for the current page
   const startIndex = (page - 1) * blogsPerPage;
   const endIndex = startIndex + blogsPerPage;
   const currentBlogs = blogData.slice(startIndex, endIndex);
-  
+
   return (
     <div className="mt-10 bg-background text-foreground">
       <Breadcrumb
@@ -63,23 +63,22 @@ const Blog = ({
                     Prev
                   </Link>
                 </li>
-                
+
                 {/* Generate page numbers dynamically */}
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
                   <li key={pageNum} className="mx-1">
                     <Link
                       href={`/blog?page=${pageNum}`}
-                      className={`flex h-9 min-w-[36px] items-center justify-center rounded-md ${
-                        pageNum === page 
-                          ? 'bg-primary text-primary-foreground' 
+                      className={`flex h-9 min-w-[36px] items-center justify-center rounded-md ${pageNum === page
+                          ? 'bg-primary text-primary-foreground'
                           : 'bg-muted text-muted-foreground hover:bg-primary hover:text-primary-foreground'
-                      } px-4 text-sm transition`}
+                        } px-4 text-sm transition`}
                     >
                       {pageNum}
                     </Link>
                   </li>
                 ))}
-                
+
                 <li className="mx-1">
                   <Link
                     href={page < totalPages ? `/blog?page=${page + 1}` : `/blog?page=${totalPages}`}

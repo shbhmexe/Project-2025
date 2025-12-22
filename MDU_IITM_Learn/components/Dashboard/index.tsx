@@ -58,7 +58,10 @@ const cards: Card[] = [
 
 const Dashboard = () => {
   return (
-    <section className="py-12 md:py-16">
+    <section className="relative z-10 py-12 md:py-16 bg-background">
+      <div className="absolute top-0 left-0 right-0 -z-10 h-64 bg-gradient-to-b from-emerald-500/10 via-transparent to-transparent opacity-30" />
+      {/* Top fade mask to match Hero section */}
+      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background to-transparent z-[1]" />
       <div className="container">
         {/* Header */}
         <motion.div

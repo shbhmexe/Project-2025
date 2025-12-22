@@ -1,7 +1,10 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
+import LightPillar from "@/components/LightPillar";
 
 const videoLinks: Record<string, Record<string, string>> = {
   "Mathematics-I": {
@@ -29,7 +32,7 @@ const videoLinks: Record<string, Record<string, string>> = {
     "4": "https://www.youtube.com/watch?v=IbHHMWUQaB0&list=PL9RcWoqXmzaL1q8tiuQwo0p7xL2aV_bNe",
     "Electrical ONE SHOT": "https://www.youtube.com/playlist?list=PL-vEH_IPWrhAda9e2l6QtfYQASGFA5yPS"
   },
-  English:{
+  English: {
     "1": "https://www.youtube.com/watch?v=wMb-CQSKLiA&list=PL3qvHcrYGy1sU_1nMMVrfFEhYROpQtVXV",
     "2": "https://www.youtube.com/watch?v=5EWrcsK3q7g",
   }
@@ -40,6 +43,15 @@ const videoLinks: Record<string, Record<string, string>> = {
 };
 
 export default function VideoPage() {
+  const { theme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDarkMode = mounted && (theme === "dark" || resolvedTheme === "dark");
+
   const params = useParams() ?? {};
   const router = useRouter();
   const [dotCount, setDotCount] = useState(0);
@@ -73,31 +85,53 @@ export default function VideoPage() {
   }, [videoUrl, router]);
 
   return (
-    <div className="min-h-screen bg-background text-foreground pt-40 md:pt-44 pb-16 flex flex-col items-center justify-center text-center px-4">
-      <motion.h1
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="text-3xl font-bold mb-6"
-      >
-        Redirecting to <span className="text-primary">YouTube</span>
-        <span className="inline-block sm:inline">{".".repeat(dotCount)}</span>
-      </motion.h1>
+    <div className="relative overflow-hidden">
+      {/* Background Animation for Dark Mode */}
+      <div className="absolute inset-0 -z-30 bg-background" />
+      {isDarkMode && (
+        <div className="absolute inset-0 -z-20 hidden lg:block overflow-hidden opacity-20 pointer-events-none">
+          <LightPillar
+            topColor="#10b981"
+            bottomColor="#059669"
+            intensity={0.8}
+            rotationSpeed={0.2}
+            glowAmount={0.003}
+            pillarWidth={2.0}
+            pillarHeight={0.3}
+            noiseIntensity={0.5}
+            pillarRotation={45}
+            interactive={false}
+            mixBlendMode="normal"
+          />
+        </div>
+      )}
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6, repeat: Infinity, repeatType: "reverse" }}
-        className="relative w-16 h-16"
-      >
-        <div className="absolute w-full h-full border-4 border-primary/80 border-t-transparent rounded-full animate-spin" />
+      <div className="relative z-10 min-h-screen pt-40 md:pt-44 pb-16 flex flex-col items-center justify-center text-center px-4">
+        <motion.h1
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-3xl font-bold mb-6"
+        >
+          Redirecting to <span className="text-primary">YouTube</span>
+          <span className="inline-block sm:inline">{".".repeat(dotCount)}</span>
+        </motion.h1>
+
         <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.5, repeat: Infinity, repeatType: "mirror" }}
-          className="w-10 h-10 bg-primary rounded-full absolute top-3 left-3"
-        />
-      </motion.div>
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, repeat: Infinity, repeatType: "reverse" }}
+          className="relative w-16 h-16"
+        >
+          <div className="absolute w-full h-full border-4 border-primary/80 border-t-transparent rounded-full animate-spin" />
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.5, repeat: Infinity, repeatType: "mirror" }}
+            className="w-10 h-10 bg-primary rounded-full absolute top-3 left-3"
+          />
+        </motion.div>
+      </div>
     </div>
   );
 }

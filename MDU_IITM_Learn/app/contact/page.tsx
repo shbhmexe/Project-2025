@@ -12,13 +12,13 @@ export const metadata: Metadata = {
 const ContactPage = () => {
   return (
     <div className="mt-10">
-  <Breadcrumb 
-    pageName="Contact Page"
-    description="If you have any questions, suggestions, or feedback, feel free to reach out to us.
+      <Breadcrumb
+        pageName="Contact Page"
+        description="If you have any questions, suggestions, or feedback, feel free to reach out to us.
       We would love to hear from you!"
-  />
-  <Contact />
-</div>
+      />
+      <Contact />
+    </div>
 
   );
 };
