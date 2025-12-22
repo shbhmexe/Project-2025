@@ -1,6 +1,7 @@
 "use client";
 import { Testimonial } from "@/types/testimonial";
-import SectionTitle from "../Common/SectionTitle";
+import { motion } from "framer-motion";
+import { MessageCircle } from "lucide-react";
 import SingleTestimonial from "./SingleTestimonial";
 import { useEffect, useRef, useState } from "react";
 
@@ -80,7 +81,6 @@ const Testimonials = () => {
       if (!isPaused) {
         setActiveIndex((current) => {
           const next = (current + 1) % testimonialData.length;
-          // Scroll to the active testimonial smoothly
           const container = scrollRef.current;
           if (container) {
             const activeItem = container.querySelector(`.testimonial-item:nth-child(${next + 1})`);
@@ -102,24 +102,38 @@ const Testimonials = () => {
   return (
     <section className="bg-background relative z-10 py-16 md:py-20 lg:py-28">
       <div className="container">
-        <SectionTitle
-          title="What Our Users Says"
-          paragraph="Students rave about the platform's user-friendly interface and the quality of notes available. With free access to essential study materials, users feel more confident and prepared for their BTech courses at MDU IITM."
-          center
-        />
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mx-auto mb-14 max-w-3xl text-center"
+        >
+          <div className="inline-flex items-center gap-3 mb-4">
+            <div className="p-3 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border border-emerald-500/30">
+              <MessageCircle className="h-7 w-7 text-emerald-500" />
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
+              What Our Users Say
+            </h2>
+          </div>
+          <p className="text-muted-foreground md:text-lg">
+            Students rave about the platform's user-friendly interface and the quality of notes available. With free access to essential study materials, users feel more confident and prepared for their BTech courses.
+          </p>
+        </motion.div>
 
-        <div 
+        <div
           ref={scrollRef}
           className="flex overflow-x-auto carousel scrollbar-hide pb-8"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
           {testimonialData.map((testimonial, index) => (
-            <div 
-              key={testimonial.id} 
-              className={`testimonial-item flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4 transition-all duration-300 ${
-                index === activeIndex ? 'opacity-100' : 'opacity-80'
-              }`}
+            <div
+              key={testimonial.id}
+              className={`testimonial-item flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4 transition-all duration-300 ${index === activeIndex ? 'opacity-100' : 'opacity-80'
+                }`}
             >
               <SingleTestimonial testimonial={testimonial} />
             </div>
@@ -131,14 +145,12 @@ const Testimonials = () => {
           {testimonialData.map((_, index) => (
             <button
               key={index}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === activeIndex 
-                  ? 'bg-primary scale-110' 
-                  : 'bg-gray-300 dark:bg-gray-600'
-              }`}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${index === activeIndex
+                  ? 'bg-emerald-500 scale-110 shadow-[0_0_10px_rgba(16,185,129,0.5)]'
+                  : 'bg-emerald-500/30 hover:bg-emerald-500/50'
+                }`}
               onClick={() => {
                 setActiveIndex(index);
-                // Scroll to the clicked indicator's corresponding testimonial
                 const container = scrollRef.current;
                 if (container) {
                   const clickedItem = container.querySelector(`.testimonial-item:nth-child(${index + 1})`);
@@ -285,7 +297,7 @@ const Testimonials = () => {
           </defs>
         </svg>
       </div>
-      
+
       <style jsx>{`
         .scrollbar-hide::-webkit-scrollbar {
           display: none;

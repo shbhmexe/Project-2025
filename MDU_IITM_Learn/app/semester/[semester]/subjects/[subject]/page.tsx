@@ -3,11 +3,14 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Heart } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+
+import { useFavoriteNotes } from "@/lib/favorite-notes";
+import { cn } from "@/lib/utils";
 
 const notesLinks: Record<string, string> = {
   "Mathematics-I": "https://drive.google.com/drive/folders/1HZQi4FTLiciTWfu1vfAxZHHLeHFlKxRM?usp=sharing",
@@ -29,6 +32,7 @@ const notesLinks: Record<string, string> = {
 
 export default function SubjectPage() {
   const params = useParams();
+  const { isFavorite, toggleFavorite } = useFavoriteNotes();
 
   const semesterParam = params?.semester;
   const subjectParam = params?.subject;
@@ -46,6 +50,9 @@ export default function SubjectPage() {
 
   const prettySubject = subject.replace(/-/g, " ");
   const notesLink = notesLinks[subject] || "";
+
+  const semesterNum = Number(semester);
+  const fav = isFavorite({ semester: semesterNum, subject });
 
   return (
     <motion.main
@@ -70,7 +77,25 @@ export default function SubjectPage() {
                   <CardTitle className="text-2xl sm:text-3xl">{prettySubject}</CardTitle>
                   <CardDescription>Semester {semester} • Notes</CardDescription>
                 </div>
-                <Badge variant="secondary">Notes</Badge>
+
+                <div className="flex items-center gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => toggleFavorite({ semester: semesterNum, subject })}
+                    className={cn(
+                      "gap-2",
+                      fav &&
+                        "border-emerald-500/40 bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/15 hover:text-emerald-700"
+                    )}
+                    aria-pressed={fav}
+                  >
+                    <Heart fill={fav ? "currentColor" : "none"} />
+                    {fav ? "Favorited" : "Favorite"}
+                  </Button>
+                  <Badge variant="secondary">Notes</Badge>
+                </div>
               </div>
             </CardHeader>
 

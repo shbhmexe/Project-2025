@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Menu } from "lucide-react";
 
 import ThemeToggler from "./ThemeToggler";
+import { AuthButton } from "./AuthButton";
 import menuData from "./menuData";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
@@ -62,7 +63,7 @@ const Header = () => {
       className={`header left-0 top-0 z-40 w-full ${sticky
         ? "fixed z-[9999] bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border transition"
         : "absolute bg-transparent"
-      }`}
+        }`}
     >
       {/*2nd sem Notice banner */}
 
@@ -110,13 +111,11 @@ const Header = () => {
                     {menuItem.path ? (
                       <Link
                         href={menuItem.path}
-                        className={`relative inline-flex py-6 text-base transition-colors ${
-                          pathname === menuItem.path
+                        className={`relative inline-flex py-6 text-base transition-colors ${pathname === menuItem.path
                             ? "text-primary"
                             : "text-foreground/80 hover:text-primary"
-                        } after:absolute after:bottom-4 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full ${
-                          pathname === menuItem.path ? "after:w-full" : ""
-                        }`}
+                          } after:absolute after:bottom-4 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full ${pathname === menuItem.path ? "after:w-full" : ""
+                          }`}
                       >
                         {menuItem.title}
                       </Link>
@@ -155,6 +154,7 @@ const Header = () => {
               </ul>
             </nav>
 
+            <AuthButton />
             <ThemeToggler />
 
             {/* Mobile sheet menu */}
@@ -182,11 +182,10 @@ const Header = () => {
                               <Link
                                 href={item.path}
                                 onClick={() => setMobileMenuOpen(false)}
-                                className={`block rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-                                  pathname === item.path
+                                className={`block rounded-md px-3 py-2 text-sm font-medium transition-colors ${pathname === item.path
                                     ? "bg-accent text-accent-foreground"
                                     : "text-foreground/90 hover:bg-accent hover:text-accent-foreground"
-                                }`}
+                                  }`}
                               >
                                 {item.title}
                               </Link>

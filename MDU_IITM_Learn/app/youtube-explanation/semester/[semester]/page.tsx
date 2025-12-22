@@ -1,9 +1,14 @@
+"use client";
+
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowLeft, Heart, Youtube } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { useFavoriteItems } from "@/lib/favorite-items";
+import { cn } from "@/lib/utils";
 
 const subjectsBySemester: Record<number, string[]> = {
   1: ["Mathematics-I", "Semiconductor-Physics", "English", "Basic-Electrical-Engineering"],
@@ -17,11 +22,13 @@ export default function YouTubeSubjectsPage({ params }: { params: { semester: st
   const semesterNum = Number(params.semester);
   const subjects = subjectsBySemester[semesterNum] || [];
 
+  const { favorites, isFavorite, toggleFavorite } = useFavoriteItems("youtube");
+
   if (!params.semester || Number.isNaN(semesterNum) || subjects.length === 0) {
     return (
-      <main className="min-h-screen bg-background text-foreground pt-36 md:pt-40 pb-16">
+      <main className="min-h-screen bg-background text-foreground pt-32 md:pt-40 pb-16">
         <div className="container">
-          <Button asChild variant="ghost" className="gap-2">
+          <Button asChild variant="ghost" className="gap-2 text-muted-foreground hover:text-emerald-400">
             <Link href="/youtube-explanation/semester">
               <ArrowLeft className="h-4 w-4" />
               Back
@@ -29,11 +36,13 @@ export default function YouTubeSubjectsPage({ params }: { params: { semester: st
           </Button>
 
           <div className="mx-auto mt-10 max-w-2xl text-center">
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Semester {params.semester}</h1>
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
+              Semester {params.semester}
+            </h1>
             <p className="mt-2 text-muted-foreground">YouTube explanations for this semester are not available yet.</p>
 
             <div className="mt-4 flex flex-wrap justify-center gap-2">
-              <Badge variant="secondary">Coming soon</Badge>
+              <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30">Coming soon</Badge>
             </div>
           </div>
         </div>
@@ -42,43 +51,103 @@ export default function YouTubeSubjectsPage({ params }: { params: { semester: st
   }
 
   return (
-    <main className="min-h-screen bg-background text-foreground pt-36 md:pt-40 pb-16">
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+      className="min-h-screen bg-background text-foreground pt-32 md:pt-40 pb-16"
+    >
       <div className="container">
-        <div className="flex items-center justify-between gap-4">
-          <Button asChild variant="ghost" className="gap-2">
+        {/* Header */}
+        <div className="flex items-center justify-between gap-4 mb-6">
+          <Button asChild variant="ghost" className="gap-2 text-muted-foreground hover:text-emerald-400">
             <Link href="/youtube-explanation/semester">
               <ArrowLeft className="h-4 w-4" />
               Back
             </Link>
           </Button>
-          <Badge variant="secondary">YouTube</Badge>
+          <div className="flex gap-2">
+            <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30">YouTube</Badge>
+            {favorites.filter(f => f.semester === semesterNum).length > 0 && (
+              <Badge className="bg-emerald-600 text-white">
+                {favorites.filter(f => f.semester === semesterNum).length} Favorites
+              </Badge>
+            )}
+          </div>
         </div>
 
-        <div className="mx-auto mt-6 max-w-2xl text-center">
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Semester {semesterNum}</h1>
-          <p className="mt-2 text-muted-foreground">Select a subject to browse unit-wise playlists.</p>
-        </div>
+        {/* Title */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mx-auto max-w-2xl text-center mb-8"
+        >
+          <div className="inline-flex items-center gap-3 mb-4">
+            <div className="p-3 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border border-emerald-500/30">
+              <Youtube className="h-8 w-8 text-emerald-500" />
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
+              Semester {semesterNum}
+            </h1>
+          </div>
+          <p className="text-muted-foreground">
+            Select a subject to browse unit-wise playlists.
+          </p>
+        </motion.div>
 
-        <div className="mx-auto mt-12 grid w-full max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {subjects.map((subject) => (
-            <Link
-              key={subject}
-              href={`/youtube-explanation/semester/${semesterNum}/${subject}`}
-              className="group block focus-visible:outline-none"
-            >
-              <Card className="h-full transition-shadow group-hover:shadow-md group-focus-visible:ring-2 group-focus-visible:ring-ring group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-background">
-                <CardHeader className="pb-4">
-                  <CardTitle className="text-base sm:text-lg">{prettyLabel(subject)}</CardTitle>
-                  <CardDescription>Browse units</CardDescription>
-                </CardHeader>
-                <CardFooter className="pt-0">
-                  <span className="text-sm font-medium text-primary">Open →</span>
-                </CardFooter>
-              </Card>
-            </Link>
-          ))}
+        {/* Subjects Grid */}
+        <div className="mx-auto grid w-full max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {subjects.map((subject, index) => {
+            const isFav = isFavorite({ semester: semesterNum, subject });
+
+            return (
+              <motion.div
+                key={subject}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.05 }}
+              >
+                <Card className={cn(
+                  "h-full relative bg-card border-emerald-500/20 transition-all duration-300",
+                  "shadow-[0_0_15px_rgba(16,185,129,0.1)]",
+                  "hover:shadow-[0_0_25px_rgba(16,185,129,0.2)] hover:border-emerald-500/40",
+                  isFav && "border-emerald-500/40 shadow-[0_0_20px_rgba(16,185,129,0.15)]"
+                )}>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className={cn(
+                      "absolute right-2 top-2 h-8 w-8 z-10 rounded-full border bg-background/80 backdrop-blur-sm transition-all",
+                      isFav
+                        ? "border-emerald-500/50 text-emerald-500 hover:bg-red-500/20 hover:text-red-500"
+                        : "border-border/50 text-muted-foreground hover:text-emerald-400 hover:border-emerald-500/50"
+                    )}
+                    onClick={() => toggleFavorite({ semester: semesterNum, subject })}
+                    title={isFav ? "Remove from favorites" : "Add to favorites"}
+                  >
+                    <Heart className={cn("h-4 w-4", isFav && "fill-current")} />
+                  </Button>
+                  <Link
+                    href={`/youtube-explanation/semester/${semesterNum}/${subject}`}
+                    className="block"
+                  >
+                    <CardHeader className="pb-4 pr-14">
+                      <CardTitle className="text-base sm:text-lg text-foreground">{prettyLabel(subject)}</CardTitle>
+                      <CardDescription>Browse units</CardDescription>
+                    </CardHeader>
+                    <CardFooter className="pt-0">
+                      <span className="text-sm font-medium text-emerald-400 hover:text-emerald-300 transition-colors">
+                        Open →
+                      </span>
+                    </CardFooter>
+                  </Link>
+                </Card>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
-    </main>
+    </motion.main>
   );
 }

@@ -1,40 +1,72 @@
-import SectionTitle from "../Common/SectionTitle";
+"use client";
+
+import { motion } from "framer-motion";
+import { Newspaper } from "lucide-react";
+import Link from "next/link";
 import SingleBlog from "./SingleBlog";
 import blogData from "./blogData";
-import Link from "next/link";
 
 const Blog = () => {
   // Only display the 3 latest blogs on homepage
   const latestBlogs = blogData.slice(0, 3);
-  
+
   return (
     <section
       id="blog"
-      className="bg-gray-light dark:bg-bg-color-dark py-16 md:py-20 lg:py-28"
+      className="bg-background py-16 md:py-20 lg:py-28"
     >
       <div className="container">
-        <SectionTitle
-          title="Our Latest Blogs"
-          paragraph="Stay Ahead with Expert Study Tips & Exam Strategies!"
-          center
-        />
-
-        <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 md:gap-x-6 lg:gap-x-8 xl:grid-cols-3">
-          {latestBlogs.map((blog) => (
-            <div key={blog.id} className="w-full">
-              <SingleBlog blog={blog} />
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mx-auto mb-14 max-w-3xl text-center"
+        >
+          <div className="inline-flex items-center gap-3 mb-4">
+            <div className="p-3 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border border-emerald-500/30">
+              <Newspaper className="h-7 w-7 text-emerald-500" />
             </div>
+            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
+              Our Latest Blogs
+            </h2>
+          </div>
+          <p className="text-muted-foreground md:text-lg">
+            Stay Ahead with Expert Study Tips & Exam Strategies!
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 xl:grid-cols-3">
+          {latestBlogs.map((blog, index) => (
+            <motion.div
+              key={blog.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.35, delay: index * 0.1 }}
+              className="w-full"
+            >
+              <SingleBlog blog={blog} />
+            </motion.div>
           ))}
         </div>
-        
-        <div className="flex justify-center mt-12">
-          <Link 
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="flex justify-center mt-12"
+        >
+          <Link
             href="/blog"
-            className="rounded-md bg-primary px-8 py-3 text-base font-semibold text-white duration-300 ease-in-out hover:bg-primary/80"
+            className="group relative inline-flex items-center gap-2 px-8 py-3 text-base font-semibold rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/30 hover:border-emerald-500/50 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all"
           >
             More Blogs
+            <span className="group-hover:translate-x-1 transition-transform">→</span>
           </Link>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

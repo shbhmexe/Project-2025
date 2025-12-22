@@ -1,5 +1,6 @@
-import Image from "next/image";
+
 import SectionTitle from "../Common/SectionTitle";
+import { AnimatedTerminal } from "./AnimatedTerminal";
 
 const checkIcon = (
   <svg width="16" height="13" viewBox="0 0 16 13" className="fill-current">
@@ -7,10 +8,23 @@ const checkIcon = (
   </svg>
 );
 
+const terminalLines = [
+  { text: "what-we-offer --list", prefix: "$", prefixColor: "text-emerald-400" },
+  { text: "Handwritten Notes", prefix: "✓", prefixColor: "text-emerald-400", textColor: "text-zinc-400" },
+  { text: "Previous Year Questions (PYQs)", prefix: "✓", prefixColor: "text-emerald-400", textColor: "text-zinc-400" },
+  { text: "Lab Manuals & Practicals", prefix: "✓", prefixColor: "text-emerald-400", textColor: "text-zinc-400" },
+  { text: "EDG Sheets", prefix: "✓", prefixColor: "text-emerald-400", textColor: "text-zinc-400" },
+  { text: "100% Syllabus-Based Content", prefix: "✓", prefixColor: "text-emerald-400", textColor: "text-zinc-400" },
+  { text: "stats --students", prefix: "$", prefixColor: "text-emerald-400" },
+  { text: "Semesters: 1-8", prefix: "📚", textColor: "text-zinc-400" },
+  { text: "Students: 1000+", prefix: "👥", textColor: "text-zinc-400" },
+  { text: "Resources: 500+", prefix: "📄", textColor: "text-zinc-400" },
+];
+
 const AboutSectionOne = () => {
   const List = ({ text }) => (
     <p className="mb-5 flex items-center text-lg font-medium text-body-color">
-      <span className="mr-4 flex h-[30px] w-[30px] items-center justify-center rounded-md bg-primary bg-opacity-10 text-primary">
+      <span className="mr-4 flex h-[30px] w-[30px] items-center justify-center rounded-md bg-emerald-500/10 text-emerald-500">
         {checkIcon}
       </span>
       {text}
@@ -25,9 +39,17 @@ const AboutSectionOne = () => {
             <div className="w-full px-4 lg:w-1/2 ">
               <SectionTitle
                 title="What We Offer"
-                paragraph="At MDU IITM LEARN, we provide a comprehensive collection of MDU & IITM B.Tech study materials designed to help students excel in their academics. Our platform includes well-structured handwritten notes, previous year question papers (PYQs), lab manuals, and EDG sheets—all tailored specifically to your syllabus. Whether you're preparing for exams, practicals, or assignments, our high-quality resources ensure effective learning and better understanding. With instant digital access, you can study anytime, anywhere and stay ahead in your academic journey."
+                paragraph=""
                 mb="44px"
               />
+
+              <div className="max-w-[570px] -mt-8 mb-8">
+                <p className="text-base sm:text-lg font-medium text-gray-700 dark:text-gray-300 leading-relaxed">
+                  At <span className="text-blue-400 font-semibold">MDU IITM LEARN</span>, we provide a comprehensive collection of{" "}
+                  <span className="text-blue-400 font-semibold">MDU & IITM B.Tech study materials</span> designed to help students excel in their academics. Our platform includes{" "}
+                  <span className="text-blue-400 font-semibold">handwritten notes</span>, <span className="text-blue-400 font-semibold">previous year question papers (PYQs)</span>, lab manuals, and EDG sheets—all tailored specifically to your syllabus.
+                </p>
+              </div>
 
               <div
                 className="wow fadeInUp mb-12 max-w-[570px] lg:mb-0"
@@ -51,20 +73,12 @@ const AboutSectionOne = () => {
 
             <div className="w-full px-4 lg:w-1/2">
               <div
-                className="wow fadeInUp relative mx-auto aspect-[25/24] max-w-[500px] lg:mr-0"
+                className="wow fadeInUp relative mx-auto max-w-[500px] lg:mr-0"
                 data-wow-delay=".2s"
               >
-                <Image
-                  src="/images/about/about-image.svg"
-                  alt="about-image"
-                  fill
-                  className="drop-shadow-three mx-auto max-w-full dark:hidden dark:drop-shadow-none lg:mr-0"
-                />
-                <Image
-                  src="/images/about/about-image-dark.svg"
-                  alt="about-image"
-                  fill
-                  className="drop-shadow-three mx-auto hidden max-w-full dark:block dark:drop-shadow-none lg:mr-0"
+                <AnimatedTerminal
+                  title="mdu-iitm-learn ~ terminal"
+                  lines={terminalLines}
                 />
               </div>
             </div>

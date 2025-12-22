@@ -1,20 +1,19 @@
-"use client"; 
+"use client";
+import { motion } from "framer-motion";
+import { Mail, Send } from "lucide-react";
 import NewsLatterBox from "./NewsLatterBox";
 import { useState } from "react";
 
 const Contact = () => {
-  // State variables for form data
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [status, setStatus] = useState(""); // For showing success/error messages
-  const [showStatus, setShowStatus] = useState(false); // Step 4: Frontend Success Message
+  const [status, setStatus] = useState("");
+  const [showStatus, setShowStatus] = useState(false);
 
-  // Function to handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault(); // Prevent page reload
+    e.preventDefault();
 
-    // Check if all fields are filled
     if (!name || !email || !message) {
       setStatus("All fields are required.");
       setShowStatus(true);
@@ -51,25 +50,45 @@ const Contact = () => {
   return (
     <section id="contact" className="overflow-hidden py-16 md:py-20 lg:py-28 bg-background">
       <div className="container">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mx-auto mb-14 max-w-3xl text-center"
+        >
+          <div className="inline-flex items-center gap-3 mb-4">
+            <div className="p-3 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border border-emerald-500/30">
+              <Mail className="h-7 w-7 text-emerald-500" />
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
+              Get in Touch
+            </h2>
+          </div>
+        </motion.div>
+
         <div className="-mx-4 flex flex-wrap">
           <div className="w-full px-4 lg:w-7/12 xl:w-8/12">
-            <div
-              className="wow fadeInUp card mb-12 px-8 py-11 sm:p-[55px] lg:mb-5 lg:px-8 xl:p-[55px]"
-              data-wow-delay=".15s"
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="mb-12 rounded-2xl bg-card border border-emerald-500/20 shadow-[0_0_20px_rgba(16,185,129,0.1)] px-8 py-11 sm:p-[55px] lg:mb-5 lg:px-8 xl:p-[55px]"
             >
-              <h2 className="mb-3 text-2xl font-bold text-foreground sm:text-3xl lg:text-2xl xl:text-3xl">
-                Need Help? Open a Ticket
+              <h2 className="mb-3 text-2xl font-bold text-foreground sm:text-3xl">
+                Need Help? <span className="text-emerald-400">Open a Ticket</span>
               </h2>
               <p className="mb-12 text-base font-medium text-muted-foreground">
                 Our support team will get back to you ASAP via email.
               </p>
 
-              {/* Form starts */}
               <form onSubmit={handleSubmit}>
                 <div className="-mx-4 flex flex-wrap">
                   <div className="w-full px-4 md:w-1/2">
                     <div className="mb-8">
-                      <label className="mb-3 block text-sm font-medium text-foreground">
+                      <label className="mb-3 block text-sm font-medium text-emerald-400">
                         Your Name
                       </label>
                       <input
@@ -77,14 +96,14 @@ const Contact = () => {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Enter your name"
-                        className="w-full rounded-md border border-border bg-card px-6 py-3 text-base text-foreground outline-none focus:border-primary focus:ring-ring"
+                        className="w-full rounded-xl border border-emerald-500/20 bg-background px-6 py-3 text-base text-foreground outline-none focus:border-emerald-500/50 focus:shadow-[0_0_10px_rgba(16,185,129,0.1)] transition-all"
                       />
                     </div>
                   </div>
 
                   <div className="w-full px-4 md:w-1/2">
                     <div className="mb-8">
-                      <label className="mb-3 block text-sm font-medium text-foreground">
+                      <label className="mb-3 block text-sm font-medium text-emerald-400">
                         Your Email
                       </label>
                       <input
@@ -92,14 +111,14 @@ const Contact = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Enter your email"
-                        className="w-full rounded-md border border-border bg-card px-6 py-3 text-base text-foreground outline-none focus:border-primary focus:ring-ring"
+                        className="w-full rounded-xl border border-emerald-500/20 bg-background px-6 py-3 text-base text-foreground outline-none focus:border-emerald-500/50 focus:shadow-[0_0_10px_rgba(16,185,129,0.1)] transition-all"
                       />
                     </div>
                   </div>
 
                   <div className="w-full px-4">
                     <div className="mb-8">
-                      <label className="mb-3 block text-sm font-medium text-foreground">
+                      <label className="mb-3 block text-sm font-medium text-emerald-400">
                         Your Message
                       </label>
                       <textarea
@@ -107,30 +126,31 @@ const Contact = () => {
                         onChange={(e) => setMessage(e.target.value)}
                         rows={5}
                         placeholder="Enter your Message"
-                        className="w-full resize-none rounded-md border border-border bg-card px-6 py-3 text-base text-foreground outline-none focus:border-primary focus:ring-ring"
+                        className="w-full resize-none rounded-xl border border-emerald-500/20 bg-background px-6 py-3 text-base text-foreground outline-none focus:border-emerald-500/50 focus:shadow-[0_0_10px_rgba(16,185,129,0.1)] transition-all"
                       ></textarea>
                     </div>
                   </div>
 
                   <div className="w-full px-4">
-                    <button
+                    <motion.button
                       type="submit"
-                      className="button-primary px-9 py-4 text-base"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="inline-flex items-center gap-2 px-9 py-4 text-base font-semibold rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.4)] transition-all"
                     >
+                      <Send className="h-5 w-5" />
                       Submit
-                    </button>
+                    </motion.button>
                   </div>
                 </div>
               </form>
-              {/* Form ends */}
 
-              {/* Status Message */}
               {showStatus && status && (
-                <p className="mt-4 text-center font-semibold text-3xl text-blue-500 drop-shadow-md tracking-wide">
+                <p className={`mt-6 text-center font-semibold text-lg ${status.includes('successfully') ? 'text-emerald-400' : 'text-red-400'}`}>
                   {status}
                 </p>
               )}
-            </div>
+            </motion.div>
           </div>
 
           <div className="w-full px-4 lg:w-5/12 xl:w-4/12">

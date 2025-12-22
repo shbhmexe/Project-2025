@@ -8,6 +8,11 @@ const nextConfig = {
         hostname: "cdn.sanity.io",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        port: "",
+      },
     ],
   },
   trailingSlash: true, // Ensures proper sitemap URLs
@@ -19,6 +24,7 @@ const nextConfig = {
     // your project has type errors.
     ignoreBuildErrors: true,
   },
+  
   eslint: {
     // Disabling ESLint during builds
     ignoreDuringBuilds: true,

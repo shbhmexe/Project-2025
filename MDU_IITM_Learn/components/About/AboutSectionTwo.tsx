@@ -1,32 +1,37 @@
-import Image from "next/image";
+import { AnimatedTerminal } from "./AnimatedTerminal";
+
+const terminalLines = [
+  { text: "features --premium", prefix: "$", prefixColor: "text-emerald-400" },
+  { text: "Assignments & File Making", prefix: "★", prefixColor: "text-yellow-400", textColor: "text-zinc-400" },
+  { text: "Premier Support 24/7", prefix: "★", prefixColor: "text-yellow-400", textColor: "text-zinc-400" },
+  { text: "Free Access to All Notes", prefix: "★", prefixColor: "text-yellow-400", textColor: "text-zinc-400" },
+  { text: "access --type", prefix: "$", prefixColor: "text-emerald-400" },
+  { text: "Cost: FREE", prefix: "🆓", textColor: "text-zinc-400" },
+  { text: "Updates: Regular", prefix: "🔄", textColor: "text-zinc-400" },
+  { text: "Access: Anywhere", prefix: "📱", textColor: "text-zinc-400" },
+  { text: 'echo "Happy Learning!"', prefix: "$", prefixColor: "text-emerald-400" },
+  { text: "Happy Learning! 🎓", prefix: "", textColor: "text-emerald-400" },
+];
 
 const AboutSectionTwo = () => {
   return (
     <section className="py-16 md:py-20 lg:py-28">
       <div className="container">
         <div className="-mx-4 flex flex-wrap items-center">
-          <div className="w-full px-4 lg:w-1/2">
+          <div className="w-full px-4 lg:w-1/2 order-2 lg:order-1">
             <div
-              className="wow fadeInUp relative mx-auto mb-12 aspect-[25/24] max-w-[500px] text-center lg:m-0 max-[430px]:hidden"
+              className="wow fadeInUp relative mx-auto mb-12 max-w-[500px] lg:m-0 lg:ml-0"
               data-wow-delay=".15s"
             >
-              <Image
-                src="/images/about/about-image-2.svg"
-                alt="about image"
-                fill
-                className="drop-shadow-three dark:hidden dark:drop-shadow-none"
-              />
-              <Image
-                src="/images/about/about-image-2-dark.svg"
-                alt="about image"
-                fill
-                className="drop-shadow-three hidden dark:block dark:drop-shadow-none"
+              <AnimatedTerminal
+                title="mdu-iitm-learn ~ features"
+                lines={terminalLines}
               />
             </div>
           </div>
 
-          <div className="w-full px-4 lg:w-1/2">
-            <div className="wow fadeInUp max-w-[470px]" data-wow-delay=".2s">
+          <div className="w-full px-4 lg:w-1/2 order-1 lg:order-2">
+            <div className="wow fadeInUp max-w-[470px] mb-12 lg:mb-0" data-wow-delay=".2s">
               <div className="mb-9">
                 <h3 className="mb-4 text-xl font-bold text-black dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
                   Assignments & Files Making

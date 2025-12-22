@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-
+const TRUSTED_AVATARS = ["A", "S", "R", "P", "K"];
 
 const Hero = () => {
   return (
@@ -19,15 +19,33 @@ const Hero = () => {
                 className="wow fadeInUp mx-auto max-w-[800px] text-center"
                 data-wow-delay=".2s"
               >
-                
+
                 <h1 className="mb-6 text-4xl font-bold leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
                   Comprehensive{" "}
-                  <span className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent">
-                    Handwritten Notes
+                  <span className="relative inline-block overflow-hidden">
+                    <span className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent">
+                      Handwritten Notes
+                    </span>
+                    <motion.span
+                      initial={{ left: "-100%", opacity: 1 }}
+                      animate={{ left: "100%", opacity: 1 }}
+                      transition={{ duration: 1.2, delay: 0.3, ease: "easeInOut" }}
+                      className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-r from-transparent via-white/60 to-transparent"
+                      style={{ width: "50%" }}
+                    />
                   </span>{" "}
                   for{" "}
-                  <span className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent">
-                    MDU and IITM
+                  <span className="relative inline-block overflow-hidden">
+                    <span className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent">
+                      MDU Rohtak and IITM
+                    </span>
+                    <motion.span
+                      initial={{ left: "-100%", opacity: 1 }}
+                      animate={{ left: "100%", opacity: 1 }}
+                      transition={{ duration: 1.2, delay: 0.5, ease: "easeInOut" }}
+                      className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-r from-transparent via-white/60 to-transparent"
+                      style={{ width: "50%" }}
+                    />
                   </span>{" "}
                   BTech Courses Students.
                 </h1>
@@ -38,20 +56,21 @@ const Hero = () => {
 
                   {/* 🔥 Get Notes Button */}
                   <motion.div
-                    whileHover={{
-                      scale: 1.06,
-                    }}
+                    whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.97 }}
                     className="relative flex w-full justify-center sm:w-auto"
                   >
                     <Link
                       href="/notes"
-                      className="group relative inline-flex w-full max-w-[340px] items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-emerald-500/25 ring-1 ring-white/15 transition-all duration-200 hover:shadow-emerald-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:w-auto sm:max-w-none sm:px-6 sm:py-3 sm:text-sm md:px-8 md:py-4 md:text-base"
+                      className="group relative inline-flex w-full max-w-[340px] items-center justify-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500 px-8 py-4 text-base font-bold text-white shadow-[0_0_20px_rgba(16,185,129,0.4)] ring-1 ring-white/20 transition-all duration-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.6)] focus-visible:outline-none sm:w-auto sm:max-w-none sm:px-7 sm:py-3.5"
                     >
+                      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
                       <span className="relative z-10">Get Notes</span>
                       <span
                         aria-hidden="true"
-                        className="pointer-events-none absolute inset-0 -translate-x-full skew-x-12 bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 transition duration-700 group-hover:translate-x-full group-hover:opacity-100"
+                        className="pointer-events-none absolute inset-0 -translate-x-full skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 transition duration-700 group-hover:translate-x-full group-hover:opacity-100"
                       />
                     </Link>
                   </motion.div>
@@ -59,20 +78,21 @@ const Hero = () => {
 
                   {/* 📜 Get PYQs Button */}
                   <motion.div
-                    whileHover={{
-                      scale: 1.06,
-                    }}
+                    whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.97 }}
                     className="relative flex w-full justify-center sm:w-auto"
                   >
                     <Link
                       href="/pyqs"
-                      className="group relative inline-flex w-full max-w-[340px] items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-emerald-500/25 ring-1 ring-white/15 transition-all duration-200 hover:shadow-emerald-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:w-auto sm:max-w-none sm:px-6 sm:py-3 sm:text-sm md:px-8 md:py-4 md:text-base"
+                      className="group relative inline-flex w-full max-w-[340px] items-center justify-center gap-2 overflow-hidden rounded-full border-2 border-emerald-500/50 bg-emerald-500/10 px-8 py-4 text-base font-bold text-emerald-400 backdrop-blur-sm transition-all duration-300 hover:border-emerald-400 hover:bg-emerald-500/20 hover:text-emerald-300 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] focus-visible:outline-none sm:w-auto sm:max-w-none sm:px-7 sm:py-3.5"
                     >
+                      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
                       <span className="relative z-10">Get PYQs</span>
                       <span
                         aria-hidden="true"
-                        className="pointer-events-none absolute inset-0 -translate-x-full skew-x-12 bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 transition duration-700 group-hover:translate-x-full group-hover:opacity-100"
+                        className="pointer-events-none absolute inset-0 -translate-x-full skew-x-12 bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent opacity-0 transition duration-700 group-hover:translate-x-full group-hover:opacity-100"
                       />
                     </Link>
                   </motion.div>
@@ -82,33 +102,55 @@ const Hero = () => {
                 {/* 📺 Get YouTube Explanation Button */}
 
                 <motion.div
-                  whileHover={{
-                    scale: 1.06,
-                  }}
+                  whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.97 }}
                   className="relative mx-auto flex w-full justify-center sm:w-fit"
                 >
                   <Link
                     href="/youtube-explanation/semester"
-                    className="group relative mt-5 mb-[-10px] inline-flex w-full max-w-[340px] items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-emerald-500/25 ring-1 ring-white/15 transition-all duration-200 hover:shadow-emerald-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:w-auto sm:max-w-none"
+                    className="group relative mt-5 mb-[-10px] inline-flex w-full max-w-[340px] items-center justify-center gap-2 overflow-hidden rounded-full border-2 border-red-500/50 bg-red-500/10 px-8 py-4 text-base font-bold text-red-400 backdrop-blur-sm transition-all duration-300 hover:border-red-400 hover:bg-red-500/20 hover:text-red-300 hover:shadow-[0_0_20px_rgba(239,68,68,0.3)] focus-visible:outline-none sm:w-auto sm:max-w-none"
                   >
+                    <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                    </svg>
                     <span className="relative z-10">Get YouTube Explanation</span>
                     <span
                       aria-hidden="true"
-                      className="pointer-events-none absolute inset-0 -translate-x-full skew-x-12 bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 transition duration-700 group-hover:translate-x-full group-hover:opacity-100"
+                      className="pointer-events-none absolute inset-0 -translate-x-full skew-x-12 bg-gradient-to-r from-transparent via-red-400/20 to-transparent opacity-0 transition duration-700 group-hover:translate-x-full group-hover:opacity-100"
                     />
                   </Link>
 
                 </motion.div>
 
+                {/* ✅ Social proof */}
+                <div className="mt-6 flex items-center justify-center">
+                  <div className="inline-flex flex-col items-center gap-2 rounded-2xl border border-border/60 bg-background/70 px-4 py-3 shadow-sm backdrop-blur-sm sm:flex-row sm:gap-3 sm:rounded-full sm:py-2">
+                    <div aria-hidden="true" className="flex items-center -space-x-2">
+                      {TRUSTED_AVATARS.map((initial) => (
+                        <div
+                          key={initial}
+                          className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500/25 via-teal-500/20 to-cyan-500/25 text-[11px] font-semibold text-foreground ring-2 ring-background shadow-sm sm:h-9 sm:w-9 sm:text-xs"
+                        >
+                          {initial}
+                        </div>
+                      ))}
+                    </div>
+                    <p className="text-sm font-medium text-foreground/80 sm:text-base">
+                      Trusted by{" "}
+                      <span className="font-semibold text-foreground">
+                        1000+ students
+                      </span>
+                    </p>
+                  </div>
+                </div>
 
               </div>
             </div>
           </div>
         </div>
-{/* //hero section svg */}
+        {/* //hero section svg */}
         <div className="absolute right-0 top-0 z-[-1] opacity-30 lg:opacity-100">
-          <svg  
+          <svg
             className="bgradient-to-r from-blue-500 to-purple-500"
             width="450"
             height="556"

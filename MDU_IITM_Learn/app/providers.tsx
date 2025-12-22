@@ -1,13 +1,14 @@
 "use client";
 
 import { ThemeProvider } from "next-themes";
-
-import { Analytics } from "@vercel/analytics/react"
+import { SessionProvider } from "next-auth/react";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider attribute="class" enableSystem={true} defaultTheme="system">
-      {children}
-    </ThemeProvider>
+    <SessionProvider>
+      <ThemeProvider attribute="class" enableSystem={true} defaultTheme="system">
+        {children}
+      </ThemeProvider>
+    </SessionProvider>
   );
 }
