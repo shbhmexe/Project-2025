@@ -15,16 +15,9 @@ const Footer = () => {
               <div className="mb-12 max-w-[360px] lg:mb-16">
                 <Link href="/" className="mb-8 inline-block w-52">
                   <Image
-                    src="/images/logo/brand.svg"
+                    src="/images/logo/logo-transparent.png"
                     alt="logo"
-                    className="w-full dark:hidden"
-                    width={140}
-                    height={30}
-                  />
-                  <Image
-                    src="/images/logo/brand.svg"
-                    alt="logo"
-                    className="hidden w-full dark:block"
+                    className="w-full"
                     width={140}
                     height={30}
                   />
@@ -80,57 +73,57 @@ const Footer = () => {
                 </h2>
                 <ul>
                   <li>
-                    <a
+                    <Link
                       href="/notes"
                       className="mb-4 inline-block text-base text-muted-foreground duration-300 hover:text-primary"
                     >
                       Notes
-                    </a>
+                    </Link>
                   </li>
 
                   <li>
-                    <a
-                      href="/syllabus"
+                    <Link
+                      href="/Syllabus"
                       className="mb-4 inline-block text-base text-muted-foreground duration-300 hover:text-primary"
                     >
                       Syllabus
-                    </a>
+                    </Link>
                   </li>
 
                   <li>
-                    <a
-                      href="/cgpa-calculator"
+                    <Link
+                      href="/cgpa"
                       className="mb-4 inline-block text-base text-muted-foreground duration-300 hover:text-primary"
                     >
                       CGPA Calculator
-                    </a>
+                    </Link>
                   </li>
 
                   <li>
-                    <a
-                      href="/youtube"
+                    <Link
+                      href="/youtube-explanation/semester"
                       className="mb-4 inline-block text-base text-muted-foreground duration-300 hover:text-primary"
                     >
                       YouTube Videos
-                    </a>
+                    </Link>
                   </li>
 
                   <li>
-                    <a
+                    <Link
                       href="/blog"
                       className="mb-4 inline-block text-base text-muted-foreground duration-300 hover:text-primary"
                     >
                       Blog
-                    </a>
+                    </Link>
                   </li>
 
                   <li>
-                    <a
+                    <Link
                       href="/contact"
                       className="mb-4 inline-block text-base text-muted-foreground duration-300 hover:text-primary"
                     >
                       Contact
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -143,12 +136,12 @@ const Footer = () => {
                 </h2>
                 <ul>
                   <li>
-                    <a
+                    <Link
                       href="/privacy-policy"
                       className="mb-4 inline-block text-base text-muted-foreground duration-300 hover:text-primary"
                     >
                       Privacy Policy
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -161,20 +154,20 @@ const Footer = () => {
                 </h2>
                 <ul>
                   <li>
-                    <a
+                    <Link
                       href="/contact"
                       className="mb-4 inline-block text-base text-muted-foreground duration-300 hover:text-primary"
                     >
                       Open Support Ticket
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
+                    <Link
                       href="/Terms-Conditions"
                       className="mb-4 inline-block text-base text-muted-foreground duration-300 hover:text-primary"
                     >
                       Terms and Conditions
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
