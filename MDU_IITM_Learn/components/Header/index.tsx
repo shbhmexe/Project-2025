@@ -112,8 +112,8 @@ const Header = () => {
                       <Link
                         href={menuItem.path}
                         className={`relative inline-flex py-6 text-base transition-colors ${pathname === menuItem.path
-                            ? "text-primary"
-                            : "text-foreground/80 hover:text-primary"
+                          ? "text-primary"
+                          : "text-foreground/80 hover:text-primary"
                           } after:absolute after:bottom-4 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full ${pathname === menuItem.path ? "after:w-full" : ""
                           }`}
                       >
@@ -166,56 +166,72 @@ const Header = () => {
                   </Button>
                 </SheetTrigger>
 
-                <SheetContent side="right" className="w-[320px] sm:w-[380px]">
-                  <SheetHeader>
-                    <SheetTitle>Menu</SheetTitle>
-                  </SheetHeader>
+                <SheetContent
+                  side="right"
+                  className="w-[300px] border-l border-white/10 bg-background/95 p-0 backdrop-blur-xl sm:w-[350px]"
+                >
+                  <div className="relative h-full w-full overflow-hidden">
+                    {/* Background glows */}
+                    <div className="absolute -top-24 -right-24 h-48 w-48 rounded-full bg-emerald-500/10 blur-[80px]" />
+                    <div className="absolute -bottom-24 -left-24 h-48 w-48 rounded-full bg-teal-500/10 blur-[80px]" />
 
-                  <div className="mt-6">
-                    <Separator className="mb-4" />
+                    <div className="relative flex h-full flex-col px-6 py-8">
+                      <SheetHeader className="mb-8 text-left">
+                        <SheetTitle className="text-2xl font-bold tracking-tight text-foreground">
+                          Menu
+                        </SheetTitle>
+                      </SheetHeader>
 
-                    <nav aria-label="Mobile">
-                      <ul className="space-y-1">
-                        {menuData.map((item) => (
-                          <li key={item.id}>
-                            {item.path ? (
-                              <Link
-                                href={item.path}
-                                onClick={() => setMobileMenuOpen(false)}
-                                className={`block rounded-md px-3 py-2 text-sm font-medium transition-colors ${pathname === item.path
-                                    ? "bg-accent text-accent-foreground"
-                                    : "text-foreground/90 hover:bg-accent hover:text-accent-foreground"
-                                  }`}
-                              >
-                                {item.title}
-                              </Link>
-                            ) : (
-                              <Accordion type="single" collapsible className="w-full">
-                                <AccordionItem value={`item-${item.id}`} className="border-b-0">
-                                  <AccordionTrigger className="rounded-md px-3 hover:bg-accent hover:text-accent-foreground">
-                                    {item.title}
-                                  </AccordionTrigger>
-                                  <AccordionContent className="pb-2">
-                                    <div className="space-y-1">
-                                      {item.submenu?.map((sub) => (
-                                        <Link
-                                          key={sub.id}
-                                          href={sub.path || "#"}
-                                          onClick={() => setMobileMenuOpen(false)}
-                                          className="block rounded-md px-3 py-2 text-sm text-foreground/80 transition-colors hover:bg-accent hover:text-accent-foreground"
-                                        >
-                                          {sub.title}
-                                        </Link>
-                                      ))}
-                                    </div>
-                                  </AccordionContent>
-                                </AccordionItem>
-                              </Accordion>
-                            )}
-                          </li>
-                        ))}
-                      </ul>
-                    </nav>
+                      <nav aria-label="Mobile" className="flex-1">
+                        <ul className="space-y-4">
+                          {menuData.map((item) => (
+                            <li key={item.id} className="relative group">
+                              {item.path ? (
+                                <Link
+                                  href={item.path}
+                                  onClick={() => setMobileMenuOpen(false)}
+                                  className={`flex items-center rounded-xl px-4 py-3 text-base font-semibold transition-all duration-200 ${pathname === item.path
+                                    ? "bg-emerald-500/10 text-emerald-500 ring-1 ring-emerald-500/20"
+                                    : "text-foreground/80 hover:bg-white/5 hover:text-foreground"
+                                    }`}
+                                >
+                                  {item.title}
+                                </Link>
+                              ) : (
+                                <Accordion type="single" collapsible className="w-full">
+                                  <AccordionItem value={`item-${item.id}`} className="border-b-0">
+                                    <AccordionTrigger className="flex rounded-xl px-4 py-3 text-base font-semibold text-foreground/80 hover:bg-white/5 hover:text-foreground transition-all duration-200 [&[data-state=open]]:bg-emerald-500/5 [&[data-state=open]]:text-emerald-500 hover:no-underline">
+                                      {item.title}
+                                    </AccordionTrigger>
+                                    <AccordionContent className="pb-2 pt-1">
+                                      <div className="ml-4 flex flex-col space-y-2 border-l border-white/10 pl-4 mt-2">
+                                        {item.submenu?.map((sub) => (
+                                          <Link
+                                            key={sub.id}
+                                            href={sub.path || "#"}
+                                            onClick={() => setMobileMenuOpen(false)}
+                                            className="block rounded-lg px-4 py-2 text-sm font-medium text-foreground/60 transition-colors hover:text-emerald-500"
+                                          >
+                                            {sub.title}
+                                          </Link>
+                                        ))}
+                                      </div>
+                                    </AccordionContent>
+                                  </AccordionItem>
+                                </Accordion>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      </nav>
+
+                      {/* Optional Footer/Action in menu */}
+                      <div className="mt-auto pt-8 border-t border-white/5">
+                        <p className="text-center text-xs font-medium text-muted-foreground/60">
+                          MDU IITM LEARN © {new Date().getFullYear()}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </SheetContent>
               </Sheet>

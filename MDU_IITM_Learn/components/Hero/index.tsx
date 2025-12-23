@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import LightPillar from "@/components/LightPillar";
+import ShinyText from "@/components/ui/ShinyText";
 
 const TRUSTED_AVATARS = ["A", "S", "R", "P", "K"];
 
@@ -25,7 +26,7 @@ const Hero = () => {
       >
         <div className="absolute inset-0 -z-30 bg-background" />
         {isDarkMode && (
-          <div className="absolute inset-0 -z-20 hidden lg:block overflow-hidden opacity-30 pointer-events-none">
+          <div className="absolute inset-0 -z-20 overflow-hidden opacity-30 pointer-events-none">
             <LightPillar
               topColor="#10b981"
               bottomColor="#059669"
@@ -52,34 +53,30 @@ const Hero = () => {
                 data-wow-delay=".2s"
               >
 
-                <h1 className="mb-6 text-4xl font-bold leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
-                  Comprehensive{" "}
-                  <span className="relative inline-block overflow-hidden">
-                    <span className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent">
-                      Handwritten Notes
-                    </span>
-                    <motion.span
-                      initial={{ left: "-100%", opacity: 1 }}
-                      animate={{ left: "100%", opacity: 1 }}
-                      transition={{ duration: 1.2, delay: 0.3, ease: "easeInOut" }}
-                      className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-r from-transparent via-white/60 to-transparent"
-                      style={{ width: "50%" }}
+                <h1 className="mt-8 mb-6 text-[32px] font-bold leading-tight sm:mt-0 sm:text-5xl md:text-6xl lg:text-7xl">
+                  <span className="hidden sm:inline">Comprehensive </span>
+                  <ShinyText
+                    text="Handwritten Notes"
+                    speed={3}
+                    className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent"
+                  />{" "}
+                  for
+                  <br className="sm:hidden" />
+                  <span className="sm:hidden">
+                    <ShinyText
+                      text="MDU & IITM"
+                      speed={3}
+                      className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent"
+                    />
+                  </span>
+                  <span className="hidden sm:inline">
+                    <ShinyText
+                      text="MDU Rohtak and IITM"
+                      speed={3}
+                      className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent"
                     />
                   </span>{" "}
-                  for{" "}
-                  <span className="relative inline-block overflow-hidden">
-                    <span className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent">
-                      MDU Rohtak and IITM
-                    </span>
-                    <motion.span
-                      initial={{ left: "-100%", opacity: 1 }}
-                      animate={{ left: "100%", opacity: 1 }}
-                      transition={{ duration: 1.2, delay: 0.5, ease: "easeInOut" }}
-                      className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-r from-transparent via-white/60 to-transparent"
-                      style={{ width: "50%" }}
-                    />
-                  </span>{" "}
-                  BTech Courses Students.
+                  BTech <span className="hidden sm:inline">Courses </span> Students.
                 </h1>
                 <p className="mb-8 text-base font-medium text-muted-foreground sm:text-lg md:text-xl lg:text-2xl">
                   Our platform offers a comprehensive collection of handwritten notes, previous year papers, and other essential study materials to help you excel in your BTech journey.
@@ -181,7 +178,7 @@ const Hero = () => {
           </div>
         </div>
         {/* //hero section svg */}
-        <div className={`absolute right-0 top-0 z-[-1] opacity-30 lg:opacity-100 ${isDarkMode ? 'lg:hidden' : ''}`}>
+        <div className="absolute right-0 top-0 z-[-1] opacity-30 lg:opacity-100 dark:hidden">
           <svg
             className="bgradient-to-r from-blue-500 to-purple-500"
             width="450"
@@ -320,7 +317,7 @@ const Hero = () => {
             </defs>
           </svg>
         </div>
-        <div className={`absolute bottom-0 left-0 z-[-1] opacity-30 lg:opacity-100 ${isDarkMode ? 'lg:hidden' : ''}`}>
+        <div className="absolute bottom-0 left-0 z-[-1] opacity-30 lg:opacity-100 dark:hidden">
           <svg
             width="364"
             height="201"

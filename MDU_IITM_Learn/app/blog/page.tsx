@@ -70,8 +70,8 @@ const Blog = ({
                     <Link
                       href={`/blog?page=${pageNum}`}
                       className={`flex h-9 min-w-[36px] items-center justify-center rounded-md ${pageNum === page
-                          ? 'bg-primary text-primary-foreground'
-                          : 'bg-muted text-muted-foreground hover:bg-primary hover:text-primary-foreground'
+                        ? 'bg-primary text-primary-foreground'
+                        : 'bg-muted text-muted-foreground hover:bg-primary hover:text-primary-foreground'
                         } px-4 text-sm transition`}
                     >
                       {pageNum}
