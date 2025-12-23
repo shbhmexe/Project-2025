@@ -58,6 +58,16 @@ const Header = () => {
     };
   }, []);
 
+  // Helper to check if a route is active
+  const checkActive = (path: string | undefined) => {
+    if (!path) return false;
+    const normalizedPathname = pathname === "/" ? "/" : pathname.replace(/\/$/, "");
+    const normalizedPath = path === "/" ? "/" : path.replace(/\/$/, "");
+
+    if (normalizedPath === "/") return normalizedPathname === "/";
+    return normalizedPathname === normalizedPath || normalizedPathname.startsWith(normalizedPath + "/");
+  };
+
   return (
     <header
       className={`header left-0 top-0 z-40 w-full ${sticky
@@ -65,24 +75,6 @@ const Header = () => {
         : "absolute bg-transparent"
         }`}
     >
-      {/*2nd sem Notice banner */}
-
-      {/* {showNotice && (
-        <div className={`w-full bg-gradient-to-r from-primary to-secondary py-3 text-center overflow-hidden border-b border-border/50 shadow-sm transition-all duration-300 ${fadeNotice ? 'animate-fadeOut' : ''}`}>
-          <div className="animate-marquee whitespace-nowrap flex items-center justify-center tracking-wide">
-            <span className="inline-flex items-center gap-2 font-semibold text-primary-foreground">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-              IMPORTANT NOTICE:
-            </span>
-            <span className="mx-3 text-primary-foreground/90 font-medium">
-              2nd Semester Notes, PYQ's and Syllabus is now available on website | Access latest study materials for better preparation | Download now!
-            </span>
-          </div>
-        </div>
-      )} */}
-
       <div className="container">
         <div className="flex items-center justify-between gap-4 py-3 lg:py-0">
           {/* Logo */}
@@ -111,10 +103,10 @@ const Header = () => {
                     {menuItem.path ? (
                       <Link
                         href={menuItem.path}
-                        className={`relative inline-flex py-6 text-base transition-colors ${pathname === menuItem.path
+                        className={`relative inline-flex py-6 text-base transition-colors ${checkActive(menuItem.path)
                           ? "text-primary"
                           : "text-foreground/80 hover:text-primary"
-                          } after:absolute after:bottom-4 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full ${pathname === menuItem.path ? "after:w-full" : ""
+                          } after:absolute after:bottom-4 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full ${checkActive(menuItem.path) ? "after:w-full" : ""
                           }`}
                       >
                         {menuItem.title}
@@ -123,7 +115,10 @@ const Header = () => {
                       <>
                         <button
                           type="button"
-                          className="inline-flex items-center gap-1 py-6 text-base text-foreground/80 transition-colors hover:text-primary"
+                          className={`inline-flex items-center gap-1 py-6 text-base transition-colors ${menuItem.submenu?.some(sub => checkActive(sub.path))
+                            ? "text-primary"
+                            : "text-foreground/80 hover:text-primary"
+                            }`}
                         >
                           {menuItem.title}
                           <svg width="20" height="20" viewBox="0 0 25 24" aria-hidden="true">
@@ -141,7 +136,10 @@ const Header = () => {
                             <Link
                               href={submenuItem?.path || "#"}
                               key={submenuItem.id}
-                              className="block rounded-md px-3 py-2 text-sm text-foreground/80 transition-colors hover:bg-accent hover:text-accent-foreground"
+                              className={`block rounded-md px-3 py-2 text-sm transition-colors ${checkActive(submenuItem.path)
+                                ? "bg-accent text-primary"
+                                : "text-foreground/80 hover:bg-accent hover:text-accent-foreground"
+                                }`}
                             >
                               {submenuItem.title}
                             </Link>
@@ -190,7 +188,7 @@ const Header = () => {
                                 <Link
                                   href={item.path}
                                   onClick={() => setMobileMenuOpen(false)}
-                                  className={`flex items-center rounded-xl px-4 py-3 text-base font-semibold transition-all duration-200 ${pathname === item.path
+                                  className={`flex items-center rounded-xl px-4 py-3 text-base font-semibold transition-all duration-200 ${checkActive(item.path)
                                     ? "bg-emerald-500/10 text-emerald-500 ring-1 ring-emerald-500/20"
                                     : "text-foreground/80 hover:bg-white/5 hover:text-foreground"
                                     }`}
@@ -200,7 +198,12 @@ const Header = () => {
                               ) : (
                                 <Accordion type="single" collapsible className="w-full">
                                   <AccordionItem value={`item-${item.id}`} className="border-b-0">
-                                    <AccordionTrigger className="flex rounded-xl px-4 py-3 text-base font-semibold text-foreground/80 hover:bg-white/5 hover:text-foreground transition-all duration-200 [&[data-state=open]]:bg-emerald-500/5 [&[data-state=open]]:text-emerald-500 hover:no-underline">
+                                    <AccordionTrigger
+                                      className={`flex rounded-xl px-4 py-3 text-base font-semibold transition-all duration-200 [&[data-state=open]]:bg-emerald-500/5 [&[data-state=open]]:text-emerald-500 hover:no-underline ${item.submenu?.some(sub => checkActive(sub.path))
+                                        ? "bg-emerald-500/5 text-emerald-500"
+                                        : "text-foreground/80 hover:bg-white/5 hover:text-foreground"
+                                        }`}
+                                    >
                                       {item.title}
                                     </AccordionTrigger>
                                     <AccordionContent className="pb-2 pt-1">
@@ -210,7 +213,10 @@ const Header = () => {
                                             key={sub.id}
                                             href={sub.path || "#"}
                                             onClick={() => setMobileMenuOpen(false)}
-                                            className="block rounded-lg px-4 py-2 text-sm font-medium text-foreground/60 transition-colors hover:text-emerald-500"
+                                            className={`block rounded-lg px-4 py-2 text-sm font-medium transition-colors ${checkActive(sub.path)
+                                              ? "text-emerald-500 bg-emerald-500/10"
+                                              : "text-foreground/60 hover:text-emerald-500"
+                                              }`}
                                           >
                                             {sub.title}
                                           </Link>
