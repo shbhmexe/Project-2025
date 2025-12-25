@@ -16,7 +16,6 @@ const nextConfig = {
     ],
   },
   trailingSlash: true, // Ensures proper sitemap URLs
-  swcMinify: true,
   reactStrictMode: false,
   typescript: {
     // !! WARN !!
@@ -24,7 +23,7 @@ const nextConfig = {
     // your project has type errors.
     ignoreBuildErrors: true,
   },
-  
+
   eslint: {
     // Disabling ESLint during builds
     ignoreDuringBuilds: true,

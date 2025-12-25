@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://mduiitmlearn.vercel.app/sitemap.xml/</loc><lastmod>2025-12-23T10:02:15.262Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://mduiitmlearn.vercel.app/pyqs/</loc><lastmod>2025-12-23T10:02:15.263Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://mduiitmlearn.vercel.app/youtube-explanation/semester/</loc><lastmod>2025-12-23T10:02:15.263Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://mduiitmlearn.vercel.app/contact/</loc><lastmod>2025-12-23T10:02:15.263Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://mduiitmlearn.vercel.app/Terms-Conditions/</loc><lastmod>2025-12-23T10:02:15.263Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://mduiitmlearn.vercel.app/about/</loc><lastmod>2025-12-23T10:02:15.263Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://mduiitmlearn.vercel.app/auth/signin/</loc><lastmod>2025-12-23T10:02:15.263Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://mduiitmlearn.vercel.app/Aboutpage/</loc><lastmod>2025-12-23T10:02:15.263Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://mduiitmlearn.vercel.app/cgpa/</loc><lastmod>2025-12-23T10:02:15.263Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://mduiitmlearn.vercel.app/blog-details/</loc><lastmod>2025-12-23T10:02:15.263Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://mduiitmlearn.vercel.app/privacy-policy/</loc><lastmod>2025-12-23T10:02:15.263Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://mduiitmlearn.vercel.app/notes/</loc><lastmod>2025-12-23T10:02:15.263Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://mduiitmlearn.vercel.app/Syllabus/</loc><lastmod>2025-12-23T10:02:15.263Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://mduiitmlearn.vercel.app/</loc><lastmod>2025-12-23T10:02:15.263Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://mduiitmlearn.vercel.app/syllabus/</loc><lastmod>2025-12-23T10:02:15.263Z</lastmod></url>
+<url><loc>https://mduiitmlearn.vercel.app/notes/</loc><lastmod>2025-12-25T11:05:48.038Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://mduiitmlearn.vercel.app/sitemap.xml/</loc><lastmod>2025-12-25T11:05:48.037Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://mduiitmlearn.vercel.app/Aboutpage/</loc><lastmod>2025-12-25T11:05:48.037Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://mduiitmlearn.vercel.app/cgpa/</loc><lastmod>2025-12-25T11:05:48.038Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://mduiitmlearn.vercel.app/Terms-Conditions/</loc><lastmod>2025-12-25T11:05:48.037Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://mduiitmlearn.vercel.app/about/</loc><lastmod>2025-12-25T11:05:48.037Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://mduiitmlearn.vercel.app/youtube-explanation/semester/</loc><lastmod>2025-12-25T11:05:48.037Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://mduiitmlearn.vercel.app/blog-details/</loc><lastmod>2025-12-25T11:05:48.037Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://mduiitmlearn.vercel.app/Syllabus/</loc><lastmod>2025-12-25T11:05:48.037Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://mduiitmlearn.vercel.app/contact/</loc><lastmod>2025-12-25T11:05:48.038Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://mduiitmlearn.vercel.app/</loc><lastmod>2025-12-25T11:05:48.038Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://mduiitmlearn.vercel.app/pyqs/</loc><lastmod>2025-12-25T11:05:48.038Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://mduiitmlearn.vercel.app/privacy-policy/</loc><lastmod>2025-12-25T11:05:48.038Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://mduiitmlearn.vercel.app/auth/signin/</loc><lastmod>2025-12-25T11:05:48.038Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://mduiitmlearn.vercel.app/syllabus/</loc><lastmod>2025-12-25T11:05:48.038Z</lastmod></url>
 </urlset>

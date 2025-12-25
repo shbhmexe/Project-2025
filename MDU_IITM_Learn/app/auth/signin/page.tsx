@@ -4,12 +4,15 @@ import { signIn } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import LightPillar from "@/components/LightPillar";
 
-export default function SignInPage() {
+function SignInContent() {
     const { theme, resolvedTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
+    const searchParams = useSearchParams();
+    const callbackUrl = searchParams?.get("callbackUrl") || "/";
 
     useEffect(() => {
         setMounted(true);
@@ -66,7 +69,7 @@ export default function SignInPage() {
 
                             {/* Google Sign In Button */}
                             <button
-                                onClick={() => signIn("google", { callbackUrl: "/" })}
+                                onClick={() => signIn("google", { callbackUrl })}
                                 className="group mb-6 flex w-full items-center justify-center gap-3 rounded-xl border border-border bg-white px-6 py-4 text-base font-medium text-gray-700 shadow-sm transition-all duration-300 hover:border-emerald-500/50 hover:bg-emerald-50 hover:shadow-emerald-500/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white dark:hover:border-emerald-500/50 dark:hover:bg-emerald-500/10 dark:hover:shadow-[0_0_20px_rgba(16,185,129,0.2)]"
                             >
                                 <svg width="20" height="20" viewBox="0 0 24 24">
@@ -178,5 +181,17 @@ export default function SignInPage() {
                 </div>
             )}
         </section>
+    );
+}
+
+export default function SignInPage() {
+    return (
+        <Suspense fallback={
+            <div className="flex min-h-screen items-center justify-center bg-background">
+                <div className="h-12 w-12 animate-spin rounded-full border-4 border-emerald-500 border-t-transparent"></div>
+            </div>
+        }>
+            <SignInContent />
+        </Suspense>
     );
 }

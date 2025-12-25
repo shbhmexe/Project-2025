@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useMemo, useState, useEffect } from "react";
 import { ArrowLeft, Heart, BookOpen, Search } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useSession } from "next-auth/react";
 import LightPillar from "@/components/LightPillar";
 
 import { Badge } from "@/components/ui/badge";
@@ -36,16 +37,42 @@ const subjectsBySemester: Record<number, string[]> = {
     "Language-Lab",
     "Manufacturing-lab",
   ],
+  3: [
+    "Database-Management-Systems",
+    "Data-Structures-and-Algorithms",
+    "Digital-Electronics",
+    "Python-Programming",
+    "Mathematics-III",
+    "Economics-for-Engineers",
+    "Database-Management-Systems-LAB",
+    "Digital-Electronics-LAB",
+    "Data-Structures-and-Algorithms-LAB-Using-C",
+    "Python-Programming-LAB",
+  ],
+  4: [
+    "Discrete-Mathematics",
+    "Computer-Organization-and-Architecture",
+    "Operating-System",
+    "Object-Oriented-Programming",
+    "Organizational-Behaviour",
+    "Environmental-Sciences",
+    "Web-Technologies",
+    "Operating-System-LAB",
+    "Object-Oriented-Programming-LAB-Using-Cpp",
+    "Web-Technologies-Lab",
+  ],
 };
 
 export default function SemesterPage() {
   const params = useParams();
+  const router = useRouter();
+  const { status } = useSession();
 
   const semesterParam = params?.semester;
   const semester = Array.isArray(semesterParam) ? semesterParam[0] : semesterParam;
   const semesterNum = Number(semester);
 
-  const [query, setQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
 
   const { favorites, toggleFavorite } = useFavoriteNotes();
@@ -55,6 +82,13 @@ export default function SemesterPage() {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Protect Semester 3+ pages
+  useEffect(() => {
+    if (status === "unauthenticated" && semesterNum >= 3) {
+      router.push(`/auth/signin?callbackUrl=/semester/${semester}`);
+    }
+  }, [status, semesterNum, router, semester]);
 
   const isDarkMode = mounted && (theme === "dark" || resolvedTheme === "dark");
 
@@ -67,10 +101,10 @@ export default function SemesterPage() {
   }, [semesterNum]);
 
   const filteredSubjects = useMemo(() => {
-    const q = query.trim().toLowerCase();
+    const q = searchQuery.trim().toLowerCase();
     if (!q) return subjects;
     return subjects.filter((s) => s.toLowerCase().includes(q));
-  }, [query, subjects]);
+  }, [searchQuery, subjects]);
 
   const visibleSubjects = useMemo(() => {
     if (!showFavoritesOnly) return filteredSubjects;
@@ -169,8 +203,8 @@ export default function SemesterPage() {
             <div className="relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search subjects..."
                 aria-label="Search subjects"
                 className="pl-10 bg-card/50 border-emerald-500/20 focus:border-emerald-500/50 focus:ring-emerald-500/20"
@@ -253,10 +287,10 @@ export default function SemesterPage() {
                 <Heart className="h-12 w-12 mx-auto mb-4 text-muted-foreground/50" />
                 <p className="text-muted-foreground">
                   {showFavoritesOnly
-                    ? query.trim()
-                      ? `No favorite subjects match "${query.trim()}".`
+                    ? searchQuery.trim()
+                      ? `No favorite subjects match "${searchQuery.trim()}".`
                       : "No favorites saved for this semester yet. Tap the heart to save a subject."
-                    : `No subjects match "${query.trim()}".`}
+                    : `No subjects match "${searchQuery.trim()}".`}
                 </p>
               </motion.div>
             )}

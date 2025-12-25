@@ -53,30 +53,48 @@ const Hero = () => {
                 data-wow-delay=".2s"
               >
 
-                <h1 className="mt-8 mb-6 text-[32px] font-bold leading-tight sm:mt-0 sm:text-5xl md:text-6xl lg:text-7xl">
-                  <span className="hidden sm:inline">Comprehensive </span>
-                  <ShinyText
-                    text="Handwritten Notes"
-                    speed={3}
-                    className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent"
-                  />{" "}
-                  for
-                  <br className="sm:hidden" />
-                  <span className="sm:hidden">
+                <h1 className="mt-8 mb-6 text-[28px] font-bold leading-tight sm:mt-0 sm:text-5xl md:text-6xl lg:text-7xl">
+                  {/* Line 1 (Desktop) */}
+                  <span className="hidden sm:block mb-2">Comprehensive</span>
+
+                  {/* Line 2 (Desktop) / Line 1 (Mobile) */}
+                  <span className="inline-block">
                     <ShinyText
-                      text="MDU & IITM"
+                      text="Handwritten Notes"
                       speed={3}
                       className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent"
-                    />
+                    />{" "}
+                    for
                   </span>
-                  <span className="hidden sm:inline">
-                    <ShinyText
-                      text="MDU Rohtak and IITM"
-                      speed={3}
-                      className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent"
-                    />
-                  </span>{" "}
-                  BTech <span className="hidden sm:inline">Courses </span> Students.
+
+                  <br />
+
+                  {/* Line 3 (Desktop) / Line 2 (Mobile) */}
+                  <span className="inline-block">
+                    <span className="sm:hidden">
+                      <ShinyText
+                        text="MDU & IITM"
+                        speed={3}
+                        className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent"
+                      />{" "}
+                      BTech
+                    </span>
+                    <span className="hidden sm:inline">
+                      <ShinyText
+                        text="MDU Rohtak and IITM"
+                        speed={3}
+                        className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent"
+                      />
+                    </span>
+                  </span>
+
+                  <br />
+
+                  {/* Line 4 (Desktop) / Line 3 (Mobile) */}
+                  <span className="hidden sm:inline">BTech Courses</span>
+                  <br className="hidden sm:block" />
+                  <span className="hidden sm:inline">Students.</span>
+                  <span className="sm:hidden">Students.</span>
                 </h1>
                 <p className="mb-8 text-base font-medium text-muted-foreground sm:text-lg md:text-xl lg:text-2xl">
                   Our platform offers a comprehensive collection of handwritten notes, previous year papers, and other essential study materials to help you excel in your BTech journey.

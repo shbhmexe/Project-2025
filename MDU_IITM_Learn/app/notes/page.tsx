@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useMemo, useState, useEffect } from "react";
-import { Heart, BookOpen, Sparkles } from "lucide-react";
+import { Heart, BookOpen, Sparkles, Lock } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useSession } from "next-auth/react";
 import LightPillar from "@/components/LightPillar";
 
 import { Badge } from "@/components/ui/badge";
@@ -16,11 +17,12 @@ import { useFavoriteNotes } from "@/lib/favorite-notes";
 import { cn } from "@/lib/utils";
 
 const semesters = ["1", "2", "3", "4", "5", "6", "7", "8"];
-const enabledSemesters = new Set(["1", "2"]);
+const enabledSemesters = new Set(["1", "2", "3", "4"]);
 
 export default function NotesPage() {
   const { favorites, toggleFavorite } = useFavoriteNotes();
   const { theme, resolvedTheme } = useTheme();
+  const { data: session } = useSession();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -114,8 +116,46 @@ export default function NotesPage() {
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 {semesters.map((sem, index) => {
                   const enabled = enabledSemesters.has(sem);
+                  const semNum = Number(sem);
+                  const requiresAuth = semNum >= 3;
+                  const isLocked = requiresAuth && !session;
 
                   if (enabled) {
+                    // Locked state for auth-required semesters
+                    if (isLocked) {
+                      return (
+                        <motion.div
+                          key={sem}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.05 }}
+                        >
+                          <Link
+                            href={`/auth/signin?callbackUrl=/semester/${sem}`}
+                            className="group block focus-visible:outline-none"
+                          >
+                            <Card className="h-full bg-card border-amber-500/30 shadow-[0_0_20px_rgba(245,158,11,0.15)] transition-all duration-300 group-hover:shadow-[0_0_30px_rgba(245,158,11,0.25)] group-hover:border-amber-500/50 group-focus-visible:ring-2 group-focus-visible:ring-amber-500">
+                              <CardHeader className="pb-4">
+                                <div className="flex items-center gap-2">
+                                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-amber-500/20 to-orange-500/20 text-sm font-bold text-amber-400">
+                                    <Lock className="h-4 w-4" />
+                                  </span>
+                                  <CardTitle className="text-foreground">Semester {sem}</CardTitle>
+                                </div>
+                                <CardDescription>Sign in to access</CardDescription>
+                              </CardHeader>
+                              <CardFooter className="pt-0">
+                                <span className="text-sm font-medium text-amber-400 group-hover:text-amber-300 transition-colors">
+                                  Sign in →
+                                </span>
+                              </CardFooter>
+                            </Card>
+                          </Link>
+                        </motion.div>
+                      );
+                    }
+
+                    // Normal accessible state
                     return (
                       <motion.div
                         key={sem}
