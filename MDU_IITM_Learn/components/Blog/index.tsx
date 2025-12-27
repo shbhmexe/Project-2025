@@ -46,7 +46,7 @@ const Blog = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.35, delay: index * 0.1 }}
-              className="w-full"
+              className={`w-full ${index === 2 ? "hidden lg:block" : ""}`}
             >
               <SingleBlog blog={blog} />
             </motion.div>
@@ -61,8 +61,10 @@ const Blog = () => {
           className="flex justify-center mt-12"
         >
           <Link href="/blog">
-            <InteractiveHoverButton className="shadow-[0_0_20px_rgba(16,185,129,0.2)] hover:shadow-[0_0_30px_rgba(16,185,129,0.4)] px-8 py-3">
-              More Blogs
+            <InteractiveHoverButton className="w-full sm:w-auto flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.2)] hover:shadow-[0_0_30px_rgba(16,185,129,0.4)] px-8 py-3">
+              <span className="inline-flex items-center">
+                More Blogs
+              </span>
             </InteractiveHoverButton>
           </Link>
         </motion.div>

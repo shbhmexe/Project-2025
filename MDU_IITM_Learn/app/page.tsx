@@ -66,7 +66,7 @@ export default function Home() {
       <Testimonials />
       <Cgpa />
       <Blog />
-      <Contact />
+      <Contact hideFormOnMobile={true} />
     </>
   );
 }

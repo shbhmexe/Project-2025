@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { BookOpen, FileQuestion, FileText, Calculator, Youtube, Newspaper, Sparkles } from "lucide-react";
+import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 
 type Card = {
   title: string;
@@ -108,13 +109,13 @@ const Dashboard = () => {
                   </p>
                 </div>
               </div>
-              <div className="mt-5">
-                <Link
-                  href={card.href}
-                  className="inline-flex items-center gap-2 px-4 py-2 text-sm md:text-[15px] font-medium rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/30 hover:border-emerald-500/50 transition-all"
-                >
-                  {card.cta ?? "Open"}
-                  <span className="group-hover:translate-x-1 transition-transform">→</span>
+              <div className="mt-5 flex justify-center sm:justify-start">
+                <Link href={card.href} className="w-auto">
+                  <InteractiveHoverButton className="w-full sm:w-auto flex items-center justify-center text-sm md:text-[15px] px-6 py-2 shadow-[0_0_20px_rgba(16,185,129,0.1)] hover:shadow-[0_0_25px_rgba(16,185,129,0.3)]">
+                    <span className="inline-flex items-center">
+                      {card.cta ?? "Open"}
+                    </span>
+                  </InteractiveHoverButton>
                 </Link>
               </div>
             </motion.div>

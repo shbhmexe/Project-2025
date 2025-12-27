@@ -5,18 +5,32 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import LightPillar from "@/components/LightPillar";
 import ShinyText from "@/components/ui/ShinyText";
+import dynamic from "next/dynamic";
+
+// Dynamic import for Antigravity (client-only, uses Three.js)
+const Antigravity = dynamic(() => import("@/components/Antigravity"), {
+  ssr: false,
+});
 
 const TRUSTED_AVATARS = ["A", "S", "R", "P", "K"];
 
 const Hero = () => {
   const { theme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [particleCount, setParticleCount] = useState(200);
 
   useEffect(() => {
     setMounted(true);
+    const updateCount = () => {
+      setParticleCount(window.innerWidth >= 768 ? 800 : 200);
+    };
+    updateCount();
+    window.addEventListener("resize", updateCount);
+    return () => window.removeEventListener("resize", updateCount);
   }, []);
 
   const isDarkMode = mounted && (theme === "dark" || resolvedTheme === "dark");
+  const isLightMode = mounted && !isDarkMode;
 
   return (
     <>
@@ -25,6 +39,8 @@ const Hero = () => {
         className="relative z-10 overflow-hidden pb-16 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
       >
         <div className="absolute inset-0 -z-30 bg-background" />
+
+        {/* Dark Mode: LightPillar Animation */}
         {isDarkMode && (
           <div className="absolute inset-0 -z-20 overflow-hidden opacity-30 pointer-events-none">
             <LightPillar
@@ -44,6 +60,24 @@ const Hero = () => {
             <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-transparent to-transparent z-[1] pointer-events-none" />
           </div>
         )}
+
+        {/* Light Mode: Antigravity Animation */}
+        {isLightMode && (
+          <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
+            <Antigravity
+              count={particleCount}
+              magnetRadius={6}
+              ringRadius={7}
+              waveSpeed={0.4}
+              waveAmplitude={0.5}
+              particleSize={0.4}
+              lerpSpeed={0.04}
+              color="#3b82f6"
+              autoAnimate={true}
+              particleVariance={0.5}
+            />
+          </div>
+        )}
         <meta name="google-site-verification" content="wyzLSCVE6q08S-47RMTg-6M3tybRAmxVyRU3WOrVLLY" />
         <div className="container relative z-20">
           <div className="-mx-4 flex flex-wrap">
@@ -53,52 +87,88 @@ const Hero = () => {
                 data-wow-delay=".2s"
               >
 
-                <h1 className="mt-8 mb-6 text-[28px] font-bold leading-tight sm:mt-0 sm:text-5xl md:text-6xl lg:text-7xl">
-                  {/* Line 1 (Desktop) */}
-                  <span className="hidden sm:block mb-2">Comprehensive</span>
+                {/* DARK MODE TITLE - Full version */}
+                {isDarkMode && (
+                  <h1 className="mt-10 mb-6 text-[28px] font-bold leading-tight sm:-mt-20 sm:text-5xl md:text-6xl lg:text-7xl">
+                    {/* Line 1 (Desktop) */}
+                    <span className="hidden sm:block mb-2">Comprehensive</span>
 
-                  {/* Line 2 (Desktop) / Line 1 (Mobile) */}
-                  <span className="inline-block">
-                    <ShinyText
-                      text="Handwritten Notes"
-                      speed={3}
-                      className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent"
-                    />{" "}
-                    for
-                  </span>
+                    {/* Line 2 (Desktop) / Line 1 (Mobile) */}
+                    <span className="inline-block">
+                      <ShinyText
+                        text="Handwritten Notes"
+                        speed={3}
+                        className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent"
+                      />{" "}
+                      for
+                    </span>
 
-                  <br />
+                    <br />
 
-                  {/* Line 3 (Desktop) / Line 2 (Mobile) */}
-                  <span className="inline-block">
-                    <span className="sm:hidden">
+                    {/* Line 3 (Desktop) / Line 2 (Mobile) */}
+                    <span className="inline-block">
+                      <span className="sm:hidden">
+                        <ShinyText
+                          text="MDU & IITM"
+                          speed={3}
+                          className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent"
+                        />{" "}
+                        BTech
+                      </span>
+                      <span className="hidden sm:inline">
+                        <ShinyText
+                          text="MDU Rohtak and IITM"
+                          speed={3}
+                          className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent"
+                        />
+                      </span>
+                    </span>
+
+                    <br />
+
+                    {/* Line 4 (Desktop) / Line 3 (Mobile) */}
+                    <span className="hidden sm:inline">BTech Courses</span>
+                    <br className="hidden sm:block" />
+                    <span className="hidden sm:inline">Students.</span>
+                    <span className="sm:hidden">Students.</span>
+                  </h1>
+                )}
+
+                {/* LIGHT MODE TITLE - Short 2 line version with branding */}
+                {isLightMode && (
+                  <h1 className="mt-32 mb-6 text-[26px] font-bold leading-tight sm:mt-16 sm:text-4xl md:text-5xl lg:text-6xl">
+                    <span className="block whitespace-nowrap mb-4">
+                      <ShinyText
+                        text="B.Tech Notes"
+                        speed={3}
+                        className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent"
+                      />{" "}
+                      Made Easy
+                    </span>
+                    <span className="block whitespace-nowrap">
+                      for{" "}
                       <ShinyText
                         text="MDU & IITM"
                         speed={3}
                         className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent"
                       />{" "}
-                      BTech
+                      Students
                     </span>
-                    <span className="hidden sm:inline">
-                      <ShinyText
-                        text="MDU Rohtak and IITM"
-                        speed={3}
-                        className="bg-gradient-to-r from-emerald-500 to-green-400 bg-clip-text text-transparent"
-                      />
-                    </span>
-                  </span>
+                  </h1>
+                )}
 
-                  <br />
-
-                  {/* Line 4 (Desktop) / Line 3 (Mobile) */}
-                  <span className="hidden sm:inline">BTech Courses</span>
-                  <br className="hidden sm:block" />
-                  <span className="hidden sm:inline">Students.</span>
-                  <span className="sm:hidden">Students.</span>
-                </h1>
-                <p className="mb-8 text-base font-medium text-muted-foreground sm:text-lg md:text-xl lg:text-2xl">
-                  Our platform offers a comprehensive collection of handwritten notes, previous year papers, and other essential study materials to help you excel in your BTech journey.
-                </p>
+                {/* Description - different for light/dark mode */}
+                {isDarkMode && (
+                  <p className="mb-8 text-base font-medium text-muted-foreground sm:text-lg md:text-xl lg:text-2xl">
+                    Our platform offers a comprehensive collection of handwritten notes, previous year papers, and other essential study materials to help you excel in your BTech journey.
+                  </p>
+                )}
+                {isLightMode && (
+                  <p className="mb-8 text-base font-medium text-muted-foreground sm:text-lg md:text-xl">
+                    Your Personal Gateway to Academic Excellence. <br className="hidden sm:block" />
+                    Access premium notes, PYQs, and resources tailored for success.
+                  </p>
+                )}
                 <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
 
                   {/* 🔥 Get Notes Button */}
@@ -171,7 +241,7 @@ const Hero = () => {
 
                 {/* ✅ Social proof */}
                 <div className="mt-6 flex items-center justify-center">
-                  <div className="inline-flex flex-col items-center gap-2 rounded-2xl border border-border/60 bg-background/70 px-4 py-3 shadow-sm backdrop-blur-sm sm:flex-row sm:gap-3 sm:rounded-full sm:py-2">
+                  <div className="inline-flex flex-col items-center gap-2 sm:rounded-full sm:border sm:border-border/60 sm:bg-background/70 sm:px-4 sm:py-2 sm:shadow-sm sm:backdrop-blur-sm sm:flex-row sm:gap-3">
                     <div aria-hidden="true" className="flex items-center -space-x-2">
                       {TRUSTED_AVATARS.map((initial) => (
                         <div
@@ -195,8 +265,8 @@ const Hero = () => {
             </div>
           </div>
         </div>
-        {/* //hero section svg */}
-        <div className="absolute right-0 top-0 z-[-1] opacity-30 lg:opacity-100 dark:hidden">
+        {/* //hero section svg - Hidden */}
+        <div className="absolute right-0 top-0 z-[-1] hidden">
           <svg
             className="bgradient-to-r from-blue-500 to-purple-500"
             width="450"
@@ -335,7 +405,7 @@ const Hero = () => {
             </defs>
           </svg>
         </div>
-        <div className="absolute bottom-0 left-0 z-[-1] opacity-30 lg:opacity-100 dark:hidden">
+        <div className="absolute bottom-0 left-0 z-[-1] hidden">
           <svg
             width="364"
             height="201"

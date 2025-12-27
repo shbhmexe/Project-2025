@@ -103,10 +103,10 @@ const Header = () => {
                     {menuItem.path ? (
                       <Link
                         href={menuItem.path}
-                        className={`relative inline-flex py-6 text-base transition-colors ${checkActive(menuItem.path)
+                        className={`relative inline-flex py-6 text-base transition-colors ${checkActive(menuItem.path) && menuItem.path !== "/"
                           ? "text-primary"
                           : "text-foreground/80 hover:text-primary"
-                          } after:absolute after:bottom-4 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full ${checkActive(menuItem.path) ? "after:w-full" : ""
+                          } after:absolute after:bottom-4 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full ${checkActive(menuItem.path) && menuItem.path !== "/" ? "after:w-full" : ""
                           }`}
                       >
                         {menuItem.title}

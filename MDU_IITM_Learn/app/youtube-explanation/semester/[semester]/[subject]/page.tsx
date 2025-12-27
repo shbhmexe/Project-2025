@@ -143,13 +143,13 @@ export default function YouTubeUnitsPage({
                 href={`/youtube-explanation/semester/${semester}/${encodeURIComponent(subject)}/${encodeURIComponent(unit)}`}
                 className="group block focus-visible:outline-none"
               >
-                <Card className="h-full transition-shadow group-hover:shadow-md group-focus-visible:ring-2 group-focus-visible:ring-ring group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-background">
+                <Card className="h-full bg-card border-emerald-500/30 shadow-[0_0_20px_rgba(16,185,129,0.15)] transition-all duration-300 group-hover:shadow-[0_0_30px_rgba(16,185,129,0.25)] group-hover:border-emerald-500/50 group-focus-visible:ring-2 group-focus-visible:ring-emerald-500">
                   <CardHeader className="pb-4">
                     <CardTitle className="text-base sm:text-lg">{unitLabel(unit)}</CardTitle>
                     <CardDescription>Open on YouTube</CardDescription>
                   </CardHeader>
                   <CardFooter className="pt-0">
-                    <span className="text-sm font-medium text-primary">Open →</span>
+                    <span className="text-sm font-medium text-emerald-400 group-hover:text-emerald-300 transition-colors">Open →</span>
                   </CardFooter>
                 </Card>
               </Link>

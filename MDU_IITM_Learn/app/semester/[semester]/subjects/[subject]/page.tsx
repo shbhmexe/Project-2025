@@ -29,7 +29,7 @@ const notesLinks: Record<string, string> = {
 
   // Semester 2 subjects
   "Chemistry-I": "https://drive.google.com/drive/folders/11naYGaPv6GNCwhTLc_HZ2fSMkvR-K8YF",
-  PPS: "https://drive.google.com/drive/folders/1ETZPIgAEPicHQDlPUPD-2LXBdqfSE5y9?usp=sharing",
+   PPS: "https://drive.google.com/drive/folders/1ETZPIgAEPicHQDlPUPD-2LXBdqfSE5y9?usp=sharing",
   "Workshop-Technology": "https://drive.google.com/drive/folders/1_08MeYQSOuIddQ3Y9-mxYlXPOyJV0dKl?usp=sharing",
   "Chemistry-Lab-1": "https://drive.google.com/drive/folders/1AbkO28z6RTGoSrX6YL-qHEjwgyNM2cv7?usp=sharing",
   "Language-Lab": "https://drive.google.com/drive/folders/1-p4p3PwbrxIYh_RPbYaZyDyxWb382sjI?usp=sharing",
@@ -60,6 +60,23 @@ const notesLinks: Record<string, string> = {
   "Operating-System-LAB": "",
   "Object-Oriented-Programming-LAB-Using-Cpp": "",
   "Web-Technologies-Lab": "",
+
+  // Semester 5 subjects
+ 
+    "Microprocessor": "",
+    "Computer-Networks": "",
+    "Formal-Languages-and-Automata": "",
+    "Design-and-Analysis-of-Algorithms": "",
+    "Programming-in-Java": "",
+    "Software-Engineering": "",
+    "Microprocessor-Lab": "",
+    "Computer-Networks-Lab": "",
+    "Design-and-Analysis-of-Algorithms-Using-Cpp": "",
+    "Programming-in-Java-Lab": "",
+    "Practical-Training-1": "",
+
+
+
 };
 
 export default function SubjectPage() {

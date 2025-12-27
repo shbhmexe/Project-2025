@@ -15,6 +15,10 @@ import { cn } from "@/lib/utils";
 
 const subjectsBySemester: Record<number, string[]> = {
   1: ["Mathematics-I", "Semiconductor-Physics", "English", "Basic-Electrical-Engineering"],
+  2: ["Mathematics-II", "Chemistry-I", "PPS", "Workshop-Technology"],
+  3: ["Database-Management-Systems", "Data-Structures-and-Algorithms", "Digital-Electronics", "Python-Programming", "Mathematics-III", "Economics-for-Engineers", "Database-Management-Systems-LAB", "Digital-Electronics-LAB", "Data-Structures-and-Algorithms-LAB-Using-C", "Python-Programming-LAB"],
+  4: ["Discrete-Mathematics", "Computer-Organization-and-Architecture", "Operating-System", "Object-Oriented-Programming", "Organizational-Behaviour", "Environmental-Sciences", "Web-Technologies", "Operating-System-LAB", "Object-Oriented-Programming-LAB-Using-Cpp", "Web-Technologies-Lab"],
+  5: ["Microprocessor", "Computer-Networks", "Formal-Languages-and-Automata", "Design-and-Analysis-of-Algorithms", "Programming-in-Java", "Software-Engineering"],
 };
 
 function prettyLabel(slug: string) {

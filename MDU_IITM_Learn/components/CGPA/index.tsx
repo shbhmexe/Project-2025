@@ -52,11 +52,11 @@ const Cgpa = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <Link href="/cgpa">
-              <InteractiveHoverButton className="shadow-[0_0_30px_rgba(16,185,129,0.2)] hover:shadow-[0_0_40px_rgba(16,185,129,0.4)] px-10 py-5 text-lg">
-                <div className="flex items-center gap-2">
+              <InteractiveHoverButton className="w-full sm:w-auto flex items-center justify-center shadow-[0_0_30px_rgba(16,185,129,0.2)] hover:shadow-[0_0_40px_rgba(16,185,129,0.4)] px-10 py-5 text-lg">
+                <span className="inline-flex items-center gap-2">
                   <Calculator className="h-5 w-5" />
-                  Use Now
-                </div>
+                  <span>Use Now</span>
+                </span>
               </InteractiveHoverButton>
             </Link>
           </motion.div>

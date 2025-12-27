@@ -1,6 +1,6 @@
 import { Menu } from "@/types/menu";
 
-const menuData: Menu[] = [ 
+const menuData: Menu[] = [
   {
     id: 1,
     title: "Home",
@@ -19,7 +19,7 @@ const menuData: Menu[] = [
     path: "/Syllabus",
     newTab: true,
   },
-  
+
   {
     id: 5,
     title: "PYQ's",
@@ -62,6 +62,6 @@ const menuData: Menu[] = [
         "newTab": true
       }
     ]
-  }  
+  }
 ];
 export default menuData;

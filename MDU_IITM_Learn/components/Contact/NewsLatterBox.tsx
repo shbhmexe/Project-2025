@@ -51,11 +51,11 @@ const NewsLatterBox = () => {
     >
       {/* Decorative glow */}
       <div className="absolute -top-20 -right-20 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl" />
-      <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-teal-500/10 rounded-full blur-3xl" />
+      <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl" />
 
       <div className="relative z-10">
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border border-emerald-500/30">
+          <div className="p-2 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-500/20 border border-emerald-500/30">
             <Bell className="h-5 w-5 text-emerald-500" />
           </div>
           <h3 className="text-xl font-bold leading-tight text-foreground">

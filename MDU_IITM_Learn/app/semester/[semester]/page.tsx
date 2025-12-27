@@ -61,6 +61,19 @@ const subjectsBySemester: Record<number, string[]> = {
     "Object-Oriented-Programming-LAB-Using-Cpp",
     "Web-Technologies-Lab",
   ],
+  5: [
+    "Microprocessor",
+    "Computer-Networks",
+    "Formal-Languages-and-Automata",
+    "Design-and-Analysis-of-Algorithms",
+    "Programming-in-Java",
+    "Software-Engineering",
+    "Microprocessor-Lab",
+    "Computer-Networks-Lab",
+    "Design-and-Analysis-of-Algorithms-Using-Cpp",
+    "Programming-in-Java-Lab",
+    "Practical-Training-1",
+  ],
 };
 
 export default function SemesterPage() {
@@ -85,7 +98,7 @@ export default function SemesterPage() {
 
   // Protect Semester 3+ pages
   useEffect(() => {
-    if (status === "unauthenticated" && semesterNum >= 3) {
+    if (status === "unauthenticated" && semesterNum >= 6) {
       router.push(`/auth/signin?callbackUrl=/semester/${semester}`);
     }
   }, [status, semesterNum, router, semester]);
