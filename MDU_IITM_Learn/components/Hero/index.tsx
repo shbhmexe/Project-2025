@@ -137,7 +137,7 @@ const Hero = () => {
                 {/* LIGHT MODE TITLE - Short 2 line version with branding */}
                 {isLightMode && (
                   <h1 className="mt-32 mb-6 text-[26px] font-bold leading-tight sm:mt-16 sm:text-4xl md:text-5xl lg:text-6xl">
-                    <span className="block whitespace-nowrap mb-4">
+                    <span className="block whitespace-nowrap">
                       <ShinyText
                         text="B.Tech Notes"
                         speed={3}

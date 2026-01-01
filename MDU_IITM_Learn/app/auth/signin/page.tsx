@@ -50,11 +50,12 @@ function SignInContent() {
                             <div className="mb-8 flex justify-center">
                                 <Link href="/">
                                     <Image
-                                        src="/images/logo/logo-transparent.png"
+                                        src={isDarkMode ? "/images/logo/logomain.png" : "/images/logo/logowhite.png"}
                                         alt="Logo"
                                         width={150}
                                         height={80}
-                                        className="h-auto w-[120px]"
+                                        className={`h-auto w-[120px] ${isDarkMode ? "mix-blend-screen" : "mix-blend-multiply"
+                                            }`}
                                         unoptimized
                                     />
                                 </Link>
