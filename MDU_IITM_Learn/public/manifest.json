@@ -1,0 +1,21 @@
+{
+    "name": "MDU IITM LEARN",
+    "short_name": "MDU IITM LEARN",
+    "description": "Comprehensive handwritten notes for MDU and IITM BTech students.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#4A6CF7",
+    "icons": [
+        {
+            "src": "/images/logo/logo.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/logo/logo.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

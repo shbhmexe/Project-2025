@@ -8,9 +8,10 @@ import { Metadata } from "next";
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }): Promise<Metadata> {
-  const id = parseInt(params.id);
+  const { id: routeId } = await params;
+  const id = parseInt(routeId);
   const blog = blogData.find((blog) => blog.id === id);
 
   if (!blog) {
@@ -26,12 +27,13 @@ export async function generateMetadata({
   };
 }
 
-export default function Page({
+export default async function Page({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const id = parseInt(params.id);
+  const { id: routeId } = await params;
+  const id = parseInt(routeId);
   const blog = blogData.find((blog) => blog.id === id);
 
   if (!blog) {
@@ -58,6 +60,7 @@ export default function Page({
                             alt="author"
                             fill
                             priority
+                            unoptimized
                           />
                         </div>
                       </div>
@@ -141,10 +144,11 @@ export default function Page({
                         fill
                         priority
                         className="object-cover object-center"
+                        unoptimized
                       />
                     </div>
                   </div>
-                  
+
                   {/* Blog content will be dynamically loaded based on blog ID */}
                   {blog.id === 1 && (
                     <>
@@ -160,11 +164,11 @@ export default function Page({
                           ✅ Color Coding – Highlight important concepts for quick reference.<br />
                         </strong>
                       </p>
-                      
+
                       {/* Additional content for blog 1 */}
                     </>
                   )}
-                  
+
                   {blog.id === 2 && (
                     <>
                       <p className="mb-8 text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed">
@@ -180,11 +184,11 @@ export default function Page({
                           ✅ Include Breaks – Use the Pomodoro technique (25 minutes study, 5 minutes break)<br />
                         </strong>
                       </p>
-                      
+
                       {/* Additional content for blog 2 */}
                     </>
                   )}
-                  
+
                   {blog.id === 3 && (
                     <>
                       <p className="mb-8 text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed">
@@ -199,11 +203,11 @@ export default function Page({
                           ✅ Canvas – Intuitive interface with excellent mobile app support<br />
                         </strong>
                       </p>
-                      
+
                       {/* Additional content for blog 3 */}
                     </>
                   )}
-                  
+
                   {blog.id === 4 && (
                     <>
                       <p className="mb-8 text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed">
@@ -219,11 +223,11 @@ export default function Page({
                           ✅ Credit Distribution – Core courses, electives, labs, and projects each have different credit allocations<br />
                         </strong>
                       </p>
-                      
+
                       {/* Additional content for blog 4 */}
                     </>
                   )}
-                  
+
                   {blog.id === 5 && (
                     <>
                       <p className="mb-8 text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed">
@@ -239,11 +243,11 @@ export default function Page({
                           ✅ Product Management – Bridging technical and business aspects of product development<br />
                         </strong>
                       </p>
-                      
+
                       {/* Additional content for blog 5 */}
                     </>
                   )}
-                  
+
                   {blog.id === 6 && (
                     <>
                       <p className="mb-8 text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed">
@@ -259,11 +263,11 @@ export default function Page({
                           ✅ Extensive Libraries – Rich ecosystem of frameworks and libraries (Django, Flask, NumPy, Pandas)<br />
                         </strong>
                       </p>
-                      
+
                       {/* Additional content for blog 6 */}
                     </>
                   )}
-                  
+
                   {blog.id === 7 && (
                     <>
                       <p className="mb-8 text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed">
@@ -279,7 +283,7 @@ export default function Page({
                           ✅ Reputation Building – Establishing yourself as a knowledgeable and engaged professional<br />
                         </strong>
                       </p>
-                      
+
                       <p className="mb-8 text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed">
                         <strong className="text-primary dark:text-white">
                           2. Campus Networking Strategies for MDU Students:
@@ -295,7 +299,7 @@ export default function Page({
                       </p>
                     </>
                   )}
-                  
+
                   {blog.id === 8 && (
                     <>
                       <p className="mb-8 text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed">
@@ -311,7 +315,7 @@ export default function Page({
                           ✅ Overfitting and Underfitting – Recognizing and preventing these common modeling pitfalls<br />
                         </strong>
                       </p>
-                      
+
                       <p className="mb-8 text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed">
                         <strong className="text-primary dark:text-white">
                           2. Essential Machine Learning Algorithms:
@@ -327,7 +331,7 @@ export default function Page({
                       </p>
                     </>
                   )}
-                  
+
                   {blog.id === 9 && (
                     <>
                       <p className="mb-8 text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed">
@@ -343,7 +347,7 @@ export default function Page({
                           ✅ Long-term Vision – Connect your current academic efforts to your future career aspirations<br />
                         </strong>
                       </p>
-                      
+
                       <p className="mb-8 text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed">
                         <strong className="text-primary dark:text-white">
                           2. Selecting Meaningful Extracurricular Activities:
@@ -363,7 +367,7 @@ export default function Page({
                   <h3 className="font-xl mb-10 font-bold leading-tight text-black dark:text-white sm:text-2xl sm:leading-tight lg:text-xl lg:leading-tight xl:text-xl xl:leading-tight">
                     Conclusion
                   </h3>
-                  
+
                   <div className="relative z-10 mb-10 overflow-hidden rounded-md bg-primary bg-opacity-10 p-8 md:p-9 lg:p-8 xl:p-9">
                     <p className="text-center text-base font-medium italic text-body-color">
                       {blog.id === 1 && "By following these strategies, you can maximize the potential of your MDU & IITM notes and enhance your academic performance. A well-structured study routine, active learning, and consistent practice will ensure you stay ahead in your exams."}
@@ -377,7 +381,7 @@ export default function Page({
                       {blog.id === 9 && "Achieving balance between academics and extracurriculars is a skill that will serve you throughout your career. By setting clear priorities, managing your time effectively, and making strategic choices, you can excel academically while still enjoying a fulfilling college experience."}
                     </p>
                   </div>
-                  
+
                   <div className="items-center justify-between sm:flex">
                     <div className="mb-5">
                       <h5 className="mb-3 text-sm font-medium text-body-color">

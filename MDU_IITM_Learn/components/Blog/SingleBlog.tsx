@@ -20,6 +20,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
             fill
             priority
             className="group-hover:scale-105 transition-transform duration-300"
+            unoptimized
           />
         </Link>
         <div className="p-6 sm:p-8 md:px-6 md:py-8 lg:p-8 xl:px-5 xl:py-8 2xl:p-8">
@@ -38,7 +39,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
             <div className="mr-5 flex items-center border-r border-emerald-500/20 pr-5 xl:mr-3 xl:pr-3 2xl:mr-5 2xl:pr-5">
               <div className="mr-4">
                 <div className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-emerald-500/30">
-                  <Image src={author.image} alt="author" fill priority />
+                  <Image src={author.image} alt="author" fill priority unoptimized />
                 </div>
               </div>
               <div className="w-full">

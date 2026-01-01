@@ -17,7 +17,7 @@ const featuresData: Feature[] = [
       "Well-structured, easy-to-understand handwritten notes covering all essential topics to help you grasp concepts quickly and revise efficiently.",
   },
   {
-    id: 1,
+    id: 2,
     icon: (
       <svg width="40" height="40" viewBox="0 0 40 40" className="fill-current">
         <path
@@ -32,7 +32,7 @@ const featuresData: Feature[] = [
       "Boost your exam preparation with access to past exam papers, allowing you to practice important questions and understand paper patterns.",
   },
   {
-    id: 1,
+    id: 3,
     icon: (
       <svg width="40" height="40" viewBox="0 0 40 40" className="fill-current">
         <path
@@ -47,7 +47,7 @@ const featuresData: Feature[] = [
       "Step-by-step detailed lab manuals to help you perform experiments effortlessly and secure good marks in practical exams.",
   },
   {
-    id: 1,
+    id: 4,
     icon: (
       <svg width="40" height="42" viewBox="0 0 40 42" className="fill-current">
         <path
@@ -62,7 +62,7 @@ const featuresData: Feature[] = [
       "High-quality engineering drawing sheets with precise diagrams, making complex illustrations easier to understand.",
   },
   {
-    id: 1,
+    id: 5,
     icon: (
       <svg width="40" height="40" viewBox="0 0 40 40" className="fill-current">
         <path
@@ -77,7 +77,7 @@ const featuresData: Feature[] = [
       "Our materials are strictly aligned with the latest MDU & IITM syllabus, ensuring you focus only on what's important for exams.",
   },
   {
-    id: 1,
+    id: 6,
     icon: (
       <svg width="40" height="45" viewBox="0 0 40 45" className="fill-current">
         <path

@@ -58,7 +58,7 @@ export default function BlogClient({
             >
                 <div className="mt-10 bg-transparent text-foreground">
                     <Breadcrumb
-                        pageName="Blog Grid"
+                        pageName="Blog"
                         description="Unlock the power of structured learning with insightful study techniques, expertly crafted to enhance your academic performance."
                     />
 

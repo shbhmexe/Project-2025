@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     description:
       "Get semester-wise study resources, previous year questions, and notes in one place.",
     url: "https://www.mduiitmlearn.app",
-    siteName: "MDU ROHTAK IITM JANAKPURI",
+    siteName: "MDU IITM LEARN",
     images: [
       {
         url: "https://www.mduiitmlearn.app/logo/brand1.png", // ✅ Full URL required for SEO

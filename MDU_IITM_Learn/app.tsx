@@ -18,77 +18,79 @@ function MyApp({ Component, pageProps }) {
         <meta name="meta:description" content="Comprehensive handwritten notes for BTech students." />
 
         {/* ✅ Structured Data JSON-LD */}
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          "name": "MDU IITM Learn",
-          "url": "https://www.mduiitmlearn.app/",
-          "description": "Get semester-wise notes, PYQs, EDG sheets, practical files, and lab manuals for MDU, IITM, DITM, MVSIT, and AKIDO.",
-          "publisher": {
-            "@type": "Organization",
-            "name": "MDU IITM Learn",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://www.mduiitmlearn.app/logo.png",
-              "width": 600,
-              "height": 600
-            }
-          },
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://www.mduiitmlearn.app/search?q={search_term}",
-            "query-input": "required name=search_term"
-          },
-          "hasPart": [
-            {
-              "@type": "CollectionPage",
-              "name": "Notes",
-              "url": "https://www.mduiitmlearn.app/notes"
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "MDU IITM LEARN",
+            "url": "https://www.mduiitmlearn.app/",
+            "description": "Get semester-wise notes, PYQs, EDG sheets, practical files, and lab manuals for MDU, IITM, DITM, MVSIT, and AKIDO.",
+            "publisher": {
+              "@type": "Organization",
+              "name": "MDU IITM Learn",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.mduiitmlearn.app/logo.png",
+                "width": 600,
+                "height": 600
+              }
             },
-            {
-              "@type": "CollectionPage",
-              "name": "Previous Year Questions",
-              "url": "https://www.mduiitmlearn.app/pyqs"
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://www.mduiitmlearn.app/search?q={search_term}",
+              "query-input": "required name=search_term"
             },
-            {
-              "@type": "CollectionPage",
-              "name": "Syllabus",
-              "url": "https://www.mduiitmlearn.app/syllabus"
-            }
-          ],
-          "educationalOrganization": {
-            "@type": "CollegeOrUniversity",
-            "name": [
-              "Maharshi Dayanand University (MDU)",
-              "IITM Janakpuri",
-              "DITM",
-              "MVSIT",
-              "AKIDO College"
-            ],
-            "sameAs": [
-              "https://mdu.ac.in/",
-              "https://iitmjanakpuri.com/"
-            ]
-          },
-          "mainEntity": {
-            "@type": "EducationalContent",
-            "name": "Semester-wise Study Resources",
-            "educationalLevel": "Undergraduate",
             "hasPart": [
               {
-                "@type": "CreativeWork",
-                "name": "Semester 1 Notes",
-                "url": "https://www.mduiitmlearn.app/notes/semester-1"
+                "@type": "CollectionPage",
+                "name": "Notes",
+                "url": "https://www.mduiitmlearn.app/notes"
               },
               {
-                "@type": "CreativeWork",
-                "name": "Semester 2 Notes",
-                "url": "https://www.mduiitmlearn.app/notes/semester-2"
+                "@type": "CollectionPage",
+                "name": "Previous Year Questions",
+                "url": "https://www.mduiitmlearn.app/pyqs"
+              },
+              {
+                "@type": "CollectionPage",
+                "name": "Syllabus",
+                "url": "https://www.mduiitmlearn.app/syllabus"
               }
-            ]
-          }
-        }) }} />
-        
+            ],
+            "educationalOrganization": {
+              "@type": "CollegeOrUniversity",
+              "name": [
+                "Maharshi Dayanand University (MDU)",
+                "IITM Janakpuri",
+                "DITM",
+                "MVSIT",
+                "AKIDO College"
+              ],
+              "sameAs": [
+                "https://mdu.ac.in/",
+                "https://iitmjanakpuri.com/"
+              ]
+            },
+            "mainEntity": {
+              "@type": "EducationalContent",
+              "name": "Semester-wise Study Resources",
+              "educationalLevel": "Undergraduate",
+              "hasPart": [
+                {
+                  "@type": "CreativeWork",
+                  "name": "Semester 1 Notes",
+                  "url": "https://www.mduiitmlearn.app/notes/semester-1"
+                },
+                {
+                  "@type": "CreativeWork",
+                  "name": "Semester 2 Notes",
+                  "url": "https://www.mduiitmlearn.app/notes/semester-2"
+                }
+              ]
+            }
+          })
+        }} />
+
       </Head>
       <DefaultSeo {...SEO} />
       <Component {...pageProps} />

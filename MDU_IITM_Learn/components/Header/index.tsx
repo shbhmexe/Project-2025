@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Menu } from "lucide-react";
+import { useTheme } from "next-themes";
 
 import ThemeToggler from "./ThemeToggler";
 import { AuthButton } from "./AuthButton";
@@ -16,6 +17,12 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 
 const Header = () => {
   const pathname = usePathname();
+  const { theme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Sticky Navbar
   const [sticky, setSticky] = useState(false);
@@ -61,7 +68,8 @@ const Header = () => {
   // Helper to check if a route is active
   const checkActive = (path: string | undefined) => {
     if (!path) return false;
-    const normalizedPathname = pathname === "/" ? "/" : pathname.replace(/\/$/, "");
+    const pathStr = pathname || "";
+    const normalizedPathname = pathStr === "/" ? "/" : pathStr.replace(/\/$/, "");
     const normalizedPath = path === "/" ? "/" : path.replace(/\/$/, "");
 
     if (normalizedPath === "/") return normalizedPathname === "/";
@@ -83,14 +91,22 @@ const Header = () => {
             className={`header-logo flex items-center ${sticky ? "py-3 lg:py-2" : "py-6 lg:py-8"}`}
             aria-label="Home"
           >
-            <Image
-              className="rounded-xl w-[120px] sm:w-[150px] md:w-[160px] lg:w-[170px] h-auto max-w-[170px] object-contain"
-              src="/images/logo/logo-transparent.png"
-              alt="logo"
-              width={180}
-              height={100}
-              unoptimized
-            />
+            <div className="relative w-[120px] sm:w-[150px] md:w-[160px] lg:w-[170px] aspect-[180/100]">
+              <Image
+                src={
+                  mounted && (theme === "dark" || resolvedTheme === "dark")
+                    ? "/images/logo/logomain.png"
+                    : "/images/logo/logowhite.png"
+                }
+                alt="MDU IITM LEARN Home"
+                fill
+                className={`object-contain ${mounted && (theme === "dark" || resolvedTheme === "dark")
+                  ? "mix-blend-screen"
+                  : "mix-blend-multiply"
+                  }`}
+                unoptimized
+              />
+            </div>
           </Link>
 
           {/* Right side: nav + actions */}
@@ -104,8 +120,8 @@ const Header = () => {
                       <Link
                         href={menuItem.path}
                         className={`relative inline-flex py-6 text-base transition-colors ${checkActive(menuItem.path) && menuItem.path !== "/"
-                          ? "text-primary"
-                          : "text-foreground/80 hover:text-primary"
+                          ? "mix-blend-screen"
+                          : "mix-blend-multiply text-foreground/80 hover:text-primary"
                           } after:absolute after:bottom-4 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full ${checkActive(menuItem.path) && menuItem.path !== "/" ? "after:w-full" : ""
                           }`}
                       >
