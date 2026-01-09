@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
         <meta property="og:title" content="BTech Notes - MDU & IITM" />
         <meta property="og:description" content="Comprehensive handwritten notes for BTech students." />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="/logo/ogimage.png" />
+        <meta property="og:image" content="/images/logo/logomain.png" />
         <meta property="og:url" content="https://www.mduiitmlearn.app" />
         <meta name="meta:description" content="Comprehensive handwritten notes for BTech students." />
 
@@ -22,15 +22,15 @@ function MyApp({ Component, pageProps }) {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebSite",
-            "name": "MDU IITM LEARN",
+            "name": "mduiitmlearn",
             "url": "https://www.mduiitmlearn.app/",
             "description": "Get semester-wise notes, PYQs, EDG sheets, practical files, and lab manuals for MDU, IITM, DITM, MVSIT, and AKIDO.",
             "publisher": {
               "@type": "Organization",
-              "name": "MDU IITM Learn",
+              "name": "mduiitmlearn",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://www.mduiitmlearn.app/logo.png",
+                "url": "https://www.mduiitmlearn.app/images/logo/logomain.png",
                 "width": 600,
                 "height": 600
               }

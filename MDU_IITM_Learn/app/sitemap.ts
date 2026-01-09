@@ -16,5 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/Terms-Conditions`, lastModified: new Date().toISOString() },
     { url: `${baseUrl}/Syllabus`, lastModified: new Date().toISOString() },
     { url: `${baseUrl}/youtube-explanation/semester`, lastModified: new Date().toISOString() },
+    { url: `${baseUrl}/community/notes`, lastModified: new Date().toISOString() },
+    { url: `${baseUrl}/community/projects`, lastModified: new Date().toISOString() },
   ];
 }

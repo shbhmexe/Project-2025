@@ -23,5 +23,7 @@ module.exports = {
     { loc: "/syllabus", lastmod: new Date().toISOString() },
     { loc: "/cgpa", lastmod: new Date().toISOString() },
     { loc: "/pyqs", lastmod: new Date().toISOString() },
+    { loc: "/community/notes", lastmod: new Date().toISOString() },
+    { loc: "/community/projects", lastmod: new Date().toISOString() },
   ],
 };

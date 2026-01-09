@@ -8,7 +8,7 @@ export default {
     description: "Comprehensive handwritten notes for BTech students.",
     images: [
       {
-        url: "https://www.mduiitmlearn.app/ogimage.png",
+        url: "https://www.mduiitmlearn.app/images/logo/logomain.png",
         width: 800,
         height: 600,
         alt: "BTech Notes",

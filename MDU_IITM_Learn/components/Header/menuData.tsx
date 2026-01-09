@@ -60,7 +60,19 @@ const menuData: Menu[] = [
         "title": "Blog",
         "path": "/blog",
         "newTab": true
-      }
+      },
+      {
+        "id": 11,
+        "title": "Community Notes",
+        "path": "/community/notes",
+        "newTab": false
+      },
+      {
+        "id": 12,
+        "title": "Project Showcase",
+        "path": "/community/projects",
+        "newTab": false
+      },
     ]
   }
 ];
