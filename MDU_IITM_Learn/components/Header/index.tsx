@@ -88,7 +88,7 @@ const Header = () => {
           {/* Logo */}
           <Link
             href="/"
-            className={`header-logo flex items-center ${sticky ? "py-3 lg:py-2" : "py-6 lg:py-8"}`}
+            className={`header-logo flex items-center ${sticky ? "py-4 lg:py-4" : "py-6 lg:py-8"}`}
             aria-label="Home"
           >
             <div className="relative w-[120px] sm:w-[150px] md:w-[160px] lg:w-[170px] aspect-[180/100]">
@@ -113,15 +113,15 @@ const Header = () => {
           <div className="flex items-center gap-2 lg:gap-4">
             {/* Desktop navigation */}
             <nav className="hidden lg:block" aria-label="Primary">
-              <ul className="flex items-center gap-8 xl:gap-12">
+              <ul className="flex items-center gap-4 lg:gap-4 xl:gap-8">
                 {menuData.map((menuItem) => (
                   <li key={menuItem.id} className="relative group">
                     {menuItem.path ? (
                       <Link
                         href={menuItem.path}
-                        className={`relative inline-flex py-6 text-base transition-colors ${checkActive(menuItem.path) && menuItem.path !== "/"
-                          ? "mix-blend-screen"
-                          : "mix-blend-multiply text-foreground/80 hover:text-primary"
+                        className={`relative inline-flex py-6 text-sm xl:text-base whitespace-nowrap transition-colors ${checkActive(menuItem.path) && menuItem.path !== "/"
+                          ? "text-primary"
+                          : "text-foreground/80 hover:text-primary"
                           } after:absolute after:bottom-4 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full ${checkActive(menuItem.path) && menuItem.path !== "/" ? "after:w-full" : ""
                           }`}
                       >
@@ -131,7 +131,7 @@ const Header = () => {
                       <>
                         <button
                           type="button"
-                          className={`inline-flex items-center gap-1 py-6 text-base transition-colors ${menuItem.submenu?.some(sub => checkActive(sub.path))
+                          className={`inline-flex items-center gap-1 py-6 text-sm xl:text-base whitespace-nowrap transition-colors ${menuItem.submenu?.some(sub => checkActive(sub.path))
                             ? "text-primary"
                             : "text-foreground/80 hover:text-primary"
                             }`}

@@ -110,14 +110,9 @@ const Testimonials = () => {
           transition={{ duration: 0.5 }}
           className="mx-auto mb-14 max-w-3xl text-center"
         >
-          <div className="inline-flex items-center gap-3 mb-4">
-            <div className="p-3 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border border-emerald-500/30">
-              <MessageCircle className="h-7 w-7 text-emerald-500" />
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
-              What Our Users Say
-            </h2>
-          </div>
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-black mb-6 tracking-tight text-zinc-900 dark:!text-white whitespace-nowrap">
+            What Our Users Say
+          </h2>
           <p className="text-muted-foreground md:text-lg">
             Students rave about the platform's user-friendly interface and the quality of notes available. With free access to essential study materials, users feel more confident and prepared for their BTech courses.
           </p>
@@ -146,8 +141,8 @@ const Testimonials = () => {
             <button
               key={index}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${index === activeIndex
-                  ? 'bg-emerald-500 scale-110 shadow-[0_0_10px_rgba(16,185,129,0.5)]'
-                  : 'bg-emerald-500/30 hover:bg-emerald-500/50'
+                ? 'bg-emerald-500 scale-110 shadow-[0_0_10px_rgba(16,185,129,0.5)]'
+                : 'bg-emerald-500/30 hover:bg-emerald-500/50'
                 }`}
               onClick={() => {
                 setActiveIndex(index);
@@ -169,7 +164,7 @@ const Testimonials = () => {
       </div>
 
       {/* Decorative SVGs */}
-      <div className="absolute right-0 top-5 z-[-1]">
+      <div className="absolute right-0 top-5 z-[-1] hidden">
         <svg
           width="238"
           height="531"
@@ -223,7 +218,7 @@ const Testimonials = () => {
           </defs>
         </svg>
       </div>
-      <div className="absolute bottom-5 left-0 z-[-1]">
+      <div className="absolute bottom-5 left-0 z-[-1] hidden">
         <svg
           width="279"
           height="106"

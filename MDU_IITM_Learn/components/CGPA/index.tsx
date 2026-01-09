@@ -16,18 +16,9 @@ const Cgpa = () => {
           transition={{ duration: 0.5 }}
           className="mx-auto mb-10 max-w-3xl text-center"
         >
-          <div className="inline-flex items-center gap-3 mb-4">
-            <motion.div
-              animate={{ rotate: [0, 10, -10, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="p-3 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border border-emerald-500/30"
-            >
-              <Calculator className="h-7 w-7 text-emerald-500" />
-            </motion.div>
-            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
-              CGPA Calculator
-            </h2>
-          </div>
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-black mb-6 tracking-tight text-zinc-900 dark:!text-white whitespace-nowrap">
+            CGPA Calculator
+          </h2>
         </motion.div>
 
         <motion.div

@@ -89,7 +89,7 @@ const Hero = () => {
 
                 {/* DARK MODE TITLE - Full version */}
                 {isDarkMode && (
-                  <h1 className="mt-10 mb-6 text-[28px] font-bold leading-tight sm:-mt-20 sm:text-5xl md:text-6xl lg:text-7xl">
+                  <h1 className="mt-20 mb-6 text-[32px] tracking-tight font-bold leading-tight sm:mt-10 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
                     {/* Line 1 (Desktop) */}
                     <span className="hidden sm:block mb-2">Comprehensive</span>
 
@@ -127,16 +127,14 @@ const Hero = () => {
                     <br />
 
                     {/* Line 4 (Desktop) / Line 3 (Mobile) */}
-                    <span className="hidden sm:inline">BTech Courses</span>
-                    <br className="hidden sm:block" />
-                    <span className="hidden sm:inline">Students.</span>
+                    <span className="hidden sm:inline whitespace-nowrap">BTech Courses Students.</span>
                     <span className="sm:hidden">Students.</span>
                   </h1>
                 )}
 
                 {/* LIGHT MODE TITLE - Short 2 line version with branding */}
                 {isLightMode && (
-                  <h1 className="mt-32 mb-6 text-[26px] font-bold leading-tight sm:mt-16 sm:text-4xl md:text-5xl lg:text-6xl">
+                  <h1 className="mt-24 mb-6 text-3xl font-bold leading-tight sm:mt-16 sm:text-4xl md:text-5xl lg:text-6xl">
                     <span className="block whitespace-nowrap">
                       <ShinyText
                         text="B.Tech Notes"

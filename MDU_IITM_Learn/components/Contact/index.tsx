@@ -60,14 +60,9 @@ const Contact = ({ hideFormOnMobile = false }: { hideFormOnMobile?: boolean }) =
           transition={{ duration: 0.5 }}
           className="mx-auto mb-14 max-w-3xl text-center"
         >
-          <div className="inline-flex items-center gap-3 mb-4">
-            <div className="p-3 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-emerald-500/20 border border-emerald-500/30">
-              <Mail className="h-7 w-7 text-emerald-500" />
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-emerald-400 to-emerald-400 bg-clip-text text-transparent">
-              Get in Touch
-            </h2>
-          </div>
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-black mb-6 tracking-tight text-zinc-900 dark:!text-white whitespace-nowrap">
+            Get in Touch
+          </h2>
         </motion.div>
 
         <div className="-mx-4 flex flex-wrap">

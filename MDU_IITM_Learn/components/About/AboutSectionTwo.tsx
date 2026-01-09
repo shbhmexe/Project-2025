@@ -18,9 +18,9 @@ const AboutSectionTwo = () => {
     <section className="py-16 md:py-20 lg:py-28">
       <div className="container">
         <div className="-mx-4 flex flex-wrap items-center">
-          <div className="w-full px-4 lg:w-1/2 order-2 lg:order-1">
+          <div className="w-full px-4 md:w-1/2 order-2 md:order-1">
             <div
-              className="wow fadeInUp relative mx-auto mb-12 max-w-[500px] lg:m-0 lg:ml-0"
+              className="wow fadeInUp relative mx-auto mb-12 max-w-[500px] md:m-0 md:ml-0"
               data-wow-delay=".15s"
             >
               <AnimatedTerminal
@@ -30,8 +30,8 @@ const AboutSectionTwo = () => {
             </div>
           </div>
 
-          <div className="w-full px-4 lg:w-1/2 order-1 lg:order-2">
-            <div className="wow fadeInUp max-w-[470px] mb-12 lg:mb-0" data-wow-delay=".2s">
+          <div className="w-full px-4 md:w-1/2 order-1 md:order-2">
+            <div className="wow fadeInUp max-w-[470px] mb-12 md:mb-0" data-wow-delay=".2s">
               <div className="mb-8 p-6 rounded-2xl bg-emerald-500/[0.04] border border-emerald-500/10 sm:bg-transparent sm:border-0 sm:p-0 sm:mb-9">
                 <h3 className="mb-3 text-xl font-bold text-black dark:text-white sm:text-2xl lg:text-xl xl:text-2xl flex items-center">
                   <span className="sm:hidden flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500 mr-3 text-sm">01</span>
