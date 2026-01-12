@@ -77,6 +77,19 @@ export default function TermsAndConditionsPage() {
             <Badge variant="secondary">Last updated: {LAST_UPDATED}</Badge>
             <Badge variant="outline">Educational resources</Badge>
           </div>
+
+          {/* Breadcrumb - visible on mobile */}
+          <ul className="mt-6 flex items-center lg:hidden">
+            <li className="flex items-center">
+              <Link href="/" className="pr-1 text-base font-medium text-muted-foreground hover:text-emerald-400 transition-colors">
+                Home
+              </Link>
+              <span className="mr-3 block h-2 w-2 rotate-45 border-r-2 border-t-2 border-emerald-500/30"></span>
+            </li>
+            <li className="text-base font-medium text-emerald-500">
+              Terms & Conditions
+            </li>
+          </ul>
         </div>
 
         <div className="mx-auto mt-12 grid max-w-5xl grid-cols-1 gap-6 lg:grid-cols-2">

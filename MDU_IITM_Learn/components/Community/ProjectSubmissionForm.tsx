@@ -1,8 +1,13 @@
 "use client";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+import { showToast } from "@/components/ui/toast-provider";
 
-const ProjectSubmissionForm = () => {
+interface ProjectSubmissionFormProps {
+    onProjectAdded?: (project: any) => void;
+}
+
+const ProjectSubmissionForm = ({ onProjectAdded }: ProjectSubmissionFormProps) => {
     const { data: session } = useSession();
     const [formData, setFormData] = useState({
         title: "",
@@ -11,15 +16,15 @@ const ProjectSubmissionForm = () => {
         githubLink: "",
         demoLink: "",
     });
-    const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!session) {
-            alert("Please sign in to submit projects.");
+            showToast.error("Please sign in to submit projects.");
             return;
         }
-        setStatus("loading");
+        setIsLoading(true);
 
         const payload = {
             ...formData,
@@ -35,10 +40,18 @@ const ProjectSubmissionForm = () => {
 
             if (!res.ok) throw new Error("Failed to submit");
 
-            setStatus("success");
+            const { data } = await res.json();
+            showToast.success("Project submitted successfully! 🚀");
             setFormData({ title: "", description: "", techStack: "", githubLink: "", demoLink: "" });
+
+            // Notify parent to update the list
+            if (onProjectAdded && data) {
+                onProjectAdded(data);
+            }
         } catch (err) {
-            setStatus("error");
+            showToast.error("Failed to submit project. Please try again.");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -62,7 +75,7 @@ const ProjectSubmissionForm = () => {
                 </div>
                 <div className="mb-4">
                     <label className="mb-2 block text-sm font-medium text-black dark:text-white">
-                        Tech Stack (Comma users)
+                        Tech Stack (Comma separated)
                     </label>
                     <input
                         type="text"
@@ -111,15 +124,12 @@ const ProjectSubmissionForm = () => {
                     </div>
                 </div>
 
-                {status === "error" && <p className="mb-4 text-red-500">Failed to submit project.</p>}
-                {status === "success" && <p className="mb-4 text-green-500">Project submitted successfully!</p>}
-
                 <button
                     type="submit"
-                    disabled={status === "loading"}
-                    className="w-full rounded-md bg-primary px-4 py-3 text-base font-medium text-primary-foreground transition duration-300 hover:bg-primary/90 disabled:opacity-50 shadow-submit dark:shadow-submit-dark"
+                    disabled={isLoading}
+                    className="w-full rounded-md bg-black dark:bg-white text-white dark:text-black px-4 py-3 text-base font-semibold transition duration-300 hover:opacity-80 disabled:opacity-50"
                 >
-                    {status === "loading" ? "Submitting..." : "Submit Project"}
+                    {isLoading ? "Submitting..." : "Submit Project"}
                 </button>
             </form>
         </div>

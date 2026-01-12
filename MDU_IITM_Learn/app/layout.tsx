@@ -1,6 +1,4 @@
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import ScrollToTop from "@/components/ScrollToTop";
+import LayoutManager from "@/components/Common/LayoutManager";
 import { Inter } from "next/font/google";
 import "node_modules/react-modal-video/css/modal-video.css";
 import "../styles/index.css";
@@ -8,10 +6,12 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Providers } from "./providers";
 
+import type { Metadata } from "next";
+
 const inter = Inter({ subsets: ["latin"] });
 
 // Metadata for SEO and proper site branding
-export const metadata = {
+export const metadata: Metadata = {
   title: {
     default: "mduiitmlearn - B.Tech Notes, PYQs & Study Materials",
     template: "%s | mduiitmlearn"
@@ -80,10 +80,9 @@ export default function RootLayout({
       <head />
       <body className={`bg-background text-foreground selection:bg-primary/20 selection:text-primary ${inter.className}`}>
         <Providers>
-          <Header />
-          {children}
-          <Footer />
-          <ScrollToTop />
+          <LayoutManager>
+            {children}
+          </LayoutManager>
           <Analytics />
           <SpeedInsights />
         </Providers>

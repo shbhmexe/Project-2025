@@ -31,6 +31,7 @@ async function dbConnect() {
     if (!cached.promise) {
         const opts = {
             bufferCommands: false,
+            dbName: "MDU_ITM_LEARN", // Explicitly specify database name
         };
 
         cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {

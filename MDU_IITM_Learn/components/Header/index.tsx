@@ -190,14 +190,14 @@ const Header = () => {
                     <div className="absolute -bottom-24 -left-24 h-48 w-48 rounded-full bg-teal-500/10 blur-[80px]" />
 
                     <div className="relative flex h-full flex-col px-6 py-8">
-                      <SheetHeader className="mb-8 text-left">
+                      <SheetHeader className="mb-8 text-left flex-shrink-0">
                         <SheetTitle className="text-2xl font-bold tracking-tight text-foreground">
                           Menu
                         </SheetTitle>
                       </SheetHeader>
 
-                      <nav aria-label="Mobile" className="flex-1">
-                        <ul className="space-y-4">
+                      <nav aria-label="Mobile" className="flex-1 overflow-y-auto">
+                        <ul className="space-y-4 pb-4">
                           {menuData.map((item) => (
                             <li key={item.id} className="relative group">
                               {item.path ? (

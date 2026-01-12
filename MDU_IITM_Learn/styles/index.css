@@ -158,6 +158,7 @@ html::-webkit-scrollbar {
     .animate-glowMedian {
       animation: glowMedian 3s infinite ease-in-out;
     }
+
     .animate-cell-ripple {
       animation: cell-ripple var(--duration, 200ms) ease-out none 1 var(--delay, 0ms);
     }
@@ -167,9 +168,11 @@ html::-webkit-scrollbar {
     0% {
       opacity: 0.4;
     }
+
     50% {
       opacity: 0.8;
     }
+
     100% {
       opacity: 0.4;
     }
@@ -195,12 +198,33 @@ html::-webkit-scrollbar {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
 
-::view-transition-old(root), ::view-transition-new(root) {
-    animation: none;
-    mix-blend-mode: normal;
+/* View Transition API - Disable default animations */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Light→Dark: Keep OLD (light) view on top so it can shrink/contract */
+html.dark::view-transition-old(root) {
+  z-index: 999;
+}
+
+html.dark::view-transition-new(root) {
+  z-index: 1;
+}
+
+/* Dark→Light: Keep NEW (light) view on top so it can expand */
+html:not(.dark)::view-transition-old(root) {
+  z-index: 1;
+}
+
+html:not(.dark)::view-transition-new(root) {
+  z-index: 999;
 }

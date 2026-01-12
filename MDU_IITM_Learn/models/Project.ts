@@ -7,6 +7,7 @@ export interface IProject extends Document {
     githubLink?: string;
     demoLink?: string;
     author: string;
+    authorEmail: string; // For ownership verification
     isApproved: boolean;
 }
 
@@ -18,6 +19,7 @@ const ProjectSchema: Schema = new Schema(
         githubLink: { type: String },
         demoLink: { type: String },
         author: { type: String, required: true },
+        authorEmail: { type: String, required: true, index: true }, // Indexed for faster lookups
         isApproved: { type: Boolean, default: true },
     },
     { timestamps: true }

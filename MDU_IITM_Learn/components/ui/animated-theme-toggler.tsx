@@ -17,7 +17,7 @@ export const AnimatedThemeToggler = ({
   duration = 400,
   ...props
 }: AnimatedThemeTogglerProps) => {
-  const { theme, setTheme, resolvedTheme } = useTheme()
+  const { setTheme, resolvedTheme } = useTheme()
   const [isDark, setIsDark] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
@@ -29,17 +29,12 @@ export const AnimatedThemeToggler = ({
     if (!buttonRef.current) return
 
     const newTheme = resolvedTheme === "dark" ? "light" : "dark"
+    const isGoingToDark = newTheme === "dark"
 
     if (!document.startViewTransition) {
       setTheme(newTheme)
       return
     }
-
-    await document.startViewTransition(() => {
-      flushSync(() => {
-        setTheme(newTheme)
-      })
-    }).ready
 
     const { top, left, width, height } =
       buttonRef.current.getBoundingClientRect()
@@ -50,20 +45,60 @@ export const AnimatedThemeToggler = ({
       Math.max(top, window.innerHeight - top)
     )
 
-    document.documentElement.animate(
-      {
-        clipPath: [
-          `circle(0px at ${x}px ${y}px)`,
-          `circle(${maxRadius}px at ${x}px ${y}px)`,
-        ],
-      },
-      {
-        duration,
-        easing: "ease-in-out",
-        pseudoElement: "::view-transition-new(root)",
-      }
-    )
-  }, [isDark, duration])
+    // For Light→Dark (contract): animate OLD view shrinking
+    // For Dark→Light (expand): animate NEW view expanding
+    if (isGoingToDark) {
+      // Light to Dark: Contract animation on OLD view
+      const transition = document.startViewTransition(() => {
+        flushSync(() => {
+          setTheme(newTheme)
+        })
+      })
+
+      await transition.ready
+
+      const anim = document.documentElement.animate(
+        {
+          clipPath: [
+            `circle(${maxRadius}px at ${x}px ${y}px)`,
+            `circle(0px at ${x}px ${y}px)`,
+          ],
+        },
+        {
+          duration,
+          easing: "ease-in-out",
+          pseudoElement: "::view-transition-old(root)",
+          fill: "forwards",
+        }
+      )
+      await anim.finished
+    } else {
+      // Dark to Light: Expand animation on NEW view
+      const transition = document.startViewTransition(() => {
+        flushSync(() => {
+          setTheme(newTheme)
+        })
+      })
+
+      await transition.ready
+
+      const anim = document.documentElement.animate(
+        {
+          clipPath: [
+            `circle(0px at ${x}px ${y}px)`,
+            `circle(${maxRadius}px at ${x}px ${y}px)`,
+          ],
+        },
+        {
+          duration,
+          easing: "ease-in-out",
+          pseudoElement: "::view-transition-new(root)",
+          fill: "forwards",
+        }
+      )
+      await anim.finished
+    }
+  }, [resolvedTheme, setTheme, duration])
 
   return (
     <button

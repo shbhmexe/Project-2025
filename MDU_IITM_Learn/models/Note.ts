@@ -6,6 +6,7 @@ export interface INote extends Document {
     unit?: string;
     link: string;
     author: string;
+    authorEmail: string; // For ownership verification
     upvotes: number;
     isApproved: boolean;
 }
@@ -17,6 +18,7 @@ const NoteSchema: Schema = new Schema(
         unit: { type: String },
         link: { type: String, required: true },
         author: { type: String, required: true },
+        authorEmail: { type: String, required: true, index: true }, // Indexed for faster lookups
         upvotes: { type: Number, default: 0 },
         isApproved: { type: Boolean, default: true },
     },

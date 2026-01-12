@@ -1,8 +1,13 @@
 "use client";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+import { showToast } from "@/components/ui/toast-provider";
 
-const NoteSubmissionForm = () => {
+interface NoteSubmissionFormProps {
+    onNoteAdded?: (note: any) => void;
+}
+
+const NoteSubmissionForm = ({ onNoteAdded }: NoteSubmissionFormProps) => {
     const { data: session } = useSession();
     const [formData, setFormData] = useState({
         title: "",
@@ -10,16 +15,15 @@ const NoteSubmissionForm = () => {
         unit: "",
         link: "",
     });
-    const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-    const [errorMsg, setErrorMsg] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!session) {
-            alert("Please sign in to submit notes.");
+            showToast.error("Please sign in to submit notes.");
             return;
         }
-        setStatus("loading");
+        setIsLoading(true);
 
         try {
             const res = await fetch("/api/community/notes", {
@@ -30,11 +34,18 @@ const NoteSubmissionForm = () => {
 
             if (!res.ok) throw new Error("Failed to submit");
 
-            setStatus("success");
+            const { data } = await res.json();
+            showToast.success("Notes submitted successfully! 🎉");
             setFormData({ title: "", subject: "", unit: "", link: "" });
+
+            // Notify parent to update the list
+            if (onNoteAdded && data) {
+                onNoteAdded(data);
+            }
         } catch (err) {
-            setStatus("error");
-            setErrorMsg("Something went wrong. Please try again.");
+            showToast.error("Failed to submit. Please try again.");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -98,15 +109,12 @@ const NoteSubmissionForm = () => {
                     />
                 </div>
 
-                {status === "error" && <p className="mb-4 text-red-500">{errorMsg}</p>}
-                {status === "success" && <p className="mb-4 text-green-500">Notes submitted successfully!</p>}
-
                 <button
                     type="submit"
-                    disabled={status === "loading"}
-                    className="w-full rounded-md bg-primary px-4 py-3 text-white transition hover:bg-primary/90 disabled:opacity-50"
+                    disabled={isLoading}
+                    className="w-full rounded-md bg-black dark:bg-white text-white dark:text-black px-4 py-3 font-semibold transition hover:opacity-80 disabled:opacity-50"
                 >
-                    {status === "loading" ? "Submitting..." : "Submit Notes"}
+                    {isLoading ? "Submitting..." : "Submit Notes"}
                 </button>
             </form>
         </div>
