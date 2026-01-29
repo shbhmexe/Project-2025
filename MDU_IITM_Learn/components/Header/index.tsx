@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Menu } from "lucide-react";
 import { useTheme } from "next-themes";
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "motion/react";
 
 import ThemeToggler from "./ThemeToggler";
 import { AuthButton } from "./AuthButton";
@@ -14,6 +15,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
 
 const Header = () => {
   const pathname = usePathname();
@@ -22,19 +24,6 @@ const Header = () => {
 
   useEffect(() => {
     setMounted(true);
-  }, []);
-
-  // Sticky Navbar
-  const [sticky, setSticky] = useState(false);
-  const handleStickyNavbar = () => {
-    setSticky(window.scrollY >= 80);
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleStickyNavbar);
-    return () => {
-      window.removeEventListener("scroll", handleStickyNavbar);
-    };
   }, []);
 
   // Mobile menu
@@ -49,11 +38,11 @@ const Header = () => {
 
   // Hide notice after 10 seconds with animation
   useEffect(() => {
-    const totalDisplayTime = 24000; // 2 rotations at 12s each
+    const totalDisplayTime = 24000;
 
     const fadeTimer = setTimeout(() => {
       setFadeNotice(true);
-    }, totalDisplayTime - 1000); // Start fade slightly before hiding
+    }, totalDisplayTime - 1000);
 
     const hideTimer = setTimeout(() => {
       setShowNotice(false);
@@ -76,22 +65,105 @@ const Header = () => {
     return normalizedPathname === normalizedPath || normalizedPathname.startsWith(normalizedPath + "/");
   };
 
+  // Check for mobile
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // Scroll Behavior
+  const { scrollY } = useScroll();
+  const [hidden, setHidden] = useState(false);
+  const [sticky, setSticky] = useState(false);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() ?? 0;
+
+    // Sticky Threshold
+    if (latest >= 80) {
+      setSticky(true);
+    } else {
+      setSticky(false);
+    }
+
+    // Hide/Show Logic
+    // Show at top, Show on Down, Hide on Up 
+    // Uses velocity to ignore layout shifts (e.g. theme toggle)
+    const velocity = scrollY.getVelocity();
+
+    if (latest < 50) {
+      setHidden(false); // Always show at top
+    } else if (Math.abs(velocity) > 50) {
+      if (velocity > 0) {
+        setHidden(false); // Scrolling down -> Show
+      } else {
+        setHidden(true); // Scrolling up -> Hide
+      }
+    }
+  });
+
   return (
-    <header
-      className={`header left-0 top-0 z-40 w-full ${sticky
-        ? "fixed z-[9999] bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border transition"
-        : "absolute bg-transparent"
-        }`}
+    <motion.header
+      initial={false}
+      animate={{
+        y: hidden ? "-100%" : (sticky ? 10 : 0),
+      }}
+      transition={{
+        duration: 0.3,
+        ease: "easeInOut",
+      }}
+      className={cn(
+        "header left-0 top-0 z-40 w-full",
+        sticky ? "fixed z-[9999]" : "absolute bg-transparent"
+      )}
     >
-      <div className="container">
-        <div className="flex items-center justify-between gap-4 py-3 lg:py-0">
+      <motion.div
+        initial={false}
+        animate={{
+          width: sticky ? (isMobile ? "95%" : "100%") : "100%",
+          maxWidth: sticky ? "1100px" : "1280px", // Animating from a fixed large width to smaller
+          borderRadius: sticky ? "50px" : "0px",
+          paddingLeft: sticky ? "10px" : "24px", // Matching container padding
+          paddingRight: sticky ? "10px" : "24px",
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 260,
+          damping: 30,
+        }}
+        className={cn(
+          "mx-auto transition-colors duration-300",
+          sticky
+            ? "bg-background/80 backdrop-blur-lg border border-border/50 shadow-lg"
+            : ""
+        )}
+      >
+        <div className="flex items-center justify-between gap-4 py-2 lg:py-0">
           {/* Logo */}
           <Link
             href="/"
-            className={`header-logo flex items-center ${sticky ? "py-4 lg:py-4" : "py-6 lg:py-8"}`}
+            className={`header-logo flex items-center ${sticky ? "py-1 lg:py-2" : "py-6 lg:py-8"}`}
             aria-label="Home"
           >
-            <div className="relative w-[120px] sm:w-[150px] md:w-[160px] lg:w-[170px] aspect-[180/100]">
+            <motion.div
+              initial={false}
+              animate={{
+                width: isMobile
+                  ? (sticky ? 90 : 120)
+                  : (sticky ? 100 : 170),
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 30,
+              }}
+              className="relative aspect-[180/100]"
+            >
               <Image
                 src={
                   mounted && (theme === "dark" || resolvedTheme === "dark")
@@ -106,7 +178,7 @@ const Header = () => {
                   }`}
                 unoptimized
               />
-            </div>
+            </motion.div>
           </Link>
 
           {/* Right side: nav + actions */}
@@ -119,11 +191,15 @@ const Header = () => {
                     {menuItem.path ? (
                       <Link
                         href={menuItem.path}
-                        className={`relative inline-flex py-6 text-sm xl:text-base whitespace-nowrap transition-colors ${checkActive(menuItem.path) && menuItem.path !== "/"
-                          ? "text-primary"
-                          : "text-foreground/80 hover:text-primary"
-                          } after:absolute after:bottom-4 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full ${checkActive(menuItem.path) && menuItem.path !== "/" ? "after:w-full" : ""
-                          }`}
+                        className={cn(
+                          "relative inline-flex text-sm xl:text-base whitespace-nowrap transition-colors",
+                          sticky ? "py-3" : "py-6",
+                          checkActive(menuItem.path) && menuItem.path !== "/"
+                            ? "text-primary"
+                            : "text-foreground/80 hover:text-primary",
+                          "after:absolute after:bottom-2 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full",
+                          checkActive(menuItem.path) && menuItem.path !== "/" ? "after:w-full" : ""
+                        )}
                       >
                         {menuItem.title}
                       </Link>
@@ -131,10 +207,13 @@ const Header = () => {
                       <>
                         <button
                           type="button"
-                          className={`inline-flex items-center gap-1 py-6 text-sm xl:text-base whitespace-nowrap transition-colors ${menuItem.submenu?.some(sub => checkActive(sub.path))
-                            ? "text-primary"
-                            : "text-foreground/80 hover:text-primary"
-                            }`}
+                          className={cn(
+                            "inline-flex items-center gap-1 text-sm xl:text-base whitespace-nowrap transition-colors",
+                            sticky ? "py-3" : "py-6",
+                            menuItem.submenu?.some(sub => checkActive(sub.path))
+                              ? "text-primary"
+                              : "text-foreground/80 hover:text-primary"
+                          )}
                         >
                           {menuItem.title}
                           <svg width="20" height="20" viewBox="0 0 25 24" aria-hidden="true">
@@ -260,8 +339,8 @@ const Header = () => {
             </div>
           </div>
         </div>
-      </div>
-    </header>
+      </motion.div>
+    </motion.header>
   );
 };
 

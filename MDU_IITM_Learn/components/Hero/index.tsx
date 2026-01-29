@@ -6,13 +6,12 @@ import { useEffect, useState } from "react";
 import LightPillar from "@/components/LightPillar";
 import ShinyText from "@/components/ui/ShinyText";
 import dynamic from "next/dynamic";
+import { AvatarCircles } from "@/components/ui/avatar-circles";
 
 // Dynamic import for Antigravity (client-only, uses Three.js)
 const Antigravity = dynamic(() => import("@/components/Antigravity"), {
   ssr: false,
 });
-
-const TRUSTED_AVATARS = ["A", "S", "R", "P", "K"];
 
 const Hero = () => {
   const { theme, resolvedTheme } = useTheme();
@@ -238,22 +237,33 @@ const Hero = () => {
                 </motion.div>
 
                 {/* ✅ Social proof */}
-                <div className="mt-6 flex items-center justify-center">
-                  <div className="inline-flex flex-col items-center gap-2 sm:rounded-full sm:border sm:border-border/60 sm:bg-background/70 sm:px-4 sm:py-2 sm:shadow-sm sm:backdrop-blur-sm sm:flex-row sm:gap-3">
-                    <div aria-hidden="true" className="flex items-center -space-x-2">
-                      {TRUSTED_AVATARS.map((initial) => (
-                        <div
-                          key={initial}
-                          className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500/25 via-teal-500/20 to-cyan-500/25 text-[11px] font-semibold text-foreground ring-2 ring-background shadow-sm sm:h-9 sm:w-9 sm:text-xs"
-                        >
-                          {initial}
-                        </div>
-                      ))}
-                    </div>
+                <div className="mt-8 flex items-center justify-center">
+                  <div className="inline-flex flex-col items-center gap-4 px-4 py-3 sm:rounded-full sm:border sm:border-emerald-500/20 sm:bg-emerald-500/5 sm:shadow-sm sm:backdrop-blur-md sm:flex-row sm:gap-6">
+                    <AvatarCircles
+                      numPeople={1000}
+                      avatarUrls={[
+                        {
+                          imageUrl: "https://avatars.githubusercontent.com/u/16860528",
+                          profileUrl: "https://github.com/dillionverma",
+                        },
+                        {
+                          imageUrl: "https://avatars.githubusercontent.com/u/20377766",
+                          profileUrl: "https://github.com/shubhushukla",
+                        },
+                        {
+                          imageUrl: "https://avatars.githubusercontent.com/u/106103625",
+                          profileUrl: "https://github.com/magicui",
+                        },
+                        {
+                          imageUrl: "https://avatars.githubusercontent.com/u/59228569",
+                          profileUrl: "https://github.com/reactjs",
+                        },
+                      ]}
+                    />
                     <p className="text-sm font-medium text-foreground/80 sm:text-base">
                       Trusted by{" "}
                       <span className="font-semibold text-foreground">
-                        1000+ students
+                        1,000+ students
                       </span>
                     </p>
                   </div>

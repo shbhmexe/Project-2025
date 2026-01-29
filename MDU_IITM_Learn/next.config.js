@@ -15,7 +15,7 @@ const nextConfig = {
       },
     ],
   },
-  trailingSlash: true, // Ensures proper sitemap URLs
+  trailingSlash: false, // Ensures proper sitemap URLs
   reactStrictMode: false,
   typescript: {
     // !! WARN !!

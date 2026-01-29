@@ -22,3 +22,4 @@ export default function LayoutManager({ children }: { children: React.ReactNode 
         </>
     );
 }
+
