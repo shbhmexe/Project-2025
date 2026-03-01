@@ -5,6 +5,7 @@ import "../styles/index.css";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Providers } from "./providers";
+import Script from "next/script";
 
 import type { Metadata } from "next";
 
@@ -86,6 +87,11 @@ export default function RootLayout({
           <Analytics />
           <SpeedInsights />
         </Providers>
+        <Script
+          src="https://embedly-psi.vercel.app/chatBot.js"
+          data-owner-id="usr_114585182090036226"
+          strategy="afterInteractive"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
